@@ -9,12 +9,13 @@ import { BiLockOpen } from 'react-icons/bi';
 import { GrUserAdmin } from 'react-icons/gr';
 import { useState } from 'react';
 
-function Login({ setOpenLogin, setLoginOver }) {
+function Login({ setOpenLogin, setLoginOver, set }) {
   const [usn, setUsn] = useState('');
   const [password, setPassword] = useState('');
   function handleSubmit(e) {
     e.preventDefault();
     setLoginOver(true);
+    setOpenLogin(false);
   }
   return (
     <LoginContainer>
