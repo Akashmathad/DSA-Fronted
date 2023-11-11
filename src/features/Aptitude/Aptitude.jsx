@@ -39,21 +39,21 @@ function Aptitude() {
           <p className="question">
             <span className="question-number">
               {' '}
-              {question.question_number}.{'  '}
+              {question.questionNumber}.{'  '}
             </span>
-            {question.question_description}
+            {question.questionDescription}
           </p>
           <div className="option-box">
-            <Option value="A" qNum={question.question_number}>
+            <Option value="A" qNum={question.questionNumber}>
               {question.options.A}
             </Option>
-            <Option value="B" qNum={question.question_number}>
+            <Option value="B" qNum={question.questionNumber}>
               {question.options.B}
             </Option>
-            <Option value="C" qNum={question.question_number}>
+            <Option value="C" qNum={question.questionNumber}>
               {question.options.C}
             </Option>
-            <Option value="D" qNum={question.question_number}>
+            <Option value="D" qNum={question.questionNumber}>
               {question.options.D}
             </Option>
           </div>

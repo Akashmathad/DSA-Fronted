@@ -8,8 +8,8 @@ function QuestionButtons() {
     <>
       {questions.map((question) => (
         <QuestionButton
-          num={question.question_number}
-          key={question.question_number}
+          num={question.questionNumber}
+          key={question.questionNumber}
         />
       ))}
     </>

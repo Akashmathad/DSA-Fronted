@@ -108,9 +108,15 @@ function AptitudeTest() {
     () =>
       async function () {
         try {
-          const req = await fetch('http://localhost:9000/questions');
+          const req = await fetch(
+            'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/question-answers/questions'
+          );
           const data = await req.json();
-          dispatch({ type: 'dataReceived', payload: data });
+          console.log(data.data.Questions[0].questions);
+          dispatch({
+            type: 'dataReceived',
+            payload: data.data.Questions[0].questions,
+          });
           dispatch({ type: 'settingAns' });
         } catch (e) {
           dispatch({ type: 'dataFailed' });
