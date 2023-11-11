@@ -1,15 +1,16 @@
 import styled from 'styled-components';
-import { defaultFontSize } from '../styles/defaults';
 import {
   colorPrimary,
   colorPrimaryDark,
   colorPrimaryLight,
-  colorPrimaryLightest,
   colorWhite,
 } from '../styles/colors';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { AuthContext } from '../App';
 
 function Navbar() {
+  const { usn } = useContext(AuthContext);
   return (
     <nav>
       <NavList>
@@ -17,7 +18,8 @@ function Navbar() {
         <Items>Aptitude</Items>
         <Items to="/results">Results</Items>
         <Items>Leadership Board</Items>
-        <Button to="/register">Register</Button>
+        {usn && <Items>Profile</Items>}
+        {!usn && <Button to="/register">Register</Button>}
       </NavList>
     </nav>
   );
@@ -29,6 +31,7 @@ const NavList = styled.ul`
   gap: 6.4rem;
   align-items: center;
   justify-content: center;
+  height: 6rem;
 `;
 
 const Items = styled(Link)`

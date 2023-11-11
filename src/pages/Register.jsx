@@ -14,7 +14,7 @@ import Login from '../features/Register/Login';
 import { useNavigate } from 'react-router';
 import toast, { Toaster } from 'react-hot-toast';
 
-function Register() {
+function Register({ setUsnAndJwt }) {
   const [openSignup, setOpenSignup] = useState(false);
   const [openLogin, setOpenLogin] = useState(false);
   const [loginOver, setLoginOver] = useState(false);
@@ -38,6 +38,7 @@ function Register() {
           setOpenLogin={setOpenLogin}
           setLoginOver={setLoginOver}
           handleToast={handleToast}
+          setUsnAndJwt={setUsnAndJwt}
         />
       )}
       <div className="buttons">

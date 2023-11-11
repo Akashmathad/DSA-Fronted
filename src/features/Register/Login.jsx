@@ -12,7 +12,7 @@ import { AiFillEye } from 'react-icons/ai';
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
 
-function Login({ setOpenLogin, setLoginOver, handleToast }) {
+function Login({ setOpenLogin, setLoginOver, handleToast, setUsnAndJwt }) {
   const [usn, setUsn] = useState('');
   const [password, setPassword] = useState('');
   const [shake, setShake] = useState(false);
@@ -51,6 +51,7 @@ function Login({ setOpenLogin, setLoginOver, handleToast }) {
         return;
       }
       console.log(data);
+      setUsnAndJwt(usn, data.token);
     } catch (e) {
       console.log(e);
     }
