@@ -17,6 +17,7 @@ function Login({ setOpenLogin, setLoginOver, handleToast }) {
   const [password, setPassword] = useState('');
   const [shake, setShake] = useState(false);
   const [eye, setEye] = useState(false);
+  const [submit, setSubmit] = useState(false);
 
   function startShaking() {
     setShake(true);
@@ -25,10 +26,9 @@ function Login({ setOpenLogin, setLoginOver, handleToast }) {
     }, 1000);
   }
 
-  console.log(eye);
-
   async function handleSubmit(e) {
     e.preventDefault();
+    setSubmit(true);
     const details = {
       usn,
       password,
@@ -55,6 +55,7 @@ function Login({ setOpenLogin, setLoginOver, handleToast }) {
       console.log(e);
     }
     handleToast('Login Successful');
+    setSubmit(false);
     setLoginOver(true);
     setOpenLogin(false);
   }
@@ -90,8 +91,12 @@ function Login({ setOpenLogin, setLoginOver, handleToast }) {
             <button className="cancel" onClick={() => setOpenLogin(false)}>
               Cancel
             </button>
-            <button className="submit" onClick={handleSubmit}>
-              Submit
+            <button
+              className="submit"
+              onClick={handleSubmit}
+              disabled={submit ? true : false}
+            >
+              {submit ? 'Submitting...' : 'Submit'}
             </button>
           </div>
         </form>

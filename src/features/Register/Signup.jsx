@@ -24,6 +24,7 @@ function Signup({ setOpenSignup, setOpenLogin, handleToast }) {
   const [password, setPassword] = useState('');
   const [cPassword, setCPassword] = useState('');
   const [shake, setShake] = useState(false);
+  const [submit, setSubmit] = useState(false);
 
   function startShaking() {
     setShake(true);
@@ -34,6 +35,7 @@ function Signup({ setOpenSignup, setOpenLogin, handleToast }) {
 
   async function handleSubmit(e) {
     e.preventDefault();
+    setSubmit(true);
     if (
       !name ||
       !usn ||
@@ -78,6 +80,7 @@ function Signup({ setOpenSignup, setOpenLogin, handleToast }) {
       console.log(e);
     }
     handleToast('Signup Successful');
+    setSubmit(false);
     setOpenSignup(false);
     setOpenLogin(true);
   }
@@ -181,8 +184,12 @@ function Signup({ setOpenSignup, setOpenLogin, handleToast }) {
             <button className="cancel" onClick={() => setOpenSignup(false)}>
               Cancel
             </button>
-            <button className="submit" type="submit">
-              Submit
+            <button
+              className="submit"
+              type="submit"
+              disabled={submit ? true : false}
+            >
+              {submit ? 'Submitting...' : 'Submit'}
             </button>
           </div>
         </form>
