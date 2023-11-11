@@ -12,6 +12,7 @@ import { useState } from 'react';
 import Signup from '../features/Register/Signup';
 import Login from '../features/Register/Login';
 import { useNavigate } from 'react-router';
+import toast, { Toaster } from 'react-hot-toast';
 
 function Register() {
   const [openSignup, setOpenSignup] = useState(false);
@@ -19,13 +20,25 @@ function Register() {
   const [loginOver, setLoginOver] = useState(false);
   const navigate = useNavigate();
 
+  function handleToast(string) {
+    toast.success(string);
+  }
+
   return (
     <RegisterContainer>
       {openSignup && (
-        <Signup setOpenLogin={setOpenLogin} setOpenSignup={setOpenSignup} />
+        <Signup
+          setOpenLogin={setOpenLogin}
+          setOpenSignup={setOpenSignup}
+          handleToast={handleToast}
+        />
       )}
       {openLogin && (
-        <Login setOpenLogin={setOpenLogin} setLoginOver={setLoginOver} />
+        <Login
+          setOpenLogin={setOpenLogin}
+          setLoginOver={setLoginOver}
+          handleToast={handleToast}
+        />
       )}
       <div className="buttons">
         {!loginOver && (
@@ -47,6 +60,19 @@ function Register() {
           </button>
         )}
       </div>
+      <Toaster
+        toastOptions={{
+          className: '',
+          duration: 5000,
+          style: {
+            border: `1px solid ${colorSecondary}`,
+            padding: '1.2rem 2.4rem',
+            fontSize: '1.8rem',
+            fontFamily: 'inherit',
+            color: colorPrimaryDarkest,
+          },
+        }}
+      />
     </RegisterContainer>
   );
 }

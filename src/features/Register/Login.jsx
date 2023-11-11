@@ -3,72 +3,131 @@ import {
   colorPrimary,
   colorPrimaryDarkest,
   colorPrimaryLightest,
+  colorRed,
 } from '../../styles/colors';
 import { defaultFontSize } from '../../styles/defaults';
 import { BiLockOpen } from 'react-icons/bi';
 import { GrUserAdmin } from 'react-icons/gr';
+import { AiFillEye } from 'react-icons/ai';
 import { useState } from 'react';
+import toast, { Toaster } from 'react-hot-toast';
 
-function Login({ setOpenLogin, setLoginOver, set }) {
+function Login({ setOpenLogin, setLoginOver, handleToast }) {
   const [usn, setUsn] = useState('');
   const [password, setPassword] = useState('');
-  function handleSubmit(e) {
+  const [shake, setShake] = useState(false);
+  const [eye, setEye] = useState(false);
+
+  function startShaking() {
+    setShake(true);
+    setTimeout(() => {
+      setShake(false);
+    }, 1000);
+  }
+
+  console.log(eye);
+
+  async function handleSubmit(e) {
     e.preventDefault();
+    const details = {
+      usn,
+      password,
+    };
+    try {
+      const req = await fetch(
+        'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/user/login',
+        {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(details),
+        }
+      );
+      const data = await req.json();
+      if (data?.error?.status === 'error') {
+        startShaking();
+        toast.error('Incorrect USN or Password!!');
+        return;
+      }
+      console.log(data);
+    } catch (e) {
+      console.log(e);
+    }
+    handleToast('Login Successful');
     setLoginOver(true);
     setOpenLogin(false);
   }
   return (
     <LoginContainer>
-      <h3 className="heading">Login Details</h3>
-      <form className="details-form">
-        <div className="details-box">
-          <GrUserAdmin className="icons" />
-          <input
-            type="text"
-            className="details-input"
-            placeholder="Enter your USN: "
-            value={usn}
-            onChange={(e) => setUsn(e.target.value)}
-            required
-          />
-        </div>
-        <div className="details-box">
-          <BiLockOpen className="icons" />
-          <input
-            type="password"
-            className="details-input"
-            placeholder="Enter Password: "
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </div>
-        <div className="buttons-box">
-          <button className="cancel" onClick={() => setOpenLogin(false)}>
-            Cancel
-          </button>
-          <button className="submit" onClick={handleSubmit}>
-            Submit
-          </button>
-        </div>
-      </form>
+      <div className={`loginContainer ${shake ? 'start' : ''}`}>
+        <h3 className="heading">Login Details</h3>
+        <form className="details-form">
+          <div className="details-box">
+            <GrUserAdmin className="icons" />
+            <input
+              type="text"
+              className="details-input"
+              placeholder="Enter your USN: "
+              value={usn}
+              onChange={(e) => setUsn(e.target.value)}
+              required
+            />
+          </div>
+          <div className="details-box">
+            <BiLockOpen className="icons" />
+            <AiFillEye className="icon-eye" onClick={() => setEye(!eye)} />
+            <input
+              type={`${eye ? 'text' : 'password'}`}
+              className="details-input"
+              placeholder="Enter Password: "
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="buttons-box">
+            <button className="cancel" onClick={() => setOpenLogin(false)}>
+              Cancel
+            </button>
+            <button className="submit" onClick={handleSubmit}>
+              Submit
+            </button>
+          </div>
+        </form>
+      </div>
+      <Toaster
+        toastOptions={{
+          className: '',
+          style: {
+            border: `1px solid ${colorRed}`,
+            padding: '1.2rem 2.4rem',
+            fontSize: '1.8rem',
+            fontFamily: 'inherit',
+            color: colorPrimaryDarkest,
+          },
+        }}
+      />
     </LoginContainer>
   );
 }
 
 const LoginContainer = styled.div`
-  padding: 3.2rem 6.4rem;
-  z-index: 1;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background-color: ${colorPrimary};
-  display: flex;
-  flex-direction: column;
-  gap: 3.2rem;
-  align-items: center;
-  border-radius: 16px;
+  .loginContainer {
+    padding: 3.2rem 6.4rem;
+    z-index: 1;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: ${colorPrimary};
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+    align-items: center;
+    border-radius: 16px;
+    transition: all 0.3s;
+  }
 
   .heading {
     font-size: 3.8rem;
@@ -108,6 +167,16 @@ const LoginContainer = styled.div`
     font-size: 2.4rem;
     color: ${colorPrimaryDarkest};
     left: 1rem;
+  }
+
+  .icon-eye {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.4rem;
+    color: ${colorPrimaryDarkest};
+    right: 1rem;
+    cursor: pointer;
   }
 
   .buttons-box {
@@ -154,6 +223,29 @@ const LoginContainer = styled.div`
       color: ${colorPrimaryDarkest};
       background-color: ${colorPrimaryLightest};
     }
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: translate(-50%, -50%) rotate(0) scale(1);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+      transform: translate(-50%, -50%) rotate(-2deg) scale(1.1);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+      transform: translate(-50%, -50%) rotate(2deg) scale(1.1);
+    }
+  }
+  .start {
+    animation: shake 1s infinite;
   }
 `;
 
