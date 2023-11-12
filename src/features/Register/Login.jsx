@@ -48,6 +48,7 @@ function Login({ setOpenLogin, setLoginOver, handleToast, setUsnAndJwt }) {
       if (data?.error?.status === 'error') {
         startShaking();
         toast.error('Incorrect USN or Password!!');
+        setSubmit(false);
         return;
       }
       console.log(data);

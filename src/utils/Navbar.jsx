@@ -11,15 +11,16 @@ import { AuthContext } from '../App';
 
 function Navbar() {
   const { usn } = useContext(AuthContext);
+
   return (
     <nav>
       <NavList>
         <Items>DSA</Items>
         <Items>Aptitude</Items>
         <Items to="/results">Results</Items>
-        <Items>Leadership Board</Items>
+        <Items to="/leaderShip">Leadership Board</Items>
         {usn && <Items>Profile</Items>}
-        {!usn && <Button to="/register">Register</Button>}
+        {usn && <Button to="/register">Register</Button>}
       </NavList>
     </nav>
   );

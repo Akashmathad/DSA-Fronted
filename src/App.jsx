@@ -3,9 +3,10 @@ import './App.css';
 import AppLayout from './utils/AppLayout';
 import HomePage from './pages/HomePage';
 import AptitudeTest from './pages/AptitudeTest';
-import Results from './features/Results/Results';
+import Results from './pages/Results';
 import Register from './pages/Register';
 import { createContext, useEffect, useState } from 'react';
+import LeaderShip from './pages/LeaderShip';
 
 export const AuthContext = createContext();
 
@@ -34,8 +35,6 @@ function App() {
     localStorage.removeItem('jwt');
   }
 
-  console.log(usn, jwt);
-
   return (
     <AuthContext.Provider value={{ usn, jwt, removeUsnandJwt }}>
       <BrowserRouter>
@@ -43,6 +42,7 @@ function App() {
           <Route element={<AppLayout />}>
             <Route index element={<HomePage />} />
             <Route path="/results" element={<Results />} />
+            <Route path="/leaderShip" element={<LeaderShip />} />
           </Route>
           <Route path="/aptitude-test" element={<AptitudeTest />} />
           <Route

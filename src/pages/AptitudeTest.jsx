@@ -1,10 +1,17 @@
-import { useReducer, createContext, useEffect } from 'react';
+import {
+  useReducer,
+  createContext,
+  useEffect,
+  useContext,
+  useState,
+} from 'react';
 import Ready from '../features/Aptitude/Ready';
 import Aptitude from '../features/Aptitude/Aptitude';
 import Finished from '../features/Aptitude/Finished';
 import Error from '../features/Aptitude/Error';
 import styled from 'styled-components';
 import { colorGreyDark500 } from '../styles/colors';
+import { AuthContext } from '../App';
 
 const initialState = {
   questions: null,
@@ -77,6 +84,39 @@ function handleFullscreenChange(dispatch) {
 function AptitudeTest() {
   const [{ questions, status, index, ans, secondsRemaining }, dispatch] =
     useReducer(reducer, initialState);
+  const { jwt } = useContext(AuthContext);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        if (!jwt) {
+          console.log('token is null');
+          return;
+        }
+
+        const req = await fetch(
+          'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/question-answers/questions',
+          {
+            method: 'GET',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        );
+        const data = await req.json();
+        console.log(data.data.Questions[0].questions);
+        dispatch({
+          type: 'dataReceived',
+          payload: data.data.Questions[0].questions,
+        });
+        dispatch({ type: 'settingAns' });
+      } catch (e) {
+        dispatch({ type: 'dataFailed' });
+      }
+    }
+    fetchData();
+  }, [jwt]);
 
   useEffect(() => {
     // Add event listeners for the fullscreenchange and keydown events
@@ -103,27 +143,6 @@ function AptitudeTest() {
       );
     };
   }, []);
-
-  useEffect(
-    () =>
-      async function () {
-        try {
-          const req = await fetch(
-            'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/question-answers/questions'
-          );
-          const data = await req.json();
-          console.log(data.data.Questions[0].questions);
-          dispatch({
-            type: 'dataReceived',
-            payload: data.data.Questions[0].questions,
-          });
-          dispatch({ type: 'settingAns' });
-        } catch (e) {
-          dispatch({ type: 'dataFailed' });
-        }
-      },
-    []
-  );
 
   return (
     <Container>

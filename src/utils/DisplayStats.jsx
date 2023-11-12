@@ -56,9 +56,11 @@ function Stats({ result }) {
     <StatsContainer rank={result.rank}>
       <div className="rank-box">
         <p className="rank">{result.rank}</p>
+        <p className="usn">{result.branch.toUpperCase()}</p>
       </div>
       <div className="details-box">
-        <p className="usn">{result.usn}</p>
+        <p className="usn">{result.usn.toUpperCase()}</p>
+
         <p className="name">{result.name}</p>
         <p className="points">{result.points}</p>
       </div>
@@ -69,11 +71,16 @@ function Stats({ result }) {
 const StatsContainer = styled.div`
   color: ${colorWhite};
   display: grid;
-  grid-template-columns: 5fr 95fr;
+  grid-template-columns: 10fr 90fr;
   padding: 1.8rem 4rem;
   background-color: ${(props) => getColor(props.rank - 1)};
   font-size: ${defaultFontSize};
   border-radius: 999px;
+
+  .rank-box {
+    display: flex;
+    gap: 1.2rem;
+  }
 
   .details-box {
     display: flex;

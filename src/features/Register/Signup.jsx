@@ -47,11 +47,13 @@ function Signup({ setOpenSignup, setOpenLogin, handleToast }) {
     ) {
       startShaking();
       toast.error('Please provide full details');
+      setSubmit(false);
       return;
     }
     if (password !== cPassword) {
       startShaking();
       toast.error("The passwords aren't matching!");
+      setSubmit(false);
       return;
     }
     const details = {
