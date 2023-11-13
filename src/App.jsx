@@ -7,6 +7,7 @@ import Results from './pages/Results';
 import Register from './pages/Register';
 import { createContext, useEffect, useState } from 'react';
 import LeaderShip from './pages/LeaderShip';
+import Profile from './pages/Profile';
 
 export const AuthContext = createContext();
 
@@ -43,6 +44,7 @@ function App() {
             <Route index element={<HomePage />} />
             <Route path="/results" element={<Results />} />
             <Route path="/leaderShip" element={<LeaderShip />} />
+            <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="/aptitude-test" element={<AptitudeTest />} />
           <Route

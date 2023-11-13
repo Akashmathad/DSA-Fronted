@@ -19,7 +19,7 @@ function Navbar() {
         <Items>Aptitude</Items>
         <Items to="/results">Results</Items>
         <Items to="/leaderShip">Leadership Board</Items>
-        {usn && <Items>Profile</Items>}
+        {usn && <Items to="/profile">Profile</Items>}
         {usn && <Button to="/register">Register</Button>}
       </NavList>
     </nav>
