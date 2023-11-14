@@ -82,6 +82,8 @@ function handleFullscreenChange(dispatch) {
 }
 
 function AptitudeTest() {
+  const [contestNumber, setContestNumber] = useState();
+  const [contestName, setContestName] = useState();
   const [{ questions, status, index, ans, secondsRemaining }, dispatch] =
     useReducer(reducer, initialState);
   const { jwt } = useContext(AuthContext);
@@ -90,7 +92,6 @@ function AptitudeTest() {
     async function fetchData() {
       try {
         if (!jwt) {
-          console.log('token is null');
           return;
         }
 
@@ -105,7 +106,11 @@ function AptitudeTest() {
           }
         );
         const data = await req.json();
+        console.log(data.data.Questions[0].contestNumber);
+        console.log(data.data.Questions[0].contestName);
         console.log(data.data.Questions[0].questions);
+        setContestName(data.data.Questions[0].contestName);
+        setContestNumber(data.data.Questions[0].contestNumber);
         dispatch({
           type: 'dataReceived',
           payload: data.data.Questions[0].questions,
@@ -147,7 +152,16 @@ function AptitudeTest() {
   return (
     <Container>
       <AptitudeContext.Provider
-        value={{ questions, status, index, ans, secondsRemaining, dispatch }}
+        value={{
+          questions,
+          status,
+          index,
+          ans,
+          secondsRemaining,
+          dispatch,
+          contestName,
+          contestNumber,
+        }}
       >
         {status === 'ready' && <Ready />}
         {status === 'active' && <Aptitude />}

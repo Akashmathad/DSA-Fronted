@@ -24,7 +24,7 @@ function requestFullscreen() {
 }
 
 function Ready() {
-  const { dispatch } = useContext(AptitudeContext);
+  const { questions, dispatch } = useContext(AptitudeContext);
   return (
     <ReadyContainer>
       <div className="heading">Aptitude Test</div>
@@ -52,15 +52,17 @@ function Ready() {
           </li>
         </ul>
       </div>
-      <button
-        className="start"
-        onClick={() => {
-          requestFullscreen();
-          dispatch({ type: 'start' });
-        }}
-      >
-        Start&rarr;
-      </button>
+      {questions && (
+        <button
+          className="start"
+          onClick={() => {
+            requestFullscreen();
+            dispatch({ type: 'start' });
+          }}
+        >
+          Start&rarr;
+        </button>
+      )}
     </ReadyContainer>
   );
 }

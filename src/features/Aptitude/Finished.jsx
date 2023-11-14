@@ -9,37 +9,78 @@ import {
   colorWhite,
 } from '../../styles/colors';
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../App';
+
+let once = true;
 
 function Finished() {
   const [points, setPoints] = useState(0);
-  const { status, ans, dispatch, secondsRemaining } =
-    useContext(AptitudeContext);
+  const {
+    status,
+    ans,
+    dispatch,
+    secondsRemaining,
+    contestName,
+    contestNumber,
+  } = useContext(AptitudeContext);
+  const { usn, jwt } = useContext(AuthContext);
 
-  useEffect(
-    () =>
-      async function () {
-        try {
-          const req = await fetch('http://localhost:8000/answers');
-          const originalAns = await req.json();
-          ans.forEach((ans) =>
-            ans.answer === originalAns[ans.question]
-              ? setPoints((points) => points + 5)
-              : null
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        if (!jwt) return;
+        const req = await fetch(
+          'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/question-answers/answers',
+          {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        );
+        const data = await req.json();
+        const originalAns = data.data.Answer[0].answers;
+        let newPoints = 0;
+        ans.forEach((ans, index) =>
+          ans.answer === originalAns[ans.question - 1].answerOption
+            ? (newPoints += 5)
+            : null
+        );
+        setPoints(newPoints);
+        if (once) {
+          console.log({
+            contestName,
+            points: newPoints,
+            timeLeft: secondsRemaining,
+          });
+          const request = await fetch(
+            `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/profile/${contestNumber}/${usn}`,
+            {
+              method: 'PATCH',
+              headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${jwt}`,
+              },
+              body: JSON.stringify({
+                contestName,
+                points: newPoints,
+                timeLeft: secondsRemaining,
+              }),
+            }
           );
-          let time = 0;
-          ans.forEach((ans) =>
-            ans.answer === null ? (time = time + 1) : null
-          );
-          const remainingTime = Math.floor((secondsRemaining - time * 60) / 60);
-          console.log(remainingTime, points);
-          if (remainingTime > 0) setPoints((points) => points + remainingTime);
-          dispatch({ type: 'finish' });
-        } catch (e) {
-          dispatch({ type: 'dataFailed' });
+          const data2 = await request.json();
+          console.log(data2);
+          once = false;
         }
-      },
-    []
-  );
+
+        dispatch({ type: 'finish' });
+      } catch (e) {
+        console.log(e);
+        //dispatch({ type: 'dataFailed' });
+      }
+    }
+    fetchData();
+  }, [jwt]);
 
   return (
     <FinishedContainer>

@@ -28,12 +28,13 @@ function exitFullscreen() {
 }
 
 function Aptitude() {
-  const { questions, index, dispatch } = useContext(AptitudeContext);
+  const { questions, index, dispatch, contestName } =
+    useContext(AptitudeContext);
 
   const question = questions[index];
   return (
     <AptitudeContainer>
-      <h2 className="heading">Aptitude test</h2>
+      <h2 className="heading">{contestName}</h2>
       <div className="aptitude-box">
         <div className="box question-box">
           <p className="question">
