@@ -9,6 +9,7 @@ import { createContext, useEffect, useState } from 'react';
 import LeaderShip from './pages/LeaderShip';
 import Profile from './pages/Profile';
 import AptitudeMainPage from './pages/AptitudeMainPage';
+import DSATest from './pages/DSATest';
 
 export const AuthContext = createContext();
 
@@ -49,6 +50,7 @@ function App() {
             <Route path="/profile" element={<Profile />} />
           </Route>
           <Route path="/aptitude-test" element={<AptitudeTest />} />
+          <Route path="/dsa-test" element={<DSATest />} />
           <Route
             path="/register"
             element={<Register setUsnAndJwt={setUsnAndJwt} />}

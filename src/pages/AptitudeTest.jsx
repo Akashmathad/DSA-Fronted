@@ -10,7 +10,7 @@ import Aptitude from '../features/Aptitude/Aptitude';
 import Finished from '../features/Aptitude/Finished';
 import Error from '../features/Aptitude/Error';
 import styled from 'styled-components';
-import { colorGreyDark500 } from '../styles/colors';
+import { colorBlack, colorGreyDark500 } from '../styles/colors';
 import { AuthContext } from '../App';
 
 const initialState = {
@@ -66,7 +66,7 @@ function reducer(state, action) {
       return {
         ...state,
         secondsRemaining: state.secondsRemaining - 1,
-        status: state.secondsRemaining === 0 ? 'finished' : state.status,
+        status: state.secondsRemaining === 0 ? 'checking' : state.status,
       };
     default:
       return { ...state, status: 'error' };
@@ -176,7 +176,7 @@ function AptitudeTest() {
 const Container = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: ${colorGreyDark500};
+  background-color: ${colorBlack};
 `;
 
 export default AptitudeTest;
