@@ -39,6 +39,7 @@ body {
   font-size: 1.6rem;
   color: #fff;
   background-color: #080315;
+  overflow: hidden;
 }
 
 .button{
@@ -55,6 +56,35 @@ body {
   &:hover{
     background-color: ${(props) => props.theme.colors.colorPrimaryLight};
   }
+}
+
+.background{
+  width: 100%;
+  background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(90, 33, 255, .15));
+  
+}
+
+.height{
+  width: 100%;
+  height: 88.4vh;
+}
+
+
+
+.gradient-circle {
+    width: 80%;
+    height: 30rem;
+    opacity: 1;
+    filter: blur(20rem);
+    background-color: ${(props) => props.theme.colors.colorPrimaryLight};
+    border-radius: 1000%;
+    position: absolute;
+}
+
+.gradient-circle.bottom {
+    left: 50%;
+    bottom: -15rem;
+    transform: translate(-50%);
 }
 `;
 

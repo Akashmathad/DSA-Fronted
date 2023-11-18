@@ -5,27 +5,25 @@ import { Outlet } from 'react-router-dom';
 
 function AppLayout() {
   return (
-    <MainContainer>
-      <div className="appLayout">
+    <>
+      <MainContainer>
         <Logo />
         <Navbar />
+      </MainContainer>
+      <div className="height">
+        <Outlet />
       </div>
-      <Outlet />
-    </MainContainer>
+    </>
   );
 }
 
 const MainContainer = styled.div`
-  height: 100vh;
-
-  .appLayout {
-    display: flex;
-    max-width: 135rem;
-    margin: 0 auto;
-    justify-content: space-between;
-    align-items: center;
-    padding: 2.4rem 0;
-  }
+  display: flex;
+  max-width: 135rem;
+  margin: 0 auto;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2.4rem 0;
 `;
 
 export default AppLayout;
