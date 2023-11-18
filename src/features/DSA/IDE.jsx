@@ -1,4 +1,4 @@
-import Editor, { DiffEditor, useMonaco, loader } from '@monaco-editor/react';
+import Editor from '@monaco-editor/react';
 import { useContext } from 'react';
 import { DSAContext } from '../../pages/DSATest';
 import styled from 'styled-components';
