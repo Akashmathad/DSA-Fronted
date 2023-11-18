@@ -15,9 +15,11 @@ const theme = {
     colorTritaryLight: '#39ffe4',
     colorTritaryLighter: '#aafff4',
     colorTritaryLightest: '#e3fffb',
+
+    colorWhite: '#fff',
   },
   fontSizes: {
-    small: '1em',
+    small: '1.8rem',
     medium: '2em',
     large: '3em',
   },

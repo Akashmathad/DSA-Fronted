@@ -5,7 +5,7 @@ import {
   colorPrimaryLight,
   colorWhite,
 } from '../styles/colors';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../App';
 
@@ -15,12 +15,28 @@ function Navbar() {
   return (
     <nav>
       <NavList>
-        <Items>DSA</Items>
-        <Items to="/aptitude">Aptitude</Items>
-        <Items to="/results">Results</Items>
-        <Items to="/leaderShip">Leadership Board</Items>
-        {usn && <Items to="/profile">Profile</Items>}
-        {usn && <Button to="/register">Register</Button>}
+        <NavLink className="items" to="/dsa-test">
+          DSA
+        </NavLink>
+        <NavLink className="items" to="/aptitude">
+          Aptitude
+        </NavLink>
+        <NavLink className="items" to="/results">
+          Results
+        </NavLink>
+        <NavLink className="items" to="/leaderShip">
+          Leadership Board
+        </NavLink>
+        {usn && (
+          <NavLink className="items" to="/profile">
+            Profile
+          </NavLink>
+        )}
+        {usn && (
+          <NavLink className="button" to="/register">
+            Register
+          </NavLink>
+        )}
       </NavList>
     </nav>
   );
@@ -29,54 +45,22 @@ function Navbar() {
 const NavList = styled.ul`
   display: flex;
   list-style: none;
-  gap: 6.4rem;
+  gap: 4.8rem;
   align-items: center;
   justify-content: center;
-  height: 6rem;
-`;
 
-const Items = styled(Link)`
-  text-decoration: none;
-  font-size: 2rem;
-  color: ${colorWhite};
-  cursor: pointer;
-  font-weight: 700;
-  transition: all 0.3s;
-  position: relative;
+  .items {
+    text-decoration: none;
+    font-size: ${(props) => props.theme.fontSizes.small};
+    color: ${(props) => props.theme.colors.colorPrimaryLightest};
+    cursor: pointer;
+    transition: all 0.3s;
 
-  &:hover {
-    color: ${colorPrimaryLight};
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    bottom: -1.6rem;
-    width: 100%;
-    height: 2px;
-    background-color: ${colorPrimary};
-    opacity: 0;
-    transition: opacity 0.3s ease-in-out;
-  }
-
-  &:hover::after {
-    opacity: 1;
-  }
-`;
-
-const Button = styled(Link)`
-  background-color: ${colorPrimary};
-  color: ${colorWhite};
-  font-size: 2rem;
-  padding: 1.2rem 3.2rem;
-  border-radius: 999px;
-  border: none;
-  transition: all 0.3s;
-  text-decoration: none;
-
-  &:hover {
-    background-color: ${colorPrimaryDark};
+    &:hover,
+    &:active,
+    &.active {
+      color: ${(props) => props.theme.colors.colorWhite};
+    }
   }
 `;
 

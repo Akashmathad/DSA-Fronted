@@ -24,7 +24,7 @@ const MainContainer = styled.div`
     margin: 0 auto;
     justify-content: space-between;
     align-items: center;
-    padding: 1.4rem 0;
+    padding: 2.4rem 0;
   }
 `;
 

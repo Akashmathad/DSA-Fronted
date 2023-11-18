@@ -40,6 +40,22 @@ body {
   color: #fff;
   background-color: #080315;
 }
+
+.button{
+  background-color: ${(props) => props.theme.colors.colorPrimary};
+  font-size: ${(props) => props.theme.fontSizes.small};
+  transition: all 0.3s ease-in-out;
+  color: inherit;
+  font-weight: 500;
+  padding: 0.9rem 1.8rem;
+  text-decoration: none;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  &:hover{
+    background-color: ${(props) => props.theme.colors.colorPrimaryLight};
+  }
+}
 `;
 
 export default GlobalStyles;
