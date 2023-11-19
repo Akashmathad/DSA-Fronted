@@ -1,16 +1,10 @@
 import styled from 'styled-components';
-import {
-  colorPrimary,
-  colorPrimaryDarkest,
-  colorPrimaryLightest,
-  colorRed,
-} from '../../styles/colors';
-import { defaultFontSize } from '../../styles/defaults';
 import { BiLockOpen } from 'react-icons/bi';
-import { GrUserAdmin } from 'react-icons/gr';
 import { AiFillEye } from 'react-icons/ai';
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import Button from '../../utils/Button';
+import { RiAdminLine } from 'react-icons/ri';
 
 function Login({ setOpenLogin, setLoginOver, handleToast, setUsnAndJwt }) {
   const [usn, setUsn] = useState('');
@@ -63,11 +57,13 @@ function Login({ setOpenLogin, setLoginOver, handleToast, setUsnAndJwt }) {
   }
   return (
     <LoginContainer>
-      <div className={`loginContainer ${shake ? 'start' : ''}`}>
+      <div className={`register-container  ${shake ? 'start' : ''}`}>
+        <div className="gradient-line top"></div>
+        <div className="gradient-circle topest"></div>
         <h3 className="heading">Login Details</h3>
         <form className="details-form">
           <div className="details-box">
-            <GrUserAdmin className="icons" />
+            <RiAdminLine className="icons" />
             <input
               type="text"
               className="details-input"
@@ -90,16 +86,21 @@ function Login({ setOpenLogin, setLoginOver, handleToast, setUsnAndJwt }) {
             />
           </div>
           <div className="buttons-box">
-            <button className="cancel" onClick={() => setOpenLogin(false)}>
+            <Button
+              className="cancel"
+              color="lightPurple"
+              onClick={() => setOpenLogin(false)}
+            >
               Cancel
-            </button>
-            <button
+            </Button>
+            <Button
+              color="purple"
               className="submit"
               onClick={handleSubmit}
               disabled={submit ? true : false}
             >
               {submit ? 'Submitting...' : 'Submit'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>
@@ -107,11 +108,10 @@ function Login({ setOpenLogin, setLoginOver, handleToast, setUsnAndJwt }) {
         toastOptions={{
           className: '',
           style: {
-            border: `1px solid ${colorRed}`,
-            padding: '1.2rem 2.4rem',
+            padding: '0.9rem 1.5rem',
             fontSize: '1.8rem',
             fontFamily: 'inherit',
-            color: colorPrimaryDarkest,
+            color: (props) => props.theme.colors.colorBlack,
           },
         }}
       />
@@ -120,139 +120,21 @@ function Login({ setOpenLogin, setLoginOver, handleToast, setUsnAndJwt }) {
 }
 
 const LoginContainer = styled.div`
-  .loginContainer {
-    padding: 3.2rem 6.4rem;
-    z-index: 1;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: ${colorPrimary};
-    display: flex;
-    flex-direction: column;
-    gap: 3.2rem;
-    align-items: center;
-    border-radius: 16px;
-    transition: all 0.3s;
-  }
-
-  .heading {
-    font-size: 3.8rem;
-    color: ${colorPrimaryDarkest};
-  }
-
-  .details-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.6rem;
-    width: 100%;
-  }
-
-  .details-box {
-    position: relative;
-  }
-
-  .details-input {
-    width: 40rem;
-    padding: 1rem 4.8rem;
-    font-size: ${defaultFontSize};
-    background-color: ${colorPrimaryLightest};
-    color: ${colorPrimaryDarkest};
-    border: none;
-    border-radius: 10px;
-    outline: none;
-
-    &:focus {
-      outline: 3px solid ${colorPrimaryDarkest};
-    }
-  }
-
-  .icons {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 2.4rem;
-    color: ${colorPrimaryDarkest};
-    left: 1rem;
-  }
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => props.theme.colors.colorBlack};
 
   .icon-eye {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
     font-size: 2.4rem;
-    color: ${colorPrimaryDarkest};
+    color: ${(props) => props.theme.colors.colorPrimaryLight};
     right: 1rem;
     cursor: pointer;
-  }
-
-  .buttons-box {
-    padding: 0 2.4rem;
-    display: flex;
-    gap: 2.4rem;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1.2rem;
-  }
-
-  .cancel {
-    width: 100%;
-    padding: 1.2rem 0;
-    border-radius: 10px;
-    font-size: ${defaultFontSize};
-    font-weight: 600;
-    border: none;
-    background-color: ${colorPrimaryLightest};
-    box-shadow: inset 0 0 0 1px ${colorPrimaryDarkest};
-    color: ${colorPrimaryDarkest};
-    transition: all 0.3s;
-    cursor: pointer;
-
-    &:hover {
-      color: ${colorPrimaryLightest};
-      background-color: ${colorPrimaryDarkest};
-    }
-  }
-
-  .submit {
-    width: 100%;
-    padding: 1.2rem 0;
-    border-radius: 10px;
-    font-size: ${defaultFontSize};
-    font-weight: 600;
-    border: none;
-    color: ${colorPrimaryLightest};
-    background-color: ${colorPrimaryDarkest};
-    transition: all 0.3s;
-    cursor: pointer;
-
-    &:hover {
-      color: ${colorPrimaryDarkest};
-      background-color: ${colorPrimaryLightest};
-    }
-  }
-
-  @keyframes shake {
-    0%,
-    100% {
-      transform: translate(-50%, -50%) rotate(0) scale(1);
-    }
-    10%,
-    30%,
-    50%,
-    70%,
-    90% {
-      transform: translate(-50%, -50%) rotate(-2deg) scale(1.1);
-    }
-    20%,
-    40%,
-    60%,
-    80% {
-      transform: translate(-50%, -50%) rotate(2deg) scale(1.1);
-    }
-  }
-  .start {
-    animation: shake 1s infinite;
   }
 `;
 

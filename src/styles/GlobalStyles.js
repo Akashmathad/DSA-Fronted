@@ -87,6 +87,18 @@ body {
     transform: translate(-50%);
 }
 
+.gradient-circle.top {
+    left: 50%;
+    top: -15rem;
+    transform: translate(-50%);
+}
+
+.gradient-circle.topest {
+    left: 50%;
+    top: -25rem;
+    transform: translate(-50%);
+}
+
 .gradient-line {
   width: 90%;
   height: 1px;
@@ -102,6 +114,116 @@ body {
 .gradient-line.bottom{
   bottom: 0;
 }
+
+//signup / login
+
+.register-container{
+  background-image: linear-gradient(rgba(90, 33, 255, .15), rgba(0, 0, 0, 0));
+  width: 55rem;
+  padding: 2.4rem 3.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4rem;
+    transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
+}
+
+.heading {
+    font-size: 3.8rem;
+    font-weight: 600;
+    color: ${(props) => props.theme.colors.colorWhite};
+  }
+
+  .details-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1.6rem;
+    width: 100%;
+  }
+
+  .details-box {
+    position: relative;
+  }
+
+  .details-input {
+    width: 40rem;
+    padding: 1rem 4.8rem;
+    height: 4.4rem;
+    font-family: inherit;
+    background-color: ${(props) => props.theme.colors.colorBlack};
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 8px;
+    font-size: ${(props) => props.theme.fontSizes.small};
+    color: ${(props) => props.theme.colors.colorWhite};
+    transition: all 0.3s;
+    outline: none;
+
+    &:hover,
+    &:active,
+    &:focus {
+      border: 1px solid #575757;
+    }
+  }
+
+  .details-form {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .icons {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.4rem;
+    color: ${(props) => props.theme.colors.colorPrimaryLight};
+    left: 1rem;
+  }
+
+  .buttons-box {
+    width: 100%;
+    padding: 0 4.8rem;
+    gap: 2.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1.2rem;
+  }
+
+  .cancel {
+    background-color: ${(props) => props.theme.colors.colorBlack};
+    border: 1px solid ${(props) => props.theme.colors.colorPrimary};
+   z-index: 3;
+  }
+
+  @keyframes shake {
+    0%,
+    100% {
+      transform: rotate(0) scale(1);
+    }
+    10%,
+    30%,
+    50%,
+    70%,
+    90% {
+      transform: rotate(-2deg) scale(1.1);
+    }
+    20%,
+    40%,
+    60%,
+    80% {
+      transform: rotate(2deg) scale(1.1);
+    }
+  }
+  .start {
+    animation: shake 1s infinite;
+    transition: all 0.3s;
+  }
+
 `;
 
 export default GlobalStyles;

@@ -1,19 +1,14 @@
 import styled from 'styled-components';
 import { FaRegUser } from 'react-icons/fa6';
-import { GrUserAdmin } from 'react-icons/gr';
+import { RiAdminLine } from 'react-icons/ri';
 import { MdOutlineAlternateEmail } from 'react-icons/md';
 import { BsTelephoneForward } from 'react-icons/bs';
 import { BiLockOpen, BiLock } from 'react-icons/bi';
 import { FiSettings } from 'react-icons/fi';
-import {
-  colorPrimary,
-  colorPrimaryDarkest,
-  colorPrimaryLightest,
-  colorRed,
-} from '../../styles/colors';
-import { defaultFontSize } from '../../styles/defaults';
+
 import { useState } from 'react';
 import toast, { Toaster } from 'react-hot-toast';
+import Button from '../../utils/Button';
 
 function Signup({ setOpenSignup, setOpenLogin, handleToast }) {
   const [name, setName] = useState('');
@@ -89,7 +84,9 @@ function Signup({ setOpenSignup, setOpenLogin, handleToast }) {
 
   return (
     <SignupContainer>
-      <div className={`signupContainer ${shake ? 'start' : ''}`}>
+      <div className={`register-container ${shake ? 'start' : ''}`}>
+        <div className="gradient-line top"></div>
+        <div className="gradient-circle top"></div>
         <h3 className="heading">Signup Details</h3>
         <form className="details-form" onSubmit={handleSubmit}>
           <div className="details-box">
@@ -104,7 +101,7 @@ function Signup({ setOpenSignup, setOpenLogin, handleToast }) {
             />
           </div>
           <div className="details-box">
-            <GrUserAdmin className="icons" />
+            <RiAdminLine className="icons" />
             <input
               type="text"
               className="details-input"
@@ -183,16 +180,20 @@ function Signup({ setOpenSignup, setOpenLogin, handleToast }) {
             />
           </div>
           <div className="buttons-box">
-            <button className="cancel" onClick={() => setOpenSignup(false)}>
+            <Button
+              color="lightPurple"
+              className="cancel"
+              onClick={() => setOpenSignup(false)}
+            >
               Cancel
-            </button>
-            <button
-              className="submit"
+            </Button>
+            <Button
+              color="purple"
               type="submit"
               disabled={submit ? true : false}
             >
               {submit ? 'Submitting...' : 'Submit'}
-            </button>
+            </Button>
           </div>
         </form>
       </div>
@@ -200,11 +201,10 @@ function Signup({ setOpenSignup, setOpenLogin, handleToast }) {
         toastOptions={{
           className: '',
           style: {
-            border: `1px solid ${colorRed}`,
-            padding: '1.2rem 2.4rem',
-            fontSize: '1.8rem',
+            padding: '0.9rem 1.5rem',
+            fontSize: '1.6rem',
             fontFamily: 'inherit',
-            color: colorPrimaryDarkest,
+            color: (props) => props.theme.colors.colorBlack,
           },
         }}
       />
@@ -212,129 +212,11 @@ function Signup({ setOpenSignup, setOpenLogin, handleToast }) {
   );
 }
 const SignupContainer = styled.div`
-  .signupContainer {
-    padding: 3.2rem 6.4rem;
-    z-index: 1;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: ${colorPrimary};
-    display: flex;
-    flex-direction: column;
-    gap: 3.2rem;
-    align-items: center;
-    border-radius: 16px;
-  }
-
-  .heading {
-    font-size: 3.8rem;
-    color: ${colorPrimaryDarkest};
-  }
-
-  .details-form {
-    display: flex;
-    flex-direction: column;
-    gap: 1.6rem;
-    width: 100%;
-  }
-
-  .details-box {
-    position: relative;
-  }
-
-  .details-input {
-    width: 40rem;
-    padding: 1rem 4.8rem;
-    font-size: ${defaultFontSize};
-    background-color: ${colorPrimaryLightest};
-    color: ${colorPrimaryDarkest};
-    border: none;
-    border-radius: 10px;
-    outline: none;
-
-    &:focus {
-      outline: 3px solid ${colorPrimaryDarkest};
-    }
-  }
-
-  .icons {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    font-size: 2.4rem;
-    color: ${colorPrimaryDarkest};
-    left: 1rem;
-  }
-
-  .buttons-box {
-    padding: 0 2.4rem;
-    display: flex;
-    gap: 2.4rem;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1.2rem;
-  }
-
-  .cancel {
-    width: 100%;
-    padding: 1.2rem 0;
-    border-radius: 10px;
-    font-size: ${defaultFontSize};
-    font-weight: 600;
-    border: none;
-    background-color: ${colorPrimaryLightest};
-    box-shadow: inset 0 0 0 1px ${colorPrimaryDarkest};
-    color: ${colorPrimaryDarkest};
-    transition: all 0.3s;
-    cursor: pointer;
-
-    &:hover {
-      color: ${colorPrimaryLightest};
-      background-color: ${colorPrimaryDarkest};
-    }
-  }
-
-  .submit {
-    width: 100%;
-    padding: 1.2rem 0;
-    border-radius: 10px;
-    font-size: ${defaultFontSize};
-    font-weight: 600;
-    border: none;
-    color: ${colorPrimaryLightest};
-    background-color: ${colorPrimaryDarkest};
-    transition: all 0.3s;
-    cursor: pointer;
-
-    &:hover {
-      color: ${colorPrimaryDarkest};
-      background-color: ${colorPrimaryLightest};
-    }
-  }
-
-  @keyframes shake {
-    0%,
-    100% {
-      transform: translate(-50%, -50%) rotate(0) scale(1);
-    }
-    10%,
-    30%,
-    50%,
-    70%,
-    90% {
-      transform: translate(-50%, -50%) rotate(-2deg) scale(1.1);
-    }
-    20%,
-    40%,
-    60%,
-    80% {
-      transform: translate(-50%, -50%) rotate(2deg) scale(1.1);
-    }
-  }
-  .start {
-    animation: shake 1s infinite;
-    transition: all 0.3s;
-  }
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: ${(props) => props.theme.colors.colorBlack};
 `;
 export default Signup;

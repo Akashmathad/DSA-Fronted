@@ -1,12 +1,5 @@
 import styled from 'styled-components';
-import {
-  colorPrimaryDarkest,
-  colorSecondary,
-  colorSecondaryDark,
-  colorTritary,
-  colorTritaryDark,
-  colorWhite,
-} from '../styles/colors';
+import { colorPrimaryDarkest, colorSecondary } from '../styles/colors';
 import { useState } from 'react';
 import Signup from '../features/Register/Signup';
 import Login from '../features/Register/Login';
@@ -25,63 +18,72 @@ function Register({ setUsnAndJwt }) {
   }
 
   return (
-    <RegisterContainer>
-      {openSignup && (
-        <Signup
-          setOpenLogin={setOpenLogin}
-          setOpenSignup={setOpenSignup}
-          handleToast={handleToast}
-        />
-      )}
-      {openLogin && (
-        <Login
-          setOpenLogin={setOpenLogin}
-          setLoginOver={setLoginOver}
-          handleToast={handleToast}
-          setUsnAndJwt={setUsnAndJwt}
-        />
-      )}
+    <>
+      <RegisterContainer open={openSignup}>
+        {openSignup && (
+          <Signup
+            setOpenLogin={setOpenLogin}
+            setOpenSignup={setOpenSignup}
+            handleToast={handleToast}
+          />
+        )}
+        {openLogin && (
+          <Login
+            setOpenLogin={setOpenLogin}
+            setLoginOver={setLoginOver}
+            handleToast={handleToast}
+            setUsnAndJwt={setUsnAndJwt}
+          />
+        )}
 
-      <div className="buttons">
-        <div className="gradient-line top"></div>
-        {!loginOver && (
-          <>
-            <Button onClick={() => setOpenSignup(true)} color="blue">
-              Sign up
-            </Button>
-            <Button onClick={() => setOpenLogin(true)} color="green">
-              Login
-            </Button>
-          </>
+        {!openSignup && !openLogin && (
+          <div className="buttons">
+            <div className="gradient-line top"></div>
+            {!loginOver && (
+              <>
+                <Button onClick={() => setOpenSignup(true)} color="blue">
+                  Sign up
+                </Button>
+                <Button onClick={() => setOpenLogin(true)} color="green">
+                  Login
+                </Button>
+              </>
+            )}
+            {loginOver && (
+              <Button onClick={() => navigate('/')} color="purple">
+                Home page &rarr;
+              </Button>
+            )}
+            <div className="gradient-line bottom"></div>
+          </div>
         )}
-        {loginOver && (
-          <Button onClick={() => navigate('/')} color="purple">
-            Home page &rarr;
-          </Button>
-        )}
-        <div className="gradient-line bottom"></div>
-      </div>
-      <Toaster
-        toastOptions={{
-          className: '',
-          duration: 5000,
-          style: {
-            border: `1px solid ${colorSecondary}`,
-            padding: '1.2rem 2.4rem',
-            fontSize: '1.8rem',
-            fontFamily: 'inherit',
-            color: colorPrimaryDarkest,
-          },
-        }}
-      />
-    </RegisterContainer>
+        <Toaster
+          toastOptions={{
+            className: '',
+            duration: 5000,
+            style: {
+              border: `1px solid ${(props) =>
+                props.theme.colors.colorSecondary}`,
+              padding: '0.9rem 1.5rem',
+              fontSize: '1.8rem',
+              fontFamily: 'inherit',
+              color: colorPrimaryDarkest,
+            },
+          }}
+        />
+      </RegisterContainer>
+    </>
   );
 }
 
 const RegisterContainer = styled.div`
   width: 100%;
   height: 100vh;
+  z-index: 1;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
   .buttons {
     width: 45rem;
@@ -89,10 +91,6 @@ const RegisterContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2.4rem;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
     background-image: linear-gradient(rgba(90, 33, 255, 0.15), #080315);
     border: 1px solid rgba(255, 255, 255, 0.08);
     border-radius: 3.2rem 1.2rem;
