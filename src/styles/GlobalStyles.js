@@ -94,11 +94,11 @@ body {
 }
 
 .gradient-circle.left {
-    left:-20%;
+    left:-30%;
 }
 
 .gradient-circle.right {
-    left: 120%;
+    left: 130%;
 }
 
 .gradient-circle.topest {
@@ -276,6 +276,103 @@ body {
     }
   }
 
+// aptitude and dsa main pages
+.heading {
+    font-size: 3rem;
+    font-weight: 500;
+    color: ${(props) => props.theme.colors.colorPrimaryLightest};
+  }
+
+  .contest-card {
+    width: 30rem;
+    height: 16rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: ${(props) => props.theme.colors.colorPrimaryLightest};
+    border-radius: 3.2rem 1.2rem;
+    box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    text-decoration: none;
+    position: relative;
+  }
+
+  .contest-name {
+    font-size: 4rem;
+    font-weight: 600;
+    color: ${(props) => props.theme.colors.colorBlack};
+  }
+
+  .contest-message {
+    color: ${(props) => props.theme.colors.colorPrimaryLightest};
+    font-size: 4.4rem;
+    margin-top: 2rem;
+  }
+  //current contests
+  .current-contest-container{
+    width: 100%;
+  height: 100%;
+  max-width: 130rem;
+  margin: 0 auto;
+  padding: 3.2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  }
+
+  // previous contests
+  .previous-contest-container{
+    position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(1rem);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 5;
+  }
+  .previous-contest-box {
+    width: 130rem;
+    height: 90vh;
+    background-color: ${(props) => props.theme.colors.colorTritaryDark};
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 11px;
+    padding: 3.2rem;
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+    width: 0;
+  }
+  }
+
+  .close {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 5.2rem;
+    position: absolute;
+    top: 1.2rem;
+    right: 1.2rem;
+    cursor: pointer;
+  }
+
+  .previous-contest-heading {
+    color: ${(props) => props.theme.colors.colorTritary};
+    font-size: 3.6rem;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-align: center;
+    margin-bottom: 1.2rem;
+  }
+
+  .question-box {
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+  }
 `;
 
 export default GlobalStyles;

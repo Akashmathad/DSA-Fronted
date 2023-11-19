@@ -2,8 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { AuthContext } from '../../App';
 import PreviousContestCard from './PreviousContestCard';
-import { colorPrimaryLightest } from '../../styles/colors';
-import PreviousContest from './PreviousContest';
 
 const data = [
   {
@@ -17,10 +15,6 @@ const data = [
   {
     contestName: 'Aptitude - 03',
     contestNumber: 3,
-  },
-  {
-    contestName: 'Aptitude - 04',
-    contestNumber: 4,
   },
 ];
 
@@ -81,12 +75,6 @@ const PreviousContestsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2.4rem;
-
-  .heading {
-    font-size: 3rem;
-    font-weight: 500;
-    color: ${colorPrimaryLightest};
-  }
 
   .contest-box {
     display: grid;

@@ -1,10 +1,4 @@
 import styled from 'styled-components';
-import {
-  colorGreyLight100,
-  colorGreyLight500,
-  colorTritary,
-} from '../../styles/colors';
-import { defaultFontSize } from '../../styles/defaults';
 import { AiOutlineEye } from 'react-icons/ai';
 import { useState } from 'react';
 
@@ -29,17 +23,17 @@ function AptiQuestion({ question }) {
 }
 
 const AptiQuestionContainer = styled.div`
-  font-size: ${defaultFontSize};
-  color: ${colorGreyLight100};
+  font-size: ${(props) => props.theme.fontSizes.small};
+  color: ${(props) => props.theme.colors.colorTritaryLightest};
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
   padding: 1.8rem 0;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   position: relative;
 
   .number {
-    color: ${colorTritary};
+    color: ${(props) => props.theme.colors.colorTritary};
     font-size: 2rem;
   }
 
@@ -49,7 +43,7 @@ const AptiQuestionContainer = styled.div`
   }
 
   .eye {
-    color: ${colorGreyLight500};
+    color: ${(props) => props.theme.colors.colorTritary};
     font-size: 2.4rem;
     position: absolute;
     bottom: 1rem;

@@ -39,8 +39,8 @@ function PreviousContest({ contestNumber, setOpen }) {
   );
 
   return (
-    <PreviousContestContainer>
-      <div className="boxx">
+    <div className="previous-contest-container">
+      <div className="previous-contest-box">
         <IoCloseOutline className="close" onClick={() => setOpen(false)} />
         <h3 className="previous-contest-heading">{contestName}</h3>
         <div className="question-box">
@@ -48,55 +48,8 @@ function PreviousContest({ contestNumber, setOpen }) {
             questions.map((question) => <AptiQuestion question={question} />)}
         </div>
       </div>
-    </PreviousContestContainer>
+    </div>
   );
 }
-
-const PreviousContestContainer = styled.div`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(1rem);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  .boxx {
-    width: 130rem;
-    height: 90vh;
-    background-color: ${colorBlack};
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    border-radius: 11px;
-    padding: 3.2rem;
-    overflow: scroll;
-  }
-
-  .close {
-    color: rgba(255, 255, 255, 0.7);
-    font-size: 5.2rem;
-    position: absolute;
-    top: 1.2rem;
-    right: 1.2rem;
-    cursor: pointer;
-  }
-
-  .previous-contest-heading {
-    color: ${colorTritary};
-    font-size: 3.6rem;
-    font-weight: 500;
-    letter-spacing: 1px;
-    text-align: center;
-    margin-bottom: 1.2rem;
-  }
-  ::-webkit-scrollbar {
-    width: 0;
-  }
-  .question-box {
-    overflow: scroll;
-  }
-`;
 
 export default PreviousContest;

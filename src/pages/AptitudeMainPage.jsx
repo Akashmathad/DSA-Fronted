@@ -1,36 +1,36 @@
 import styled from 'styled-components';
 import PreviousContests from '../features/AptitudeMainPage/PreviousContests';
-import { colorPrimaryLightest } from '../styles/colors';
 import CurrentContests from '../features/AptitudeMainPage/CurrentContests';
 
 function AptitudeMainPage() {
   return (
-    <AptitudeMainPageContatiner>
-      <CurrentContests />
-      <div className="box">
-        <PreviousContests className="box" />
-      </div>
-    </AptitudeMainPageContatiner>
+    <div className="height">
+      <AptitudeMainPageContatiner className="background">
+        <CurrentContests />
+        <div className="box">
+          <PreviousContests />
+        </div>
+      </AptitudeMainPageContatiner>
+    </div>
   );
 }
 
 const AptitudeMainPageContatiner = styled.div`
-  flex-grow: 1;
-  padding: 3.2rem 0 4.8rem 0;
+  width: 100%;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  background-image: linear-gradient(
-    to bottom,
-    #0e031a,
-    #0c0517,
-    #0b0714,
-    #0a0810,
-    #0a0a0a
-  );
+
   .box {
     width: 140rem;
+    height: 100%;
     margin: 0 auto;
-    border-top: 1px solid ${colorPrimaryLightest};
+    border-top: 1px solid ${(props) => props.theme.colors.colorPrimaryLight};
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
   }
 `;
 

@@ -36,7 +36,7 @@ function CurrentContests() {
   );
 
   return (
-    <CurrentContestsContainer>
+    <div className="current-contest-container">
       <h3 className="heading">Current Contests</h3>
       {contestName ? (
         <Link className="contest-card" to="/aptitude-test">
@@ -45,48 +45,7 @@ function CurrentContests() {
       ) : (
         <p className="contest-message">No contests available!!</p>
       )}
-    </CurrentContestsContainer>
+    </div>
   );
 }
-const CurrentContestsContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  max-width: 130rem;
-  margin: 0 auto;
-  padding: 3.2rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
-
-  .heading {
-    font-size: 3rem;
-    font-weight: 500;
-    color: ${colorPrimaryLightest};
-  }
-
-  .contest-card {
-    width: 30rem;
-    height: 16rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: ${colorPrimaryLightest};
-    border-radius: 11px;
-    box-shadow: 0 2.4rem 4.8rem rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    text-decoration: none;
-  }
-
-  .contest-name {
-    font-size: 4rem;
-    font-weight: 600;
-    color: ${colorPrimaryDarkest};
-  }
-
-  .contest-message {
-    color: ${colorPrimaryLightest};
-    font-size: 4.4rem;
-    margin-top: 2rem;
-  }
-`;
 export default CurrentContests;
