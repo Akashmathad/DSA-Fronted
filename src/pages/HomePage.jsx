@@ -23,16 +23,16 @@ function HomePage() {
           </div>
           <Footer>
             <div className="about-us">
-              <SiLinkedin className="icons" />
-              <FaXTwitter className="icons" />
-              <GrInstagram className="icons" />
+              <SiLinkedin className="social-icons" />
+              <FaXTwitter className="social-icons" />
+              <GrInstagram className="social-icons" />
               <p className="name">@Ganesh Margale</p>
             </div>
             <div className="copyright">&copy; All rights reserved</div>
             <div className="about-us">
-              <SiLinkedin className="icons" />
-              <FaXTwitter className="icons" />
-              <GrInstagram className="icons" />
+              <SiLinkedin className="social-icons" />
+              <FaXTwitter className="social-icons" />
+              <GrInstagram className="social-icons" />
               <p className="name">@Akash Mathad</p>
               <div className="gradient-circle bottom"></div>
             </div>
@@ -88,7 +88,7 @@ const Footer = styled.div`
     gap: 1.8rem;
   }
 
-  .icons {
+  .social-icons {
     cursor: pointer;
     font-size: 2.4rem;
     color: ${(props) => props.theme.colors.colorPrimaryLight};

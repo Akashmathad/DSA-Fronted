@@ -10,9 +10,7 @@ function AppLayout() {
         <Logo />
         <Navbar />
       </MainContainer>
-      <div className="height">
-        <Outlet />
-      </div>
+      <Outlet />
     </>
   );
 }

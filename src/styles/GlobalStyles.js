@@ -61,12 +61,12 @@ body {
 .background{
   width: 100%;
   background-image: linear-gradient(rgba(0, 0, 0, 0), rgba(90, 33, 255, .15));
-  
 }
 
 .height{
   width: 100%;
   height: 88.4vh;
+  overflow: hidden;
 }
 
 
@@ -93,6 +93,13 @@ body {
     transform: translate(-50%);
 }
 
+.gradient-circle.left {
+    left:-20%;
+}
+.gradient-circle.right {
+    left: 120%
+}
+
 .gradient-circle.topest {
     left: 50%;
     top: -25rem;
@@ -114,6 +121,8 @@ body {
 .gradient-line.bottom{
   bottom: 0;
 }
+
+
 
 //signup / login
 
@@ -154,6 +163,9 @@ body {
     padding: 1rem 4.8rem;
     height: 4.4rem;
     font-family: inherit;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     background-color: ${(props) => props.theme.colors.colorBlack};
     border: 1px solid rgba(255, 255, 255, 0.15);
     border-radius: 8px;
@@ -222,6 +234,45 @@ body {
   .start {
     animation: shake 1s infinite;
     transition: all 0.3s;
+  }
+
+//results and leadership
+
+.input-boxes {
+    display: flex;
+    justify-content: space-around;
+    max-width: 120rem;
+    margin: 0 auto;
+    padding: 4.8rem 0;
+  }
+
+  .subject-box {
+    align-self: center;
+    justify-self: center;
+    display: flex;
+    gap: 1.2rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .subject {
+    font-size: 2.2rem;
+    font-weight: 500;
+    color: ${(props) => props.theme.colors.colorPrimaryLightest};
+  }
+
+  .result-input {
+    padding: 1rem;
+  }
+
+  .search {
+    padding: 1.2rem;
+    outline: none;
+    position: relative;
+
+    &:focus {
+      box-shadow: 0 0 1.2rem ${(props) => props.theme.colors.colorPrimary};
+    }
   }
 
 `;
