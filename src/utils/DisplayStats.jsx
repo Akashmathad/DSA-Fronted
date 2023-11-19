@@ -1,34 +1,24 @@
 import styled from 'styled-components';
-import {
-  colorBronze,
-  colorGold,
-  colorPrimary,
-  colorPrimaryDarkest,
-  colorRed,
-  colorSecondary,
-  colorSilver,
-  colorTritary,
-  colorWhite,
-} from '../styles/colors';
-import { defaultFontSize } from '../styles/defaults';
 
 const getColor = (index) => {
-  if (index === 0) {
-    return colorGold;
-  } else if (index === 1) {
-    return colorSilver;
-  } else if (index === 2) {
-    return colorBronze;
-  } else {
-    const commonColors = [colorPrimary, colorSecondary, colorTritary]; // Add more common colors as needed
-    const commonColorIndex = Math.floor((index - 3) / 4) % commonColors.length;
-    return commonColors[commonColorIndex];
-  }
+  if (index % 2 === 0) return (props) => props.theme.colors.colorBlack;
+
+  return 'rgba(90,33,255,0.15)';
 };
 
 function DisplayStats({ results }) {
   return (
     <DisplayStatsContainer>
+      {results.length !== 0 && (
+        <div className="table">
+          <p className="table-heading">Rank</p>
+          <p className="table-heading">Name</p>
+          <p className="table-heading">USN</p>
+          <p className="table-heading">Branch</p>
+          <p className="table-heading">Score</p>
+        </div>
+      )}
+
       {results.map((result) => (
         <Stats result={result} />
       ))}
@@ -44,58 +34,69 @@ const DisplayStatsContainer = styled.div`
   height: 64vh;
   display: flex;
   flex-direction: column;
-  gap: 1.8rem;
 
   &::-webkit-scrollbar {
     width: 0;
+  }
+
+  .table {
+    height: 5.2rem;
+    background-color: ${(props) => props.theme.colors.colorBlack};
+    padding: 0 3.2rem;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 16fr 27fr 24fr 18fr 15fr;
+    border-bottom: 1px solid ${(props) => props.theme.colors.colorPrimary};
+    border-top-right-radius: 11px;
+    border-top-left-radius: 11px;
+    z-index: 3;
+  }
+
+  .table-heading {
+    font-size: 2.4rem;
+    font-weight: 500;
+    align-self: center;
   }
 `;
 
 function Stats({ result }) {
   return (
     <StatsContainer rank={result.rank}>
-      <div className="rank-box">
-        <p className="rank">{result.rank}</p>
-        <p className="usn">{result.branch.toUpperCase()}</p>
-      </div>
-      <div className="details-box">
-        <p className="usn">{result.usn.toUpperCase()}</p>
-
-        <p className="name">{result.name}</p>
-        <p className="points">{result.points}</p>
-      </div>
+      <p className="table-heading table-elements">{result.rank}</p>
+      <p className="table-heading table-elements">{result.name}</p>
+      <p className="table-heading table-elements space">
+        {result.usn.toUpperCase()}
+      </p>
+      <p className="table-heading table-elements space">
+        {result.branch.toUpperCase()}
+      </p>
+      <p className="table-heading table-elements">{result.points}</p>
     </StatsContainer>
   );
 }
 
 const StatsContainer = styled.div`
-  color: ${colorWhite};
+  background-color: ${(props) => getColor(props.rank)};
+  height: 5.2rem;
+  padding: 0 3.2rem;
+  width: 100%;
   display: grid;
-  grid-template-columns: 10fr 90fr;
-  padding: 1.8rem 4rem;
-  background-color: ${(props) => getColor(props.rank - 1)};
-  font-size: ${defaultFontSize};
-  border-radius: 999px;
+  grid-template-columns: 16fr 27fr 24fr 18fr 15fr;
+  border-bottom: 1px solid ${(props) => props.theme.colors.colorPrimary};
+  z-index: 3;
 
-  .rank-box {
-    display: flex;
-    gap: 1.2rem;
+  &:last-child {
+    border-bottom-left-radius: 11px;
+    border-bottom-right-radius: 11px;
+    border: none;
   }
 
-  .details-box {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+  .table-elements {
+    font-size: 2.2rem;
+  }
 
-    .name {
-      font-weight: 500;
-      letter-spacing: 1px;
-    }
-
-    .points {
-      font-weight: 600;
-      letter-spacing: 1px;
-    }
+  .space {
+    letter-spacing: 1.5px;
   }
 `;
 

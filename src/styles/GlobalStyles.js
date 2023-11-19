@@ -96,8 +96,9 @@ body {
 .gradient-circle.left {
     left:-20%;
 }
+
 .gradient-circle.right {
-    left: 120%
+    left: 120%;
 }
 
 .gradient-circle.topest {
@@ -110,7 +111,7 @@ body {
   width: 90%;
   height: 1px;
   opacity: .8;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #5a21ff 25%, #c4b7e5 50%, #5a21ff 70%, rgba(0, 0, 0, 0));
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #5a21ff, 100%, 56%) 25%, #c4b7e5 50%, #5a21ff 70%, rgba(0, 0, 0, 0);
   position: absolute;
 }
 

@@ -115,7 +115,7 @@ function LeaderShip() {
             />
           </div>
         </div>
-        {/* <DisplayStats results={finalResults} /> */}
+        <DisplayStats results={finalResults} />
       </ResultsContainer>
       <div className="gradient-circle bottom right"></div>
       <div className="gradient-circle bottom left"></div>
