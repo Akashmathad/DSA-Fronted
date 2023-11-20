@@ -16,7 +16,7 @@ const Button = styled.button`
       case 'green':
         return (props) => props.theme.colors.colorTritary;
       case 'red':
-        return (props) => props.theme.colors.colorTritary;
+        return (props) => props.theme.colors.colorRed;
       case 'blue':
         return (props) => props.theme.colors.colorSecondary;
       case 'purple':

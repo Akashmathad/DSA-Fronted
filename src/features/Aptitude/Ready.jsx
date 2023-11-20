@@ -1,32 +1,12 @@
 import { useContext } from 'react';
 import { AptitudeContext } from '../../pages/AptitudeTest';
-import styled from 'styled-components';
-import {
-  colorPrimaryLightest,
-  colorTritary,
-  colorTritaryDarkest,
-  colorTritaryLight,
-  colorWhite,
-} from '../../styles/colors';
-import { defaultFontSize } from '../../styles/defaults';
-
-function requestFullscreen() {
-  const element = document.documentElement;
-  if (element.requestFullscreen) {
-    element.requestFullscreen();
-  } else if (element.mozRequestFullScreen) {
-    element.mozRequestFullScreen();
-  } else if (element.webkitRequestFullscreen) {
-    element.webkitRequestFullscreen();
-  } else if (element.msRequestFullscreen) {
-    element.msRequestFullscreen();
-  }
-}
+import { requestFullscreen } from '../../utils/screenExitHandler';
+import Button from '../../utils/Button';
 
 function Ready() {
   const { questions, dispatch } = useContext(AptitudeContext);
   return (
-    <ReadyContainer>
+    <div className="ready-container">
       <div className="heading">Aptitude Test</div>
       <div className="rules-box">
         <p className="rules-heading">Rules:</p>
@@ -53,81 +33,19 @@ function Ready() {
         </ul>
       </div>
       {questions && (
-        <button
-          className="start"
+        <Button
+          color="green"
+          className="test-start"
           onClick={() => {
             requestFullscreen();
             dispatch({ type: 'start' });
           }}
         >
           Start&rarr;
-        </button>
+        </Button>
       )}
-    </ReadyContainer>
+    </div>
   );
 }
-
-const ReadyContainer = styled.div`
-  width: 100%;
-  padding: 9.6rem;
-  display: flex;
-  flex-direction: column;
-  gap: 9.6rem;
-  align-items: center;
-  justify-content: center;
-
-  .heading {
-    color: ${colorTritary};
-    font-size: 7.4rem;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-  }
-
-  .rules-box {
-    display: flex;
-    flex-direction: column;
-    gap: 2.4rem;
-  }
-
-  .rules-heading {
-    font-size: ${defaultFontSize};
-    color: ${colorTritaryLight};
-    font-weight: 700;
-  }
-
-  .rules {
-    list-style: decimal;
-    padding-left: 2.4rem;
-    color: ${colorPrimaryLightest};
-    font-size: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2.4rem;
-  }
-
-  .rule-important {
-    color: ${colorTritaryLight};
-    font-weight: 700;
-  }
-
-  .start {
-    background-color: ${colorTritary};
-    color: ${colorWhite};
-    padding: 1.2rem 4.8rem;
-    font-size: 2.2rem;
-    letter-spacing: 1.5px;
-    border: none;
-    border-radius: 11px;
-    transition: all 0.3s;
-    cursor: pointer;
-
-    &:hover,
-    &:active {
-      background-color: ${colorTritaryLight};
-      color: ${colorTritaryDarkest};
-      transform: scale(1.1);
-    }
-  }
-`;
 
 export default Ready;

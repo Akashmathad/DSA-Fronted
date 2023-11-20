@@ -373,6 +373,95 @@ body {
       width: 0;
     }
   }
+
+  //test pages
+.ready-container{
+  width: 100%;
+  padding: 9.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 9.6rem;
+  align-items: center;
+  justify-content: center;
+}
+
+.heading {
+    color: ${(props) => props.theme.colors.colorTritary};
+    font-size: 7.4rem;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+  }
+
+  .rules-box {
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+  }
+
+  .rules-heading {
+    font-size: ${(props) => props.theme.fontSizes.small};
+    color: ${(props) => props.theme.colors.colorTritaryLight};
+    font-weight: 700;
+  }
+
+  .rules {
+    list-style: decimal;
+    padding-left: 2.4rem;
+    color: ${(props) => props.theme.colors.colorTritaryLightest};
+    font-size: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+  }
+
+  .rule-important {
+    color: ${(props) => props.theme.colors.colorTritary};
+    font-weight: 700;
+  }
+
+  .test-start {
+    width: 18rem;
+  }
+
+  .finished-container{
+    width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  gap: 3.2rem;
+  }
+
+  .greeting-icon {
+    font-size: 6.2rem;
+  }
+
+  .greetings {
+    padding: 1.2rem;
+    font-size: 6.2rem;
+    font-weight: 500;
+    font-style: italic;
+    background-image: linear-gradient(
+      to right,
+      #f68989,
+      #f09d71,
+      #dbb368,
+      #bdc876,
+      #9ad997,
+      #6fddb4,
+      #3eddd4,
+      #00dbf3,
+      #00cbff,
+      #36b7ff,
+      #819eff,
+      #b680e8
+    );
+
+    text-align: center;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
 `;
 
 export default GlobalStyles;

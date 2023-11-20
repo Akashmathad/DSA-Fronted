@@ -1,13 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { AptitudeContext } from '../../pages/AptitudeTest';
 import styled from 'styled-components';
-import {
-  colorTritary,
-  colorTritaryDarkest,
-  colorTritaryLight,
-  colorTritaryLightest,
-  colorWhite,
-} from '../../styles/colors';
+
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../App';
 
@@ -83,7 +77,7 @@ function Finished() {
   }, [jwt]);
 
   return (
-    <FinishedContainer>
+    <FinishedContainer className="finished-container">
       <div>
         <h2 className="greeting-icon">
           <span className="greetings">Congratulations</span>🎉
@@ -98,64 +92,24 @@ function Finished() {
 }
 
 const FinishedContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-  gap: 3.2rem;
-
-  .greeting-icon {
-    font-size: 6.2rem;
-  }
-
-  .greetings {
-    padding: 1.2rem;
-    color: ${colorWhite};
-    font-size: 6.2rem;
-    font-weight: 500;
-    font-style: italic;
-    letter-spacing: 1.5px;
-    background-image: linear-gradient(
-      to right,
-      #f68989,
-      #f09d71,
-      #dbb368,
-      #bdc876,
-      #9ad997,
-      #6fddb4,
-      #3eddd4,
-      #00dbf3,
-      #00cbff,
-      #36b7ff,
-      #819eff,
-      #b680e8
-    );
-
-    text-align: center;
-    -webkit-background-clip: text;
-    color: transparent;
-  }
-
   .score {
     margin-top: 3.2rem;
     font-size: 3.2rem;
-    color: ${colorTritaryLightest};
+    color: ${(props) => props.theme.colors.colorTritaryLightest};
     text-align: center;
 
     .points {
       font-size: 6.2rem;
       margin: 0 1.2rem;
-      color: ${colorTritaryLight};
-      border-bottom: 2px solid ${colorTritary};
+      color: ${(props) => props.theme.colors.colorTritaryLight};
+      border-bottom: 2px solid ${(props) => props.theme.colors.colorTritary};
     }
   }
 `;
 
 const Button = styled(Link)`
-  background-color: ${colorTritary};
-  color: ${colorWhite};
+  background-color: ${(props) => props.theme.colors.colorTritary};
+  color: inherit;
   padding: 1.2rem 4.8rem;
   font-size: 2.2rem;
   border: none;
@@ -166,8 +120,8 @@ const Button = styled(Link)`
 
   &:hover,
   &:active {
-    background-color: ${colorTritaryLight};
-    color: ${colorTritaryDarkest};
+    background-color: ${(props) => props.theme.colors.colorTritaryLight};
+    color: ${(props) => props.theme.colors.colorBlack100};
     transform: scale(1.1);
   }
 `;

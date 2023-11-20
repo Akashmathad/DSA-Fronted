@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-import { colorPrimaryDarkest, colorPrimaryLightest } from '../../styles/colors';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../App';
 import { Link } from 'react-router-dom';

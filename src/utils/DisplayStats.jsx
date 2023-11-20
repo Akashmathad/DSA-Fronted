@@ -3,7 +3,7 @@ import styled from 'styled-components';
 const getColor = (index) => {
   if (index % 2 === 0) return (props) => props.theme.colors.colorBlack;
 
-  return 'rgba(90,33,255,0.15)';
+  return 'rgba(90,33,255,0.08)';
 };
 
 function DisplayStats({ results }) {

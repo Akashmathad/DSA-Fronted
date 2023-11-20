@@ -4,28 +4,8 @@ import Timer from './Timer';
 import styled from 'styled-components';
 import QuestionButtons from './QuestionButtons';
 import Option from './Option';
-import {
-  colorGreyDark300,
-  colorGreyDark400,
-  colorRed,
-  colorSecondary,
-  colorTritary,
-  colorTritaryLight,
-  colorWhite,
-} from '../../styles/colors';
-import { defaultFontSize } from '../../styles/defaults';
-
-function exitFullscreen() {
-  if (document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if (document.mozCancelFullScreen) {
-    document.mozCancelFullScreen();
-  } else if (document.webkitExitFullscreen) {
-    document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) {
-    document.msExitFullscreen();
-  }
-}
+import Button from '../../utils/Button';
+import { exitFullscreen } from '../../utils/screenExitHandler';
 
 function Aptitude() {
   const { questions, index, dispatch, contestName } =
@@ -112,11 +92,11 @@ const AptitudeContainer = styled.div`
     text-align: center;
     font-size: 4.4rem;
     padding: 0.6rem 0 1.8rem 0;
-    color: ${colorTritary};
-    background-color: ${colorGreyDark400};
+    color: ${(props) => props.theme.colors.colorTritary};
+    background-color: ${(props) => props.theme.colors.colorBlack100};
     font-weight: 500;
     border-radius: 11px;
-    border: 2px solid rgb(0, 173, 144, 0.2);
+    border: 2px solid rgb(0, 194, 168, 0.2);
   }
 
   .aptitude-box {
@@ -128,9 +108,9 @@ const AptitudeContainer = styled.div`
   }
 
   .box {
-    background-color: ${colorGreyDark400};
+    background-color: ${(props) => props.theme.colors.colorBlack100};
     border-radius: 11px;
-    border: 2px solid rgb(0, 173, 144, 0.2);
+    border: 2px solid rgb(0, 194, 168, 0.2);
     padding: 2.4rem;
   }
 
@@ -141,36 +121,37 @@ const AptitudeContainer = styled.div`
   }
 
   .question {
-    font-size: ${defaultFontSize};
-    color: ${colorWhite};
+    font-size: 2rem;
     &-number {
-      color: ${colorTritaryLight};
-      font-weight: 700;
+      color: ${(props) => props.theme.colors.colorTritaryLight};
+      font-size: 2.2rem;
+      font-weight: 500;
     }
   }
 
   .option-box {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 1.2rem;
+    row-gap: 1.2rem;
+    column-gap: 1.8rem;
   }
 
   .options {
-    background-color: ${colorGreyDark300};
-    color: ${colorWhite};
+    background-color: ${(props) => props.theme.colors.colorBlack400};
+    color: inherit;
     border: none;
     padding: 1.2rem 0;
     border-radius: 999px;
-    font-size: ${defaultFontSize};
+    font-size: 2rem;
     transition: all 0.3s;
     &:hover {
-      background-color: ${colorTritary};
+      background-color: ${(props) => props.theme.colors.colorTritary};
       transform: scale(1.03);
     }
   }
 
   .option {
-    background-color: ${colorTritary};
+    background-color: ${(props) => props.theme.colors.colorTritary};
   }
 
   .questions-box {
@@ -185,34 +166,6 @@ const AptitudeContainer = styled.div`
     justify-content: center;
     gap: 4.8rem;
     padding: 0 9.6rem;
-  }
-`;
-
-const Button = styled.button`
-  width: 100%;
-  height: 5.2rem;
-  border: none;
-  border-radius: 11px;
-  cursor: pointer;
-  color: ${colorWhite};
-  font-size: 2rem;
-  font-weight: 600;
-  transition: all 0.3s;
-  background-color: ${(props) => {
-    switch (props.color) {
-      case 'green':
-        return colorTritary;
-      case 'red':
-        return colorRed;
-      case 'blue':
-        return colorSecondary;
-      default:
-        return colorTritary;
-    }
-  }};
-
-  &:hover {
-    transform: scale(1.04);
   }
 `;
 

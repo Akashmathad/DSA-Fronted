@@ -1,5 +1,3 @@
-import styled from 'styled-components';
-import { colorBlack, colorTritary, colorWhite } from '../../styles/colors';
 import { IoCloseOutline } from 'react-icons/io5';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../App';

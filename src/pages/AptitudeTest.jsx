@@ -176,7 +176,7 @@ function AptitudeTest() {
 const Container = styled.div`
   width: 100%;
   height: 100vh;
-  background-color: ${colorBlack};
+  background-color: ${(props) => props.theme.colors.colorBlack100};
 `;
 
 export default AptitudeTest;

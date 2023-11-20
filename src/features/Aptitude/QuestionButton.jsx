@@ -1,27 +1,24 @@
 import { useContext } from 'react';
 import { AptitudeContext } from '../../pages/AptitudeTest';
 import styled from 'styled-components';
-import {
-  colorGreyDark300,
-  colorTritary,
-  colorTritaryLightest,
-} from '../../styles/colors';
 
 const Button = styled.button`
   height: 3rem;
   width: 3rem;
-  color: ${colorTritaryLightest};
+  color: ${(props) => props.theme.colors.colorTritaryLightest};
 
   background-color: ${(props) =>
-    props.green === 'green' ? colorTritary : colorGreyDark300};
+    props.green === 'green'
+      ? props.theme.colors.colorTritary
+      : props.theme.colors.colorBlack200};
 
   border: none;
   border-radius: 4px;
   align-self: center;
   justify-self: center;
   cursor: pointer;
-  font-size: 1.4rem;
-  font-weight: 600;
+  font-size: 1.6rem;
+  font-weight: 500;
 `;
 
 function QuestionButton({ num }) {
