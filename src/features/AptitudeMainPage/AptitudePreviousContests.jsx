@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
-import styled from 'styled-components';
 import { AuthContext } from '../../App';
-import PreviousContestCard from './PreviousContestCard';
+import PreviousContestCard from './AptitudePreviousContestCard';
+import AptitudePreviousContestCard from './AptitudePreviousContestCard';
 
 const data = [
   {
@@ -18,7 +18,7 @@ const data = [
   },
 ];
 
-function PreviousContests() {
+function AptitudePreviousContests() {
   const [contests, setContests] = useState();
   const { jwt } = useContext(AuthContext);
   useEffect(
@@ -49,38 +49,21 @@ function PreviousContests() {
 
   return (
     <>
-      <PreviousContestsContainer>
+      <div className="previous-contests-container">
         <h3 className="heading">Previous Contests</h3>
         <div className="contest-box">
           {contests &&
             contests.map((contest) => (
-              <PreviousContestCard
+              <AptitudePreviousContestCard
                 key={contest.contestNumber}
                 contestName={contest.contestName}
                 contestNumber={contest.contestNumber}
               />
             ))}
         </div>
-      </PreviousContestsContainer>
+      </div>
     </>
   );
 }
 
-const PreviousContestsContainer = styled.div`
-  width: 100%;
-  height: 100%;
-  max-width: 130rem;
-  margin: 0 auto;
-  padding: 3.2rem 0;
-  display: flex;
-  flex-direction: column;
-  gap: 2.4rem;
-
-  .contest-box {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 2.4rem;
-  }
-`;
-
-export default PreviousContests;
+export default AptitudePreviousContests;

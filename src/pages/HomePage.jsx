@@ -8,7 +8,7 @@ function HomePage() {
     <div className="background">
       <div className="height">
         <Container>
-          <div>
+          <div className="website-heading">
             <h2 className="primary-heading padding-top">
               Your go-to resource for
             </h2>
@@ -50,6 +50,11 @@ const Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+
+  .website-heading {
+    margin-top: -10rem;
+  }
+
   .primary-heading {
     padding: 0 12.8rem;
     font-size: 6.4rem;

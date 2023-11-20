@@ -3,7 +3,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../App';
 import AptiQuestion from './AptiQuestion';
 
-function PreviousContest({ contestNumber, setOpen }) {
+function AptitudePreviousContest({ contestNumber, setOpen }) {
   const { jwt } = useContext(AuthContext);
   const [questions, setQuestions] = useState();
   const [contestName, setContestName] = useState();
@@ -50,4 +50,4 @@ function PreviousContest({ contestNumber, setOpen }) {
   );
 }
 
-export default PreviousContest;
+export default AptitudePreviousContest;

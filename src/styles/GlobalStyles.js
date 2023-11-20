@@ -277,6 +277,14 @@ body {
   }
 
 // aptitude and dsa main pages
+
+.main-page-container{
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .heading {
     font-size: 3rem;
     font-weight: 500;
@@ -308,6 +316,18 @@ body {
     font-size: 4.4rem;
     margin-top: 2rem;
   }
+
+  .previous-test-box {
+    width: 140rem;
+    height: 100%;
+    margin: 0 auto;
+    border-top: 1px solid ${(props) => props.theme.colors.colorPrimaryLight};
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
+  }
   //current contests
   .current-contest-container{
     width: 100%;
@@ -321,6 +341,23 @@ body {
   }
 
   // previous contests
+.previous-contests-container{
+  width: 100%;
+  height: 100%;
+  max-width: 130rem;
+  margin: 0 auto;
+  padding: 3.2rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+}
+
+.contest-box {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2.4rem;
+  }
+
   .previous-contest-container{
     position: absolute;
   top: 0;
@@ -385,7 +422,7 @@ body {
   justify-content: center;
 }
 
-.heading {
+.test-heading {
     color: ${(props) => props.theme.colors.colorTritary};
     font-size: 7.4rem;
     font-weight: 500;

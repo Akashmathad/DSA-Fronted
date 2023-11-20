@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../App';
 import { Link } from 'react-router-dom';
 
-function CurrentContests() {
+function AptitudeCurrentContests() {
   const [contestName, setContestName] = useState();
   const { jwt } = useContext(AuthContext);
 
@@ -46,4 +46,4 @@ function CurrentContests() {
     </div>
   );
 }
-export default CurrentContests;
+export default AptitudeCurrentContests;

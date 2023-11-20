@@ -7,7 +7,7 @@ function Ready() {
   const { questions, dispatch } = useContext(AptitudeContext);
   return (
     <div className="ready-container">
-      <div className="heading">Aptitude Test</div>
+      <div className="test-heading">Aptitude Test</div>
       <div className="rules-box">
         <p className="rules-heading">Rules:</p>
         <ul className="rules">

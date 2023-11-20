@@ -9,9 +9,9 @@ import { createContext, useEffect, useState } from 'react';
 import LeaderShip from './pages/LeaderShip';
 import Profile from './pages/Profile';
 import AptitudeMainPage from './pages/AptitudeMainPage';
-import DSATest from './pages/DSATest';
 import Theme from './styles/Theme';
 import GlobalStyles from './styles/GlobalStyles';
+import DSAMainPage from './pages/DSAMainPage';
 
 export const AuthContext = createContext();
 
@@ -49,12 +49,13 @@ function App() {
             <Route element={<AppLayout />}>
               <Route index element={<HomePage />} />
               <Route path="/aptitude" element={<AptitudeMainPage />} />
+              <Route path="/dsa-test" element={<DSAMainPage />} />
               <Route path="/results" element={<Results />} />
               <Route path="/leaderShip" element={<LeaderShip />} />
               <Route path="/profile" element={<Profile />} />
             </Route>
             <Route path="/aptitude-test" element={<AptitudeTest />} />
-            <Route path="/dsa-test" element={<DSATest />} />
+
             <Route
               path="/register"
               element={<Register setUsnAndJwt={setUsnAndJwt} />}
