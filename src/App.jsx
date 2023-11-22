@@ -3,6 +3,7 @@ import './App.css';
 import AppLayout from './utils/AppLayout';
 import HomePage from './pages/HomePage';
 import AptitudeTest from './pages/AptitudeTest';
+import DSATest from './pages/DSATest';
 import Results from './pages/Results';
 import Register from './pages/Register';
 import { createContext, useEffect, useState } from 'react';
@@ -49,12 +50,13 @@ function App() {
             <Route element={<AppLayout />}>
               <Route index element={<HomePage />} />
               <Route path="/aptitude" element={<AptitudeMainPage />} />
-              <Route path="/dsa-test" element={<DSAMainPage />} />
+              <Route path="/dsa" element={<DSAMainPage />} />
               <Route path="/results" element={<Results />} />
               <Route path="/leaderShip" element={<LeaderShip />} />
               <Route path="/profile" element={<Profile />} />
             </Route>
             <Route path="/aptitude-test" element={<AptitudeTest />} />
+            <Route path="/dsa-test" element={<DSATest />} />
 
             <Route
               path="/register"

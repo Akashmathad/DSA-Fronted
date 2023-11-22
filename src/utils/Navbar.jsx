@@ -15,7 +15,7 @@ function Navbar() {
   return (
     <nav>
       <NavList>
-        <NavLink className="items" to="/dsa-test">
+        <NavLink className="items" to="/dsa">
           DSA
         </NavLink>
         <NavLink className="items" to="/aptitude">

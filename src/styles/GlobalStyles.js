@@ -303,6 +303,11 @@ body {
     cursor: pointer;
     text-decoration: none;
     position: relative;
+    transition: all 0.3s;
+
+    &:hover{
+      transform: scale(1.05);
+    }
   }
 
   .contest-name {
