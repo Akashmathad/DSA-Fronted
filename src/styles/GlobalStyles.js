@@ -450,7 +450,7 @@ body {
     list-style: decimal;
     padding-left: 2.4rem;
     color: ${(props) => props.theme.colors.colorTritaryLightest};
-    font-size: 2rem;
+    font-size: 2.2rem;
     display: flex;
     flex-direction: column;
     gap: 2.4rem;

@@ -9,11 +9,6 @@ import {
   Legend,
   ResponsiveContainer,
 } from 'recharts';
-import {
-  colorPrimary,
-  colorPrimaryLightest,
-  colorTritary,
-} from '../../styles/colors';
 
 const data = [
   {
@@ -36,22 +31,9 @@ const data = [
     DSA: 2780,
     Aptitude: 3908,
   },
-  {
-    name: 'Contest - 05',
-    DSA: 1890,
-    Aptitude: 4800,
-  },
-  {
-    name: 'Contest - 06',
-    DSA: 2390,
-    Aptitude: 3800,
-  },
-  {
-    name: 'Contest - 07',
-    DSA: 3490,
-    Aptitude: 4300,
-  },
 ];
+
+console.log((props) => props.theme.colors.colorTritary);
 
 export default class Graph extends PureComponent {
   static demoUrl = 'https://codesandbox.io/s/simple-line-chart-kec3v';
@@ -72,24 +54,29 @@ export default class Graph extends PureComponent {
         >
           <CartesianGrid
             strokeDasharray="3 3"
-            fill={colorPrimaryLightest}
-            fillOpacity={0.05}
+            fill="#7c4fff"
+            fillOpacity={0.03}
+            stroke="rgba(197, 184, 229, 0.5)"
           />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
+          <XAxis dataKey="name" stroke="rgba(197, 184, 229, 0.7)" />
+          <YAxis stroke="rgba(197, 184, 229, 0.7)" />
+          <Tooltip
+            contentStyle={{
+              backgroundColor: '#080315',
+            }}
+          />
           <Legend />
           <Line
             type="monotone"
             dataKey="DSA"
-            stroke={colorPrimary}
+            stroke="#008cff"
             activeDot={{ r: 6 }}
             strokeWidth={2.5}
           />
           <Line
             type="monotone"
             dataKey="Aptitude"
-            stroke={colorTritary}
+            stroke="#00c2a8"
             strokeWidth={2.5}
           />
         </LineChart>

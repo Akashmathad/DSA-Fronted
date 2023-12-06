@@ -10,7 +10,6 @@ import Aptitude from '../features/Aptitude/Aptitude';
 import Finished from '../features/Aptitude/Finished';
 import Error from '../features/Aptitude/Error';
 import styled from 'styled-components';
-import { colorBlack, colorGreyDark500 } from '../styles/colors';
 import { AuthContext } from '../App';
 
 const initialState = {

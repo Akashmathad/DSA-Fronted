@@ -1,43 +1,40 @@
 import { useContext } from 'react';
 import { DSAContext } from '../../pages/DSATest';
 import styled from 'styled-components';
-import {
-  colorGreyDark500,
-  colorRed,
-  colorSecondary,
-  colorTritary,
-  colorWhite,
-} from '../../styles/colors';
 
 import DSATimer from './DSATimer';
 
 import IDE from './IDE';
-
-function exitFullscreen() {
-  if (document.exitFullscreen) {
-    document.exitFullscreen();
-  } else if (document.mozCancelFullScreen) {
-    document.mozCancelFullScreen();
-  } else if (document.webkitExitFullscreen) {
-    document.webkitExitFullscreen();
-  } else if (document.msExitFullscreen) {
-    document.msExitFullscreen();
-  }
-}
+import Button from '../../utils/Button';
+import { exitFullscreen } from '../../utils/screenExitHandler';
 
 function DSA() {
-  const { questions, index, dispatch, contestName } = useContext(DSAContext);
-
+  const { questions, results, index, dispatch, contestName, open } =
+    useContext(DSAContext);
   const question = questions[index];
+  const result = results[index];
+
   return (
     <DSAContainer>
-      <h2 className="heading">DSA - 01</h2>
+      <h2 className="heading">{contestName}</h2>
       <div className="dsa-box">
         <div className="dsa-question-boxes">
-          <div className="dsa-question-box">
-            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Maiores,
-            itaque.
-          </div>
+          {open && (
+            <div className="dsa-question-box">
+              <p className="question-description">
+                <span className="question-number">
+                  {question.questionNumber}.{' '}
+                </span>
+                {question.questionDescription}
+              </p>
+              <div className="test-case-box">
+                <p className="test-case">{question.TestCase1}</p>
+                <p className="test-case">{question.TestCase2}</p>
+                <p className="test-case">{question.TestCase2}</p>
+              </div>
+            </div>
+          )}
+          {!open && <div className="dsa-question-box">{result.message}</div>}
           <div className="dsa-control-box">
             <div className="dsa-buttons">
               {index !== 0 && (
@@ -50,7 +47,7 @@ function DSA() {
               )}
               {index !== questions.length - 1 && (
                 <Button
-                  color="green"
+                  color="blue"
                   onClick={() => dispatch({ type: 'nextQuestion' })}
                 >
                   Next
@@ -58,7 +55,7 @@ function DSA() {
               )}
               {index === questions.length - 1 && (
                 <Button
-                  color="blue"
+                  color="green"
                   onClick={() => {
                     exitFullscreen();
                     dispatch({ type: 'check' });
@@ -77,6 +74,7 @@ function DSA() {
               </div>
             </div>
           </div>
+          {result.status && <p className="completed">Completed!</p>}
         </div>
         <div className="dsa">
           <IDE />
@@ -98,11 +96,11 @@ const DSAContainer = styled.div`
     text-align: center;
     font-size: 4rem;
     padding: 1.2rem 0;
-    color: ${colorSecondary};
-    background-color: ${colorGreyDark500};
+    color: ${(props) => props.theme.colors.colorSecondary};
+    background-color: ${(props) => props.theme.colors.colorBlack100};
     font-weight: 500;
     border-radius: 11px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 140, 255, 0.1);
   }
 
   .dsa-box {
@@ -116,12 +114,31 @@ const DSAContainer = styled.div`
     display: grid;
     grid-template-rows: 76fr 24fr;
     gap: 1.2rem;
+    position: relative;
   }
 
   .dsa-question-box {
-    background-color: ${colorGreyDark500};
+    background-color: ${(props) => props.theme.colors.colorBlack100};
     border-radius: 11px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 140, 255, 0.1);
+    padding: 2.4rem;
+    color: ${(props) => props.theme.colors.colorSecondaryLightest};
+    font-size: ${(props) => props.theme.fontSizes.small};
+    display: flex;
+    flex-direction: column;
+    gap: 2.4rem;
+
+    .question-number {
+      color: ${(props) => props.theme.colors.colorSecondaryLight};
+      font-size: 2.2rem;
+    }
+
+    .test-case-box {
+      padding-left: 1.6rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
   }
 
   .dsa-control-box {
@@ -131,9 +148,9 @@ const DSAContainer = styled.div`
   }
 
   .dsa-buttons {
-    background-color: ${colorGreyDark500};
+    background-color: ${(props) => props.theme.colors.colorBlack100};
     border-radius: 11px;
-    border: 1px solid rgb(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 140, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -150,22 +167,30 @@ const DSAContainer = styled.div`
   }
 
   .dsa-run {
-    background-color: ${colorGreyDark500};
+    background-color: ${(props) => props.theme.colors.colorBlack100};
     border-radius: 11px;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 140, 255, 0.1);
     display: flex;
     align-items: center;
     justify-content: center;
   }
 
+  .completed {
+    color: ${(props) => props.theme.colors.colorTritaryLight};
+    font-size: 2.2rem;
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+  }
+
   .run-button {
     height: 5.2rem;
     width: 18rem;
-    background-color: ${colorTritary};
+    background-color: ${(props) => props.theme.colors.colorTritary};
     border: none;
+    color: inherit;
     font-size: 2rem;
     font-weight: 600;
-    color: ${colorWhite};
     border-radius: 11px;
     cursor: pointer;
     transition: all 0.3s;
@@ -176,38 +201,11 @@ const DSAContainer = styled.div`
   }
 
   .dsa {
-    background-color: ${colorGreyDark500};
+    background-color: ${(props) => props.theme.colors.colorBlack100};
     height: 100%;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(0, 140, 255, 0.1);
     border-radius: 11px;
-  }
-`;
-
-const Button = styled.button`
-  width: 100%;
-  height: 5.2rem;
-  border: none;
-  border-radius: 11px;
-  cursor: pointer;
-  color: ${colorWhite};
-  font-size: 2rem;
-  font-weight: 600;
-  transition: all 0.3s;
-  background-color: ${(props) => {
-    switch (props.color) {
-      case 'green':
-        return colorSecondary;
-      case 'red':
-        return colorRed;
-      case 'blue':
-        return colorTritary;
-      default:
-        return colorSecondary;
-    }
-  }};
-
-  &:hover {
-    transform: scale(1.04);
+    overflow: hidden;
   }
 `;
 

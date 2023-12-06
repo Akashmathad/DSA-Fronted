@@ -5,8 +5,6 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../App';
 
-let once = true;
-
 function Finished() {
   const [points, setPoints] = useState(0);
   const {
@@ -41,32 +39,29 @@ function Finished() {
             : null
         );
         setPoints(newPoints);
-        if (once) {
-          console.log({
-            contestName,
-            points: newPoints,
-            timeLeft: secondsRemaining,
-          });
-          const request = await fetch(
-            `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/profile/${contestNumber}/${usn}`,
-            {
-              method: 'PATCH',
-              headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${jwt}`,
-              },
-              body: JSON.stringify({
-                contestName,
-                points: newPoints,
-                timeLeft: secondsRemaining,
-              }),
-            }
-          );
-          const data2 = await request.json();
-          console.log(data2);
-          once = false;
-        }
 
+        console.log({
+          contestName,
+          points: newPoints,
+          timeLeft: secondsRemaining,
+        });
+        const request = await fetch(
+          `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/profile/${contestNumber}/${usn}`,
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${jwt}`,
+            },
+            body: JSON.stringify({
+              contestName,
+              points: newPoints,
+              timeLeft: secondsRemaining,
+            }),
+          }
+        );
+        const data2 = await request.json();
+        console.log(data2);
         dispatch({ type: 'finish' });
       } catch (e) {
         console.log(e);

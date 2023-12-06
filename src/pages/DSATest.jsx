@@ -1,10 +1,17 @@
-import { createContext, useEffect, useReducer, useState } from 'react';
+import {
+  createContext,
+  useContext,
+  useEffect,
+  useReducer,
+  useState,
+} from 'react';
 import styled from 'styled-components';
 import { colorBlack } from '../styles/colors';
 import DSAReady from '../features/DSA/DSAReady';
 import DSA from '../features/DSA/DSA';
 import DSAFinished from '../features/DSA/DSAFinished';
 import Error from '../features/Aptitude/Error';
+import { AuthContext } from '../App';
 
 const question = [
   { q1: 'kdineng' },
@@ -67,12 +74,17 @@ public:
 ];
 
 const initialState = {
-  questions: question,
-  starterCodes,
+  questions: null,
+  starterCodes: null,
   language: 'java',
   status: 'setup',
   index: 0,
   ans: [{}, {}, {}],
+  results: [
+    { status: false, message: 'Not submitted yet!' },
+    { status: false, message: 'Not submitted yet!' },
+    { status: false, message: 'Not submitted yet!' },
+  ],
   secondsRemaining: null,
 };
 
@@ -82,7 +94,7 @@ function reducer(state, action) {
       return {
         ...state,
         questions: action.payload[0],
-        staterCodes: action.payload[1],
+        starterCodes: action.payload[1],
         status: 'ready',
       };
 
@@ -106,6 +118,11 @@ function reducer(state, action) {
       return {
         ...state,
         ans: action.payload,
+      };
+    case 'setResult':
+      return {
+        ...state,
+        results: action.payload,
       };
     case 'check':
       return { ...state, status: 'checking' };
@@ -133,10 +150,65 @@ function handleFullscreenChange(dispatch) {
 export function DSATest() {
   const [contestNumber, setContestNumber] = useState();
   const [contestName, setContestName] = useState();
+  const [open, setOpen] = useState(true);
+  const { jwt } = useContext(AuthContext);
   const [
-    { questions, starterCodes, index, ans, secondsRemaining, status, language },
+    {
+      questions,
+      starterCodes,
+      index,
+      ans,
+      results,
+      secondsRemaining,
+      status,
+      language,
+    },
     dispatch,
   ] = useReducer(reducer, initialState);
+
+  useEffect(
+    function () {
+      async function fetchData() {
+        try {
+          if (!jwt) return;
+          const req = await fetch(
+            'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/dsa/questions',
+            {
+              method: 'GET',
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+              },
+            }
+          );
+          const data = await req.json();
+
+          const req1 = await fetch(
+            'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/dsa/getStarter',
+            {
+              method: 'GET',
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+              },
+            }
+          );
+          const data1 = await req1.json();
+          setContestNumber(data.data.results[0].contestNumber);
+          setContestName(data.data.results[0].contestName);
+          dispatch({
+            type: 'dataReceived',
+            payload: [
+              data.data.results[0].questions,
+              data1.data.results[0].starterCode,
+            ],
+          });
+        } catch (e) {
+          console.log(e);
+        }
+      }
+      fetchData();
+    },
+    [jwt]
+  );
 
   useEffect(() => {
     // Add event listeners for the fullscreenchange and keydown events
@@ -167,15 +239,19 @@ export function DSATest() {
     <DSATestContainer>
       <DSAContext.Provider
         value={{
+          status,
           questions,
           starterCodes,
           index,
           ans,
+          results,
           language,
           secondsRemaining,
           dispatch,
           contestName,
           contestNumber,
+          open,
+          setOpen,
         }}
       >
         {status === 'setup' && <DSAReady />}

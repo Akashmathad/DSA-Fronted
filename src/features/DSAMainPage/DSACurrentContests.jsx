@@ -6,27 +6,30 @@ function DSACurrentContests() {
   const [contestName, setContestName] = useState();
   const { jwt } = useContext(AuthContext);
 
-  useEffect(function () {
-    async function fetchData() {
-      try {
-        if (!jwt) return;
-        const req = await fetch(
-          'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/dsa/questions?fields=contestName,-_id',
-          {
-            method: 'GET',
-            headers: {
-              Authorization: `Bearer ${jwt}`,
-            },
-          }
-        );
-        const data = await req.json();
-        setContestName(data.data.results[0].contestName);
-      } catch (e) {
-        console.log(e);
+  useEffect(
+    function () {
+      async function fetchData() {
+        try {
+          if (!jwt) return;
+          const req = await fetch(
+            'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/dsa/questions?fields=contestName,-_id',
+            {
+              method: 'GET',
+              headers: {
+                Authorization: `Bearer ${jwt}`,
+              },
+            }
+          );
+          const data = await req.json();
+          setContestName(data.data.results[0].contestName);
+        } catch (e) {
+          console.log(e);
+        }
       }
-    }
-    fetchData();
-  }, []);
+      fetchData();
+    },
+    [jwt]
+  );
   return (
     <div className="current-contest-container">
       <h3 className="heading">Current Contests</h3>

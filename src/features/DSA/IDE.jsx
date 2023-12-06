@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { DSAContext } from '../../pages/DSATest';
 import styled from 'styled-components';
 function IDE() {
-  const { ans, starterCodes, index, language, dispatch } =
+  const { ans, starterCodes, index, language, dispatch, setOpen } =
     useContext(DSAContext);
 
   const options = {
@@ -32,9 +32,9 @@ function IDE() {
 
   return (
     <IDEContainer>
-      <div>
+      <div className="dsa-controls-box">
         <select
-          className="select-language"
+          className="select-language dsa-controls"
           name="language"
           id="language"
           value={language}
@@ -46,6 +46,13 @@ function IDE() {
           <option value="cpp">C++</option>
           <option value="python">Python</option>
         </select>
+
+        <button className="dsa-controls" onClick={() => setOpen(true)}>
+          Question
+        </button>
+        <button className="dsa-controls" onClick={() => setOpen(false)}>
+          Result
+        </button>
       </div>
       <Editor
         key={`${language}-${index}`}
@@ -69,6 +76,30 @@ const IDEContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: 1.2rem;
+
+  .dsa-controls-box {
+    padding-top: 1.2rem;
+    padding-left: 1.2rem;
+    display: flex;
+    gap: 2.4rem;
+  }
+
+  .dsa-controls {
+    padding: 0.9rem 3.2rem;
+    background-color: ${(props) => props.theme.colors.colorBlack200};
+    color: inherit;
+    font-family: inherit;
+    border: 1px solid rgba(0, 140, 255, 0.2);
+    border-radius: 11px;
+    font-size: ${(props) => props.theme.fontSizes.small};
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: ${(props) => props.theme.colors.colorBlack400};
+    }
+  }
 `;
 
 export default IDE;

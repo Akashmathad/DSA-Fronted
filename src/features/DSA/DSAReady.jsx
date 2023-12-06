@@ -1,43 +1,26 @@
 import { useContext } from 'react';
 import styled from 'styled-components';
-import {
-  colorPrimaryLightest,
-  colorSecondary,
-  colorSecondaryDarkest,
-  colorSecondaryLight,
-  colorWhite,
-} from '../../styles/colors';
-import { defaultFontSize } from '../../styles/defaults';
 import { DSAContext } from '../../pages/DSATest';
-
-function requestFullscreen() {
-  const element = document.documentElement;
-  if (element.requestFullscreen) {
-    element.requestFullscreen();
-  } else if (element.mozRequestFullScreen) {
-    element.mozRequestFullScreen();
-  } else if (element.webkitRequestFullscreen) {
-    element.webkitRequestFullscreen();
-  } else if (element.msRequestFullscreen) {
-    element.msRequestFullscreen();
-  }
-}
+import { requestFullscreen } from '../../utils/screenExitHandler';
+import Button from '../../utils/Button';
 
 function DSAReady() {
-  const { status, dispatch } = useContext(DSAContext);
+  const { status, questions, dispatch } = useContext(DSAContext);
+  console.log(status, questions);
   return (
-    <ReadyContainer>
-      <div className="heading">DSA Test</div>
+    <ReadyContainer className="ready-container">
+      <div className="test-heading">DSA Test</div>
       <div className="rules-box">
         <p className="rules-heading">Rules:</p>
         <ul className="rules">
           <li className="rule">
             Test contains <span className="rule-important">3</span> questions
-            with time limit of <span className="rule-important">X</span>.
+            with time limit of{' '}
+            <span className="rule-important">60 minutes</span>.
           </li>
           <li className="rule">
             Each correct answer carries{' '}
-            <span className="rule-important">20</span> points
+            <span className="rule-important">20 points</span>
           </li>
           <li className="rule">
             U are not allowed to exit{' '}
@@ -52,90 +35,33 @@ function DSAReady() {
           </li>
         </ul>
       </div>
-      {/* {status === 'ready' && (
-        <button
-          className="start"
+      {status === 'ready' && (
+        <Button
+          color="blue"
+          className="test-start"
           onClick={() => {
             requestFullscreen();
             dispatch({ type: 'start' });
           }}
         >
           Start&rarr;
-        </button>
-      )} */}
-      <button
-        className="start"
-        onClick={() => {
-          requestFullscreen();
-          dispatch({ type: 'start' });
-        }}
-      >
-        Start&rarr;
-      </button>
+        </Button>
+      )}
     </ReadyContainer>
   );
 }
 
 const ReadyContainer = styled.div`
-  width: 100%;
-  padding: 9.6rem;
-  display: flex;
-  flex-direction: column;
-  gap: 9.6rem;
-  align-items: center;
-  justify-content: center;
-
-  .heading {
-    color: ${colorSecondary};
-    font-size: 7.4rem;
-    font-weight: 600;
-    letter-spacing: 1.5px;
-  }
-
-  .rules-box {
-    display: flex;
-    flex-direction: column;
-    gap: 2.4rem;
+  .test-heading {
+    color: ${(props) => props.theme.colors.colorSecondary};
   }
 
   .rules-heading {
-    font-size: ${defaultFontSize};
-    color: ${colorSecondaryLight};
-    font-weight: 700;
-  }
-
-  .rules {
-    list-style: decimal;
-    padding-left: 2.4rem;
-    color: ${colorPrimaryLightest};
-    font-size: 2rem;
-    display: flex;
-    flex-direction: column;
-    gap: 2.4rem;
+    color: ${(props) => props.theme.colors.colorSecondaryLight};
   }
 
   .rule-important {
-    color: ${colorSecondaryLight};
-    font-weight: 700;
-  }
-
-  .start {
-    background-color: ${colorSecondary};
-    color: ${colorWhite};
-    padding: 1.2rem 4.8rem;
-    font-size: 2.2rem;
-    letter-spacing: 1.5px;
-    border: none;
-    border-radius: 11px;
-    transition: all 0.3s;
-    cursor: pointer;
-
-    &:hover,
-    &:active {
-      background-color: ${colorSecondary};
-      color: ${colorSecondaryDarkest};
-      transform: scale(1.1);
-    }
+    color: ${(props) => props.theme.colors.colorSecondaryLight};
   }
 `;
 
