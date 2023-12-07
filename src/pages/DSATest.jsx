@@ -79,12 +79,8 @@ const initialState = {
   language: 'java',
   status: 'setup',
   index: 0,
-  ans: [{}, {}, {}],
-  results: [
-    { status: false, message: 'Not submitted yet!' },
-    { status: false, message: 'Not submitted yet!' },
-    { status: false, message: 'Not submitted yet!' },
-  ],
+  ans: [],
+  results: [],
   secondsRemaining: null,
 };
 
@@ -104,8 +100,14 @@ function reducer(state, action) {
     case 'start':
       return {
         ...state,
+        results: [
+          { status: false, message: 'Not submitted yet!', error: false },
+          { status: false, message: 'Not submitted yet!', error: false },
+          { status: false, message: 'Not submitted yet!', error: false },
+        ],
+        ans: [{}, {}, {}],
         status: 'active',
-        secondsRemaining: 900,
+        secondsRemaining: 9000,
       };
 
     case 'nextQuestion':

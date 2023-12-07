@@ -46,7 +46,7 @@ function Finished() {
           timeLeft: secondsRemaining,
         });
         const request = await fetch(
-          `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/profile/${contestNumber}/${usn}`,
+          `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/profile/aptitude/${contestNumber}/${usn}`,
           {
             method: 'PATCH',
             headers: {

@@ -26,15 +26,15 @@ function HomePage() {
               <SiLinkedin className="social-icons" />
               <FaXTwitter className="social-icons" />
               <GrInstagram className="social-icons" />
-              <p className="name">@Ganesh Margale</p>
+              <p className="name">@Akash Mathad</p>
+              <div className="gradient-circle bottom"></div>
             </div>
             <div className="copyright">&copy; All rights reserved</div>
             <div className="about-us">
               <SiLinkedin className="social-icons" />
               <FaXTwitter className="social-icons" />
               <GrInstagram className="social-icons" />
-              <p className="name">@Akash Mathad</p>
-              <div className="gradient-circle bottom"></div>
+              <p className="name">@Ganesh Margale</p>
             </div>
           </Footer>
         </Container>
@@ -97,6 +97,10 @@ const Footer = styled.div`
     cursor: pointer;
     font-size: 2.4rem;
     color: ${(props) => props.theme.colors.colorPrimaryLight};
+    transition: all 0.3s;
+    &:hover {
+      color: ${(props) => props.theme.colors.colorWhite};
+    }
   }
 
   .name {

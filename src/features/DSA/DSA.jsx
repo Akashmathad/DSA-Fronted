@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { lazy, useContext } from 'react';
 import { DSAContext } from '../../pages/DSATest';
 import styled from 'styled-components';
 
@@ -7,12 +7,73 @@ import DSATimer from './DSATimer';
 import IDE from './IDE';
 import Button from '../../utils/Button';
 import { exitFullscreen } from '../../utils/screenExitHandler';
+import CodeResult from './CodeResult';
+import { AuthContext } from '../../App';
 
 function DSA() {
-  const { questions, results, index, dispatch, contestName, open } =
-    useContext(DSAContext);
+  const {
+    questions,
+    results,
+    index,
+    ans,
+    language,
+    dispatch,
+    contestNumber,
+    contestName,
+    open,
+    setOpen,
+  } = useContext(DSAContext);
+  const { jwt } = useContext(AuthContext);
   const question = questions[index];
   const result = results[index];
+
+  async function setResult() {
+    setOpen(false);
+    const solution = JSON.stringify({ solution: ans[index][language] });
+    try {
+      if (!jwt) return;
+      const req = await fetch(
+        `http://127.0.0.1:4000/api/v1/aptitude-dsa/program/complie/${contestNumber}/${language}/${
+          index + 1
+        }`,
+        {
+          method: 'POST',
+          headers: {
+            'content-Type': 'application/json',
+            authorization: `Bearer ${jwt}`,
+          },
+          body: solution,
+        }
+      );
+      const data = await req.json();
+      console.log(data.status);
+      if (data.status === 'error') {
+        const newResults = [...results];
+        newResults[index].error = true;
+        newResults[index].status = false;
+        newResults[index].message = data.message;
+        console.log(newResults);
+        dispatch({ type: 'setResult', payload: newResults });
+      } else {
+        const tests = data.results;
+        const varifyTests = tests.filter((test) => test.Result === 'Fail');
+        const success = varifyTests.length === 0 ? true : false;
+        const newResults = [...results];
+        newResults[index].status = success;
+        newResults[index].message = data.message;
+        newResults[index].tests = tests;
+        newResults[index].error = false;
+        dispatch({ type: 'setResult', payload: newResults });
+      }
+    } catch (e) {
+      console.log(e);
+    }
+
+    // const newResults = [...results];
+    // newResults[index].status = true;
+    // newResults[index].message = 'Submitted';
+    // dispatch({ type: 'setResult', payload: newResults });
+  }
 
   return (
     <DSAContainer>
@@ -34,7 +95,11 @@ function DSA() {
               </div>
             </div>
           )}
-          {!open && <div className="dsa-question-box">{result.message}</div>}
+          {!open && (
+            <div className="dsa-question-box">
+              <CodeResult />
+            </div>
+          )}
           <div className="dsa-control-box">
             <div className="dsa-buttons">
               {index !== 0 && (
@@ -70,7 +135,9 @@ function DSA() {
                 <DSATimer />
               </div>
               <div className="dsa-run">
-                <button className="run-button">Run</button>
+                <button className="run-button" onClick={setResult}>
+                  Run
+                </button>
               </div>
             </div>
           </div>

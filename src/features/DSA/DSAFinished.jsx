@@ -1,17 +1,60 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { DSAContext } from '../../pages/DSATest';
+import { AuthContext } from '../../App';
 function DSAFinished() {
   const [points, setPoints] = useState(0);
   const {
     status,
-    ans,
     dispatch,
     secondsRemaining,
     contestName,
     contestNumber,
+    results,
   } = useContext(DSAContext);
+  const { usn, jwt } = useContext(AuthContext);
+
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        let newPoints = 0;
+        results.map((result) => (result.status ? (newPoints += 20) : null));
+        setPoints(newPoints);
+
+        console.log({
+          contestName,
+          points: newPoints,
+          timeLeft: secondsRemaining,
+        });
+        const request = await fetch(
+          `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/profile/dsa/${contestNumber}/${usn}`,
+          {
+            method: 'PATCH',
+            headers: {
+              'Content-Type': 'application/json',
+              Authorization: `Bearer ${jwt}`,
+            },
+            body: JSON.stringify({
+              contestName,
+              points: newPoints,
+              timeLeft: secondsRemaining,
+            }),
+          }
+        );
+        const data = await request.json();
+        console.log(data);
+        dispatch({ type: 'finish' });
+      } catch (e) {
+        console.log(e);
+        //dispatch({ type: 'dataFailed' });
+      }
+    }
+    fetchData();
+  }, [jwt]);
+
+  console.log(points);
+
   return (
     <DSAFinishedContainer className="finished-container">
       <div>
@@ -22,8 +65,7 @@ function DSAFinished() {
           You have scored <span className="points">{points}</span> points
         </p>
       </div>
-      {/* {status === 'finished' && <Button to="/">Return</Button>} */}
-      <Button to="/">Return</Button>
+      {status === 'finished' && <Button to="/">Return</Button>}
     </DSAFinishedContainer>
   );
 }

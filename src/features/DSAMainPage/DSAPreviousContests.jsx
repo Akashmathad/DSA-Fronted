@@ -50,16 +50,19 @@ function DSAPreviousContests() {
   return (
     <div className="previous-contests-container">
       <h3 className="heading">Previous Contests</h3>
-      <div className="contest-box">
-        {contests &&
-          contests.map((contest) => (
+      {contests ? (
+        <div className="contest-box">
+          {contests.map((contest) => (
             <DSAPreviousContestCard
               key={contest.contestNumber}
               contestName={contest.contestName}
               contestNumber={contest.contestNumber}
             />
           ))}
-      </div>
+        </div>
+      ) : (
+        <p className="contest-message">No contests available!!</p>
+      )}
     </div>
   );
 }
