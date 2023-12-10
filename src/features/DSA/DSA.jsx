@@ -1,4 +1,4 @@
-import { lazy, useContext } from 'react';
+import { useContext } from 'react';
 import { DSAContext } from '../../pages/DSATest';
 import styled from 'styled-components';
 
@@ -68,11 +68,6 @@ function DSA() {
     } catch (e) {
       console.log(e);
     }
-
-    // const newResults = [...results];
-    // newResults[index].status = true;
-    // newResults[index].message = 'Submitted';
-    // dispatch({ type: 'setResult', payload: newResults });
   }
 
   return (
@@ -113,7 +108,10 @@ function DSA() {
               {index !== questions.length - 1 && (
                 <Button
                   color="blue"
-                  onClick={() => dispatch({ type: 'nextQuestion' })}
+                  onClick={() => {
+                    setOpen(true);
+                    dispatch({ type: 'nextQuestion' });
+                  }}
                 >
                   Next
                 </Button>

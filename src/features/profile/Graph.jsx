@@ -40,7 +40,7 @@ export default class Graph extends PureComponent {
 
   render() {
     return (
-      <ResponsiveContainer width="70%" height="50%">
+      <ResponsiveContainer width="95%" height="90%">
         <LineChart
           width={500}
           height={300}

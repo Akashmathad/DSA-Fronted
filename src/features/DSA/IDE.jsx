@@ -3,7 +3,7 @@ import { useContext } from 'react';
 import { DSAContext } from '../../pages/DSATest';
 import styled from 'styled-components';
 function IDE() {
-  const { ans, starterCodes, index, language, dispatch, setOpen } =
+  const { ans, starterCodes, index, language, dispatch, open, setOpen } =
     useContext(DSAContext);
 
   const options = {
@@ -47,10 +47,16 @@ function IDE() {
           <option value="python">Python</option>
         </select>
 
-        <button className="dsa-controls" onClick={() => setOpen(true)}>
+        <button
+          className={`dsa-controls ${open ? 'blue' : ''}`}
+          onClick={() => setOpen(true)}
+        >
           Question
         </button>
-        <button className="dsa-controls" onClick={() => setOpen(false)}>
+        <button
+          className={`dsa-controls ${!open ? 'blue' : ''}`}
+          onClick={() => setOpen(false)}
+        >
           Result
         </button>
       </div>
@@ -99,6 +105,10 @@ const IDEContainer = styled.div`
     &:hover {
       background-color: ${(props) => props.theme.colors.colorBlack400};
     }
+  }
+
+  .blue {
+    background-color: ${(props) => props.theme.colors.colorSecondary};
   }
 `;
 

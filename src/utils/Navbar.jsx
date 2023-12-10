@@ -27,16 +27,16 @@ function Navbar() {
         <NavLink className="items" to="/leaderShip">
           Leadership Board
         </NavLink>
-        {usn && (
+        {
           <NavLink className="items" to="/profile">
             Profile
           </NavLink>
-        )}
-        {usn && (
+        }
+        {
           <NavLink className="button" to="/register">
             Register
           </NavLink>
-        )}
+        }
       </NavList>
     </nav>
   );

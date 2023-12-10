@@ -108,19 +108,21 @@ body {
 }
 
 .gradient-line {
-  width: 90%;
+  width: 80%;
   height: 1px;
   opacity: .8;
-  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #5a21ff, 100%, 56%) 25%, #c4b7e5 50%, #5a21ff 70%, rgba(0, 0, 0, 0);
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), #5a21ff 25%, #c4b7e5 50%, #5a21ff 70%, rgba(0, 0, 0, 0));
   position: absolute;
 }
 
 .gradient-line.top{
-  top: 0;
+  top: -1px;
+  right: 5px;
 }
 
 .gradient-line.bottom{
-  bottom: 0;
+  bottom: 0px;
+  left: 5px;
 }
 
 
