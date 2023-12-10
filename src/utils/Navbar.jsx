@@ -1,10 +1,5 @@
 import styled from 'styled-components';
-import {
-  colorPrimary,
-  colorPrimaryDark,
-  colorPrimaryLight,
-  colorWhite,
-} from '../styles/colors';
+
 import { NavLink } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../App';

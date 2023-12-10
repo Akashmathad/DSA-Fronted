@@ -2,13 +2,16 @@ import styled from 'styled-components';
 import Graph from '../features/profile/graph';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../App';
+import Loader from '../utils/Loader';
 
 function Profile() {
   const { usn, jwt } = useContext(AuthContext);
+  const [loader, setLoader] = useState(false);
   const [profile, setProfile] = useState();
   useEffect(
     function () {
       async function fetchData() {
+        setLoader(true);
         try {
           if (!jwt) return;
           const req = await fetch(
@@ -25,6 +28,7 @@ function Profile() {
         } catch (e) {
           console.log(e);
         }
+        setLoader(false);
       }
       fetchData();
     },
@@ -33,84 +37,88 @@ function Profile() {
   console.log(profile);
   return (
     <div className="height">
-      <ProfileContainer>
-        {profile && (
-          <>
-            <div className="personal-details-box background">
-              <div>
-                <h3 className="profile-heading">Personal Details</h3>
-                <div className="personal-details">
-                  <div className="detail-box">
-                    <p className="detail-heading">Name: </p>
-                    <p className="detail-text">{profile.name}</p>
-                  </div>
-                  <div className="detail-box">
-                    <p className="detail-heading">USN: </p>
-                    <p className="detail-text">{profile.usn.toUpperCase()}</p>
-                  </div>
-                  <div className="detail-box">
-                    <p className="detail-heading">Branch: </p>
-                    <p className="detail-text">
-                      {profile.branch.toUpperCase()}
-                    </p>
-                  </div>
-                  <div className="detail-box">
-                    <p className="detail-heading">Contact: </p>
-                    <p className="detail-text">{profile.contact}</p>
-                  </div>
-                  <div className="detail-box">
-                    <p className="detail-heading">Email: </p>
-                    <p className="detail-text">{profile.email}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="performance-details">
-              <div className="performance-box">
-                <h3 className="performance-heading">Performance</h3>
-                <div className="performance-card-box">
-                  <div className="performance-card">
-                    <div className="gradient-line top"></div>
-                    <p className="card-heading">Contests</p>
-                    <div>
-                      <p className="card-text">
-                        DSA:
-                        <span className="number">
-                          {profile.DSAEachPoints.length}
-                        </span>
-                      </p>
-                      <p className="card-text">
-                        Aptitude:
-                        <span className="number">
-                          {profile.AptitudeEachPoints.length}
-                        </span>
+      {loader ? (
+        <Loader />
+      ) : (
+        <ProfileContainer>
+          {profile && (
+            <>
+              <div className="personal-details-box background">
+                <div>
+                  <h3 className="profile-heading">Personal Details</h3>
+                  <div className="personal-details">
+                    <div className="detail-box">
+                      <p className="detail-heading">Name: </p>
+                      <p className="detail-text">{profile.name}</p>
+                    </div>
+                    <div className="detail-box">
+                      <p className="detail-heading">USN: </p>
+                      <p className="detail-text">{profile.usn.toUpperCase()}</p>
+                    </div>
+                    <div className="detail-box">
+                      <p className="detail-heading">Branch: </p>
+                      <p className="detail-text">
+                        {profile.branch.toUpperCase()}
                       </p>
                     </div>
-                    <div className="gradient-line bottom"></div>
-                  </div>
-
-                  <div className="performance-card">
-                    <div className="gradient-line top"></div>
-                    <p className="card-heading">DSA Points</p>
-                    <p className="points blue">{profile.DSAPoints}</p>
-                    <div className="gradient-line bottom"></div>
-                  </div>
-
-                  <div className="performance-card">
-                    <div className="gradient-line top"></div>
-                    <p className="card-heading">Aptitude Points</p>
-                    <p className="points green">{profile.AptitudePoints}</p>
-                    <div className="gradient-line bottom"></div>
+                    <div className="detail-box">
+                      <p className="detail-heading">Contact: </p>
+                      <p className="detail-text">{profile.contact}</p>
+                    </div>
+                    <div className="detail-box">
+                      <p className="detail-heading">Email: </p>
+                      <p className="detail-text">{profile.email}</p>
+                    </div>
                   </div>
                 </div>
               </div>
-              <div className="graph">
-                <Graph />
+              <div className="performance-details">
+                <div className="performance-box">
+                  <h3 className="performance-heading">Performance</h3>
+                  <div className="performance-card-box">
+                    <div className="performance-card">
+                      <div className="gradient-line top"></div>
+                      <p className="card-heading">Contests</p>
+                      <div>
+                        <p className="card-text">
+                          DSA:
+                          <span className="number">
+                            {profile.DSAEachPoints.length}
+                          </span>
+                        </p>
+                        <p className="card-text">
+                          Aptitude:
+                          <span className="number">
+                            {profile.AptitudeEachPoints.length}
+                          </span>
+                        </p>
+                      </div>
+                      <div className="gradient-line bottom"></div>
+                    </div>
+
+                    <div className="performance-card">
+                      <div className="gradient-line top"></div>
+                      <p className="card-heading">DSA Points</p>
+                      <p className="points blue">{profile.DSAPoints}</p>
+                      <div className="gradient-line bottom"></div>
+                    </div>
+
+                    <div className="performance-card">
+                      <div className="gradient-line top"></div>
+                      <p className="card-heading">Aptitude Points</p>
+                      <p className="points green">{profile.AptitudePoints}</p>
+                      <div className="gradient-line bottom"></div>
+                    </div>
+                  </div>
+                </div>
+                <div className="graph">
+                  <Graph />
+                </div>
               </div>
-            </div>
-          </>
-        )}
-      </ProfileContainer>
+            </>
+          )}
+        </ProfileContainer>
+      )}
     </div>
   );
 }

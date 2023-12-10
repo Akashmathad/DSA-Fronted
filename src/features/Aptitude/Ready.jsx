@@ -2,6 +2,7 @@ import { useContext } from 'react';
 import { AptitudeContext } from '../../pages/AptitudeTest';
 import { requestFullscreen } from '../../utils/screenExitHandler';
 import Button from '../../utils/Button';
+import Loader from '../../utils/Loader';
 
 function Ready() {
   const { questions, dispatch } = useContext(AptitudeContext);
@@ -32,7 +33,7 @@ function Ready() {
           </li>
         </ul>
       </div>
-      {questions && (
+      {questions ? (
         <Button
           color="green"
           className="test-start"
@@ -43,6 +44,8 @@ function Ready() {
         >
           Start&rarr;
         </Button>
+      ) : (
+        <Loader />
       )}
     </div>
   );

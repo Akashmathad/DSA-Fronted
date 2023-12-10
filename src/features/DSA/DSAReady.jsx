@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { DSAContext } from '../../pages/DSATest';
 import { requestFullscreen } from '../../utils/screenExitHandler';
 import Button from '../../utils/Button';
+import Loader from '../../utils/Loader';
 
 function DSAReady() {
   const { status, questions, dispatch } = useContext(DSAContext);
@@ -35,7 +36,7 @@ function DSAReady() {
           </li>
         </ul>
       </div>
-      {status === 'ready' && (
+      {status === 'ready' ? (
         <Button
           color="blue"
           className="test-start"
@@ -46,6 +47,8 @@ function DSAReady() {
         >
           Start&rarr;
         </Button>
+      ) : (
+        <Loader />
       )}
     </ReadyContainer>
   );
