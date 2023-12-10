@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from 'react';
 import PreviousContestCard from '../AptitudeMainPage/AptitudePreviousContestCard';
 import DSAPreviousContestCard from './DSAPreviousContestCard';
 import { AuthContext } from '../../App';
+import Loader from '../../utils/Loader';
 
 const data = [
   {
@@ -20,11 +21,13 @@ const data = [
 
 function DSAPreviousContests() {
   const [contests, setContests] = useState();
+  const [loader, setLoader] = useState(false);
   const { jwt } = useContext(AuthContext);
 
   useEffect(
     function () {
       async function fetchData() {
+        setLoader(true);
         try {
           if (!jwt) return;
           const req = await fetch(
@@ -41,6 +44,7 @@ function DSAPreviousContests() {
         } catch (e) {
           console.log(e);
         }
+        setLoader(false);
       }
       fetchData();
     },
@@ -50,7 +54,9 @@ function DSAPreviousContests() {
   return (
     <div className="previous-contests-container">
       <h3 className="heading">Previous Contests</h3>
-      {contests ? (
+      {loader ? (
+        <Loader />
+      ) : contests ? (
         <div className="contest-box">
           {contests.map((contest) => (
             <DSAPreviousContestCard

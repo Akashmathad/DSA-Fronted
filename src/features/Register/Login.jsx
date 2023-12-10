@@ -87,19 +87,21 @@ function Login({ setOpenLogin, setLoginOver, handleToast, setUsnAndJwt }) {
           </div>
           <div className="buttons-box">
             <Button
-              className="cancel"
-              color="lightPurple"
-              onClick={() => setOpenLogin(false)}
-            >
-              Cancel
-            </Button>
-            <Button
+              type="submit"
               color="purple"
               className="submit"
               onClick={handleSubmit}
               disabled={submit ? true : false}
             >
               {submit ? 'Submitting...' : 'Submit'}
+            </Button>
+            <Button
+              type="cancel"
+              className="cancel"
+              color="lightPurple"
+              onClick={() => setOpenLogin(false)}
+            >
+              Cancel
             </Button>
           </div>
         </form>

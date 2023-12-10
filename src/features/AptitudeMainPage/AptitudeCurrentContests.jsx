@@ -1,14 +1,17 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../App';
 import { Link } from 'react-router-dom';
+import Loader from '../../utils/Loader';
 
 function AptitudeCurrentContests() {
   const [contestName, setContestName] = useState();
+  const [loader, setLoader] = useState(false);
   const { jwt } = useContext(AuthContext);
 
   useEffect(
     function () {
       async function fetchData() {
+        setLoader(true);
         try {
           if (!jwt) return;
 
@@ -27,6 +30,7 @@ function AptitudeCurrentContests() {
         } catch (e) {
           console.log(e);
         }
+        setLoader(false);
       }
       fetchData();
     },
@@ -36,7 +40,9 @@ function AptitudeCurrentContests() {
   return (
     <div className="current-contest-container">
       <h3 className="heading">Current Contests</h3>
-      {contestName ? (
+      {loader ? (
+        <Loader />
+      ) : contestName ? (
         <Link className="contest-card" to="/aptitude-test">
           <h3 className="contest-name">{contestName}</h3>
         </Link>

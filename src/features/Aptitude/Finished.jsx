@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from 'react';
 import { AptitudeContext } from '../../pages/AptitudeTest';
 import styled from 'styled-components';
-
 import { Link } from 'react-router-dom';
 import { AuthContext } from '../../App';
+import Loader from '../../utils/Loader';
 
 function Finished() {
   const [points, setPoints] = useState(0);
@@ -81,7 +81,7 @@ function Finished() {
           You have scored <span className="points">{points}</span> points
         </p>
       </div>
-      {status === 'finished' && <Button to="/">Return</Button>}
+      {status === 'finished' ? <Button to="/">Return</Button> : <Loader />}
     </FinishedContainer>
   );
 }

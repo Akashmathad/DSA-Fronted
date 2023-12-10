@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../../App';
-import PreviousContestCard from './AptitudePreviousContestCard';
 import AptitudePreviousContestCard from './AptitudePreviousContestCard';
+import Loader from '../../utils/Loader';
 
 const data = [
   {
@@ -20,10 +20,12 @@ const data = [
 
 function AptitudePreviousContests() {
   const [contests, setContests] = useState();
+  const [loader, setLoader] = useState(false);
   const { jwt } = useContext(AuthContext);
   useEffect(
     function () {
       async function fetchdata() {
+        setLoader(true);
         try {
           if (!jwt) return;
           const req = await fetch(
@@ -41,6 +43,7 @@ function AptitudePreviousContests() {
         } catch (e) {
           console.log(e);
         }
+        setLoader(false);
       }
       fetchdata();
     },
@@ -51,7 +54,9 @@ function AptitudePreviousContests() {
     <>
       <div className="previous-contests-container">
         <h3 className="heading">Previous Contests</h3>
-        {contests ? (
+        {loader ? (
+          <Loader />
+        ) : contests ? (
           <div className="contest-box">
             {contests.map((contest) => (
               <AptitudePreviousContestCard

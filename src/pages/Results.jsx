@@ -2,12 +2,14 @@ import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DisplayStats from '../utils/DisplayStats';
 import { AuthContext } from '../App';
+import Loader from '../utils/Loader';
 
 function Results() {
   const [contestNumber, setContestNumber] = useState();
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
   const [contests, setContests] = useState([]);
+  const [loader, SetLoader] = useState(false);
   const { jwt } = useContext(AuthContext);
 
   useEffect(
@@ -40,6 +42,7 @@ function Results() {
   useEffect(
     function () {
       async function fetchResults() {
+        SetLoader(true);
         try {
           if (!contestNumber) return;
           const req = await fetch(
@@ -56,6 +59,7 @@ function Results() {
         } catch (e) {
           console.log(e);
         }
+        SetLoader(false);
       }
       fetchResults();
     },
@@ -113,7 +117,7 @@ function Results() {
             />
           </div>
         </div>
-        <DisplayStats results={finalResults} />
+        {loader ? <Loader /> : <DisplayStats results={finalResults} />}
       </ResultsContainer>
       <div className="gradient-circle bottom right"></div>
       <div className="gradient-circle bottom left"></div>

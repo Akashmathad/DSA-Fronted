@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { DSAContext } from '../../pages/DSATest';
 import styled from 'styled-components';
 
@@ -9,8 +9,10 @@ import Button from '../../utils/Button';
 import { exitFullscreen } from '../../utils/screenExitHandler';
 import CodeResult from './CodeResult';
 import { AuthContext } from '../../App';
+import Loader2 from '../../utils/Loader2';
 
 function DSA() {
+  const [loader, setLoader] = useState(false);
   const {
     questions,
     results,
@@ -28,6 +30,7 @@ function DSA() {
   const result = results[index];
 
   async function setResult() {
+    setLoader(true);
     setOpen(false);
     const solution = JSON.stringify({ solution: ans[index][language] });
     try {
@@ -68,6 +71,7 @@ function DSA() {
     } catch (e) {
       console.log(e);
     }
+    setLoader(false);
   }
 
   return (
@@ -92,7 +96,7 @@ function DSA() {
           )}
           {!open && (
             <div className="dsa-question-box">
-              <CodeResult />
+              {loader ? <Loader2 /> : <CodeResult />}
             </div>
           )}
           <div className="dsa-control-box">

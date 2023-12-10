@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { DSAContext } from '../../pages/DSATest';
 import { AuthContext } from '../../App';
+import Loader from '../../utils/Loader';
 function DSAFinished() {
   const [points, setPoints] = useState(0);
   const {
@@ -65,7 +66,7 @@ function DSAFinished() {
           You have scored <span className="points">{points}</span> points
         </p>
       </div>
-      {status === 'finished' && <Button to="/">Return</Button>}
+      {status === 'finished' ? <Button to="/">Return</Button> : <Loader />}
     </DSAFinishedContainer>
   );
 }

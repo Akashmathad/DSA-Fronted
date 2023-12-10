@@ -2,17 +2,20 @@ import { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import DisplayStats from '../utils/DisplayStats';
 import { AuthContext } from '../App';
+import Loader from '../utils/Loader';
 
 function LeaderShip() {
   const [search, setSearch] = useState('');
   const [results, setResults] = useState([]);
   const [branch, setBranch] = useState();
+  const [loader, setLoader] = useState(false);
   const [subject, setSubject] = useState('AptitudePoints');
   const { jwt } = useContext(AuthContext);
 
   useEffect(
     function () {
       async function fetchResults() {
+        setLoader(true);
         try {
           if (!jwt) {
             return;
@@ -33,6 +36,7 @@ function LeaderShip() {
         } catch (e) {
           console.log(e);
         }
+        setLoader(false);
       }
       fetchResults();
     },
@@ -115,7 +119,7 @@ function LeaderShip() {
             />
           </div>
         </div>
-        <DisplayStats results={finalResults} />
+        {loader ? <Loader /> : <DisplayStats results={finalResults} />}
       </ResultsContainer>
       <div className="gradient-circle bottom right"></div>
       <div className="gradient-circle bottom left"></div>
