@@ -86,6 +86,11 @@ const CodeResultContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 1.8rem;
+    overflow: scroll;
+
+    &::-webkit-scrollbar {
+      width: 0;
+    }
   }
 
   .test-number {

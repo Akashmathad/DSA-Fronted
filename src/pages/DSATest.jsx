@@ -107,7 +107,7 @@ function reducer(state, action) {
         ],
         ans: [{}, {}, {}],
         status: 'active',
-        secondsRemaining: 9000,
+        secondsRemaining: 1800,
       };
 
     case 'nextQuestion':

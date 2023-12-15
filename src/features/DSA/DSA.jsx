@@ -36,7 +36,7 @@ function DSA() {
     try {
       if (!jwt) return;
       const req = await fetch(
-        `http://127.0.0.1:4000/api/v1/aptitude-dsa/program/complie/${contestNumber}/${language}/${
+        `http://127.0.0.1:3000/api/v1/aptitude-dsa/program/complie/${language}/${contestNumber}/${language}/${
           index + 1
         }`,
         {
@@ -137,8 +137,12 @@ function DSA() {
                 <DSATimer />
               </div>
               <div className="dsa-run">
-                <button className="run-button" onClick={setResult}>
-                  Run
+                <button
+                  className="run-button"
+                  onClick={setResult}
+                  disabled={loader}
+                >
+                  {loader ? 'Running...' : 'Run'}
                 </button>
               </div>
             </div>
@@ -196,6 +200,7 @@ const DSAContainer = styled.div`
     display: flex;
     flex-direction: column;
     gap: 2.4rem;
+    height: 62vh;
 
     .question-number {
       color: ${(props) => props.theme.colors.colorSecondaryLight};
