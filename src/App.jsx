@@ -15,10 +15,13 @@ import GlobalStyles from './styles/GlobalStyles';
 import DSAMainPage from './pages/DSAMainPage';
 
 export const AuthContext = createContext();
+export const ContestContext = createContext();
 
 function App() {
   const [usn, setUsn] = useState('');
   const [jwt, setJwt] = useState('');
+  const [aptitudeContest, setAptitudeContest] = useState();
+  const [aptitudeName, setAptitudeName] = useState();
 
   useEffect(function () {
     const getUsn = localStorage.getItem('usn');
@@ -45,25 +48,34 @@ function App() {
     <Theme>
       <GlobalStyles />
       <AuthContext.Provider value={{ usn, jwt, removeUsnandJwt }}>
-        <BrowserRouter>
-          <Routes>
-            <Route element={<AppLayout />}>
-              <Route index element={<HomePage />} />
-              <Route path="/aptitude" element={<AptitudeMainPage />} />
-              <Route path="/dsa" element={<DSAMainPage />} />
-              <Route path="/results" element={<Results />} />
-              <Route path="/leaderShip" element={<LeaderShip />} />
-              <Route path="/profile" element={<Profile />} />
-            </Route>
-            <Route path="/aptitude-test" element={<AptitudeTest />} />
-            <Route path="/dsa-test" element={<DSATest />} />
+        <ContestContext.Provider
+          value={{
+            aptitudeContest,
+            setAptitudeContest,
+            aptitudeName,
+            setAptitudeName,
+          }}
+        >
+          <BrowserRouter>
+            <Routes>
+              <Route element={<AppLayout />}>
+                <Route index element={<HomePage />} />
+                <Route path="/aptitude" element={<AptitudeMainPage />} />
+                <Route path="/dsa" element={<DSAMainPage />} />
+                <Route path="/results" element={<Results />} />
+                <Route path="/leaderShip" element={<LeaderShip />} />
+                <Route path="/profile" element={<Profile />} />
+              </Route>
+              <Route path="/aptitude-test" element={<AptitudeTest />} />
+              <Route path="/dsa-test" element={<DSATest />} />
 
-            <Route
-              path="/register"
-              element={<Register setUsnAndJwt={setUsnAndJwt} />}
-            />
-          </Routes>
-        </BrowserRouter>
+              <Route
+                path="/register"
+                element={<Register setUsnAndJwt={setUsnAndJwt} />}
+              />
+            </Routes>
+          </BrowserRouter>
+        </ContestContext.Provider>
       </AuthContext.Provider>
     </Theme>
   );

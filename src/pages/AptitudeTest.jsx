@@ -10,7 +10,7 @@ import Aptitude from '../features/Aptitude/Aptitude';
 import Finished from '../features/Aptitude/Finished';
 import Error from '../features/Aptitude/Error';
 import styled from 'styled-components';
-import { AuthContext } from '../App';
+import { AuthContext, ContestContext } from '../App';
 
 const initialState = {
   questions: null,
@@ -86,16 +86,18 @@ function AptitudeTest() {
   const [{ questions, status, index, ans, secondsRemaining }, dispatch] =
     useReducer(reducer, initialState);
   const { jwt } = useContext(AuthContext);
+  const { aptitudeContest, aptitudeName } = useContext(ContestContext);
+  console.log(aptitudeContest, aptitudeName);
 
   useEffect(() => {
     async function fetchData() {
       try {
-        if (!jwt) {
+        if (!jwt || !aptitudeContest || !aptitudeName) {
           return;
         }
 
         const req = await fetch(
-          'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/question-answers/questions',
+          `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/question-answers/questions/${aptitudeContest}/${aptitudeName}`,
           {
             method: 'GET',
             headers: {
@@ -105,22 +107,23 @@ function AptitudeTest() {
           }
         );
         const data = await req.json();
-        console.log(data.data.Questions[0].contestNumber);
-        console.log(data.data.Questions[0].contestName);
-        console.log(data.data.Questions[0].questions);
-        setContestName(data.data.Questions[0].contestName);
-        setContestNumber(data.data.Questions[0].contestNumber);
-        dispatch({
-          type: 'dataReceived',
-          payload: data.data.Questions[0].questions,
-        });
-        dispatch({ type: 'settingAns' });
+        // console.log(data.data.Questions[0].contestNumber);
+        // console.log(data.data.Questions[0].contestName);
+        // console.log(data.data.Questions[0].questions);
+        // setContestName(data.data.Questions[0].contestName);
+        // setContestNumber(data.data.Questions[0].contestNumber);
+        // dispatch({
+        //   type: 'dataReceived',
+        //   payload: data.data.Questions[0].questions,
+        // });
+        // dispatch({ type: 'settingAns' });
+        console.log(data);
       } catch (e) {
         dispatch({ type: 'dataFailed' });
       }
     }
     fetchData();
-  }, [jwt]);
+  }, [jwt, aptitudeContest, aptitudeName]);
 
   useEffect(() => {
     // Add event listeners for the fullscreenchange and keydown events

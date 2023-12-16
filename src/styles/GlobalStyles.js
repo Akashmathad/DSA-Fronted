@@ -306,6 +306,8 @@ body {
     text-decoration: none;
     position: relative;
     transition: all 0.3s;
+    position: relative;
+    overflow: hidden;
 
     &:hover{
       transform: scale(1.05);
@@ -322,6 +324,36 @@ body {
     color: ${(props) => props.theme.colors.colorPrimaryLightest};
     font-size: 4.4rem;
     margin-top: 2rem;
+  }
+  
+  .contest-date{
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    font-size: 1.8rem;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    color: ${(props) => props.theme.colors.colorBlack};
+  }
+
+  .contest-timer-box{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-color: rgba(8,3,21,.9);
+    backdrop-filter: blur(1px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .contest-time{
+    font-size: 3.8rem;
+    color: ${(props) => props.theme.colors.color};
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    
   }
 
   .previous-test-box {
@@ -341,10 +373,9 @@ body {
   height: 100%;
   max-width: 130rem;
   margin: 0 auto;
-  padding: 3.2rem 0;
   display: flex;
   flex-direction: column;
-  gap: 2.4rem;
+  gap: 4rem;
   }
 
   // previous contests
@@ -356,13 +387,14 @@ body {
   padding: 3.2rem 0;
   display: flex;
   flex-direction: column;
-  gap: 2.4rem;
+  gap: 4rem;
 }
 
 .contest-box {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 2.4rem;
+    margin-bottom: 2.4rem;
   }
 
   .previous-contest-container{
