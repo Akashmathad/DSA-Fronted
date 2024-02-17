@@ -174,7 +174,7 @@ export function DSATest() {
         try {
           if (!jwt) return;
           const req = await fetch(
-            'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/dsa/questions',
+            `${import.meta.env.VITE_API_URL}/api/v1/aptitude-dsa/dsa/questions`,
             {
               method: 'GET',
               headers: {
@@ -185,7 +185,9 @@ export function DSATest() {
           const data = await req.json();
 
           const req1 = await fetch(
-            'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/dsa/getStarter',
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/v1/aptitude-dsa/dsa/getStarter`,
             {
               method: 'GET',
               headers: {

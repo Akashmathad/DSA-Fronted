@@ -6,7 +6,7 @@ const getColor = (index) => {
   return 'rgba(90,33,255,0.08)';
 };
 
-function DisplayStats({ results }) {
+function DisplayStats({ results, subject }) {
   return (
     <DisplayStatsContainer>
       {results.length !== 0 && (
@@ -16,11 +16,12 @@ function DisplayStats({ results }) {
           <p className="table-heading">USN</p>
           <p className="table-heading">Branch</p>
           <p className="table-heading">Score</p>
+          <p className="table-heading">Time</p>
         </div>
       )}
 
       {results.map((result) => (
-        <Stats result={result} />
+        <Stats result={result} subject={subject} />
       ))}
     </DisplayStatsContainer>
   );
@@ -45,7 +46,7 @@ const DisplayStatsContainer = styled.div`
     padding: 0 3.2rem;
     width: 100%;
     display: grid;
-    grid-template-columns: 16fr 27fr 24fr 18fr 15fr;
+    grid-template-columns: 10fr 25fr 25fr 15fr 15fr 10fr;
     border-bottom: 1px solid ${(props) => props.theme.colors.colorPrimary};
     border-top-right-radius: 11px;
     border-top-left-radius: 11px;
@@ -59,7 +60,22 @@ const DisplayStatsContainer = styled.div`
   }
 `;
 
-function Stats({ result }) {
+function Stats({ result, subject }) {
+  function calculateTime(timeLeft) {
+    let time;
+    if (subject === 'dsa') {
+      time = 3600 - timeLeft;
+    } else {
+      time = 1500 - timeLeft;
+    }
+    const minutes = Math.floor(time / 60);
+    const seconds = time % 60;
+
+    const formattedMinutes = minutes < 10 ? `0${minutes}` : `${minutes}`;
+    const formattedSeconds = seconds < 10 ? `0${seconds}` : `${seconds}`;
+
+    return `${formattedMinutes} : ${formattedSeconds}`;
+  }
   return (
     <StatsContainer rank={result.rank}>
       <p className="table-heading table-elements">{result.rank}</p>
@@ -71,6 +87,9 @@ function Stats({ result }) {
         {result.branch.toUpperCase()}
       </p>
       <p className="table-heading table-elements">{result.points}</p>
+      <p className="table-heading table-elements">
+        {calculateTime(result.timeLeft)}
+      </p>
     </StatsContainer>
   );
 }
@@ -81,7 +100,7 @@ const StatsContainer = styled.div`
   padding: 0 3.2rem;
   width: 100%;
   display: grid;
-  grid-template-columns: 16fr 27fr 24fr 18fr 15fr;
+  grid-template-columns: 10fr 25fr 25fr 15fr 15fr 10fr;
   border-bottom: 1px solid ${(props) => props.theme.colors.colorPrimary};
   z-index: 3;
 

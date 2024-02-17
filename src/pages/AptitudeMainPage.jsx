@@ -24,7 +24,9 @@ function AptitudeMainPage() {
         if (!jwt) return;
         try {
           const req1 = await fetch(
-            'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/question-answers/aptitude/contests',
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/v1/aptitude-dsa/question-answers/aptitude/contests`,
             {
               method: 'GET',
               headers: {
@@ -36,7 +38,9 @@ function AptitudeMainPage() {
           const contests = data1.data.Contests;
 
           const req2 = await fetch(
-            `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/question-answers/aptitude/contests/${usn}`
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/v1/aptitude-dsa/question-answers/aptitude/contests/${usn}`
           );
           const data2 = await req2.json();
           const completedContests = data2.data.Contest;

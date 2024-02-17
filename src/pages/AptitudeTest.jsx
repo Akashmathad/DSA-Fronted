@@ -83,6 +83,7 @@ function handleFullscreenChange(dispatch) {
 function AptitudeTest() {
   const [contestNumber, setContestNumber] = useState();
   const [contestName, setContestName] = useState();
+  const [time, setTime] = useState();
   const [{ questions, status, index, ans, secondsRemaining }, dispatch] =
     useReducer(reducer, initialState);
   const { jwt } = useContext(AuthContext);
@@ -97,7 +98,9 @@ function AptitudeTest() {
         }
 
         const req = await fetch(
-          `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/question-answers/questions/${aptitudeContest}/${aptitudeName}`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/v1/aptitude-dsa/question-answers/questions/${aptitudeContest}/${aptitudeName}`,
           {
             method: 'GET',
             headers: {
@@ -107,17 +110,18 @@ function AptitudeTest() {
           }
         );
         const data = await req.json();
-        // console.log(data.data.Questions[0].contestNumber);
-        // console.log(data.data.Questions[0].contestName);
-        // console.log(data.data.Questions[0].questions);
-        // setContestName(data.data.Questions[0].contestName);
-        // setContestNumber(data.data.Questions[0].contestNumber);
-        // dispatch({
-        //   type: 'dataReceived',
-        //   payload: data.data.Questions[0].questions,
-        // });
-        // dispatch({ type: 'settingAns' });
-        console.log(data);
+        console.log(data.data.Questions.contestNumber);
+        console.log(data.data.Questions.contestName);
+        console.log(data.data.Questions.time);
+        console.log(data.data.Questions.questions);
+        setContestName(data.data.Questions.contestName);
+        setContestNumber(data.data.Questions.contestNumber);
+        setTime(data.data.Questions.time);
+        dispatch({
+          type: 'dataReceived',
+          payload: data.data.Questions.questions,
+        });
+        dispatch({ type: 'settingAns' });
       } catch (e) {
         dispatch({ type: 'dataFailed' });
       }
@@ -163,6 +167,7 @@ function AptitudeTest() {
           dispatch,
           contestName,
           contestNumber,
+          time,
         }}
       >
         {status === 'ready' && <Ready />}

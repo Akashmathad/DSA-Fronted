@@ -15,7 +15,9 @@ function DSACurrentContests() {
         try {
           if (!jwt) return;
           const req = await fetch(
-            'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/dsa/questions?fields=contestName,-_id',
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/v1/aptitude-dsa/dsa/questions?fields=contestName,-_id`,
             {
               method: 'GET',
               headers: {

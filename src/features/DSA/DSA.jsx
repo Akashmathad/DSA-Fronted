@@ -36,7 +36,9 @@ function DSA() {
     try {
       if (!jwt) return;
       const req = await fetch(
-        `http://127.0.0.1:3000/api/v1/aptitude-dsa/program/complie/${language}/${contestNumber}/${language}/${
+        `${
+          import.meta.env.VITE_API_URL
+        }/api/v1/aptitude-dsa/program/complie/${language}/${contestNumber}/${language}/${
           index + 1
         }`,
         {

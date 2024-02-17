@@ -15,7 +15,9 @@ function Profile() {
         try {
           if (!jwt) return;
           const req = await fetch(
-            `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/profile/${usn}`,
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/v1/aptitude-dsa/profile/${usn}`,
             {
               method: 'GET',
               headers: {

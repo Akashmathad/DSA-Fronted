@@ -5,21 +5,22 @@ function Option({ value, qNum, children }) {
   const { ans, dispatch } = useContext(AptitudeContext);
   const currentAns = ans.find((ans) => ans.question === qNum);
   return (
-    <button
-      className={`options ${currentAns.answer === value ? 'option' : ''}`}
+    <div
+      className={`options ${currentAns.answer === children ? 'option' : ''}`}
       data-value={value}
-      onClick={(e) =>
+      onClick={(e) => {
+        console.log(e.target.textContent);
         dispatch({
           type: 'answer',
           payload: {
             question: qNum,
-            answer: e.target.dataset.value,
+            answer: e.target.textContent,
           },
-        })
-      }
+        });
+      }}
     >
       {children}
-    </button>
+    </div>
   );
 }
 

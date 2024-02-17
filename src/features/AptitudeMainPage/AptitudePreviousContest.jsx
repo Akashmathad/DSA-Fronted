@@ -16,7 +16,9 @@ function AptitudePreviousContest({ contestNumber, setOpen }) {
             return;
           }
           const req = await fetch(
-            `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/question-answers/GetQnA?fields=-_id&contestNumber=${contestNumber}`,
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/v1/aptitude-dsa/question-answers/GetQnA?fields=-_id&contestNumber=${contestNumber}`,
             {
               method: 'GET',
               headers: {

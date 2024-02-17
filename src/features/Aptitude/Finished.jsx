@@ -22,7 +22,9 @@ function Finished() {
       try {
         if (!jwt) return;
         const req = await fetch(
-          'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/question-answers/answers',
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/v1/aptitude-dsa/question-answers/answers?contestNumber=${contestNumber}`,
           {
             method: 'GET',
             headers: {
@@ -32,12 +34,14 @@ function Finished() {
         );
         const data = await req.json();
         const originalAns = data.data.Answer[0].answers;
+        console.log(originalAns);
         let newPoints = 0;
         ans.forEach((ans, index) =>
-          ans.answer === originalAns[ans.question - 1].answerOption
-            ? (newPoints += 5)
+          ans.answer === originalAns[ans.question - 1].answer
+            ? (newPoints += 1)
             : null
         );
+        console.log(newPoints);
         setPoints(newPoints);
 
         console.log({
@@ -46,7 +50,9 @@ function Finished() {
           timeLeft: secondsRemaining,
         });
         const request = await fetch(
-          `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/profile/aptitude/${contestNumber}/${usn}`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/v1/aptitude-dsa/profile/aptitude/${contestNumber}/${usn}`,
           {
             method: 'PATCH',
             headers: {

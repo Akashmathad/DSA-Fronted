@@ -96,7 +96,7 @@ const AptitudeContainer = styled.div`
     background-color: ${(props) => props.theme.colors.colorBlack100};
     font-weight: 500;
     border-radius: 11px;
-    border: 2px solid rgb(0, 194, 168, 0.2);
+    border: 2px solid rgb(0, 194, 168, 0.1);
   }
 
   .aptitude-box {
@@ -110,7 +110,7 @@ const AptitudeContainer = styled.div`
   .box {
     background-color: ${(props) => props.theme.colors.colorBlack100};
     border-radius: 11px;
-    border: 2px solid rgb(0, 194, 168, 0.2);
+    border: 2px solid rgb(0, 194, 168, 0.1);
     padding: 2.4rem;
   }
 
@@ -143,6 +143,7 @@ const AptitudeContainer = styled.div`
     padding: 1.2rem 0;
     border-radius: 999px;
     font-size: 2rem;
+    text-align: center;
     transition: all 0.3s;
     &:hover {
       background-color: ${(props) => props.theme.colors.colorTritary};
@@ -156,7 +157,7 @@ const AptitudeContainer = styled.div`
 
   .questions-box {
     display: grid;
-    grid-template-columns: repeat(8, 1fr);
+    grid-template-columns: repeat(5, 1fr);
     padding: 9.6rem 2.4rem;
   }
 

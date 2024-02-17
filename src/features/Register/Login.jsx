@@ -29,7 +29,7 @@ function Login({ setOpenLogin, setLoginOver, handleToast, setUsnAndJwt }) {
     };
     try {
       const req = await fetch(
-        'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/user/login',
+        `${import.meta.env.VITE_API_URL}/api/v1/aptitude-dsa/user/login`,
         {
           method: 'POST',
           headers: {

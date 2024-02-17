@@ -31,7 +31,9 @@ function DSAPreviousContests() {
         try {
           if (!jwt) return;
           const req = await fetch(
-            'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/dsa/previousQuestions?fields=contestNumber,contestName,-_id&sort=contestNumber',
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/v1/aptitude-dsa/dsa/previousQuestions?fields=contestNumber,contestName,-_id&sort=contestNumber`,
             {
               method: 'GET',
               headers: {

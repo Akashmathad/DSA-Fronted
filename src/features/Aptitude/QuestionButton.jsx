@@ -3,8 +3,8 @@ import { AptitudeContext } from '../../pages/AptitudeTest';
 import styled from 'styled-components';
 
 const Button = styled.button`
-  height: 3rem;
-  width: 3rem;
+  height: 5rem;
+  width: 5rem;
   color: ${(props) => props.theme.colors.colorTritaryLightest};
 
   background-color: ${(props) =>
@@ -13,12 +13,12 @@ const Button = styled.button`
       : props.theme.colors.colorBlack200};
 
   border: none;
-  border-radius: 4px;
+  border-radius: 999px;
   align-self: center;
   justify-self: center;
   cursor: pointer;
-  font-size: 1.6rem;
-  font-weight: 500;
+  font-size: 2rem;
+  font-weight: 600;
 `;
 
 function QuestionButton({ num }) {

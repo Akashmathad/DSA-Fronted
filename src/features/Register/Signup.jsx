@@ -62,7 +62,7 @@ function Signup({ setOpenSignup, setOpenLogin, handleToast }) {
     console.log(JSON.stringify(details));
     try {
       const req = await fetch(
-        'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/user/signup',
+        `${import.meta.env.VITE_API_URL}/api/v1/aptitude-dsa/user/signup`,
         {
           method: 'POST',
           headers: {

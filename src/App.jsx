@@ -1,5 +1,4 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import './App.css';
 import AppLayout from './utils/AppLayout';
 import HomePage from './pages/HomePage';
 import AptitudeTest from './pages/AptitudeTest';
@@ -13,7 +12,6 @@ import AptitudeMainPage from './pages/AptitudeMainPage';
 import Theme from './styles/Theme';
 import GlobalStyles from './styles/GlobalStyles';
 import DSAMainPage from './pages/DSAMainPage';
-
 export const AuthContext = createContext();
 export const ContestContext = createContext();
 

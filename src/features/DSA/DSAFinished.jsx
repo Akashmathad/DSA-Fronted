@@ -29,7 +29,9 @@ function DSAFinished() {
           timeLeft: secondsRemaining,
         });
         const request = await fetch(
-          `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/profile/dsa/${contestNumber}/${usn}`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/api/v1/aptitude-dsa/profile/dsa/${contestNumber}/${usn}`,
           {
             method: 'PATCH',
             headers: {

@@ -10,6 +10,7 @@ function Results() {
   const [results, setResults] = useState([]);
   const [contests, setContests] = useState([]);
   const [loader, SetLoader] = useState(false);
+  const [subject, setSubject] = useState('aptitude');
   const { jwt } = useContext(AuthContext);
 
   useEffect(
@@ -20,7 +21,9 @@ function Results() {
             return;
           }
           const req = await fetch(
-            'https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/result?fields=contestNumber,contestName&sort=-contestNumber',
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/v1/aptitude-dsa/result/${subject}?fields=contestNumber,contestName&sort=-contestNumber`,
             {
               method: 'GET',
               headers: {
@@ -36,7 +39,7 @@ function Results() {
       }
       fetchData();
     },
-    [jwt]
+    [jwt, subject]
   );
 
   useEffect(
@@ -46,7 +49,9 @@ function Results() {
         try {
           if (!contestNumber) return;
           const req = await fetch(
-            `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/result/${contestNumber}`,
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/v1/aptitude-dsa/result/${subject}/${contestNumber}`,
             {
               method: 'GET',
               headers: {
@@ -63,7 +68,7 @@ function Results() {
       }
       fetchResults();
     },
-    [contestNumber, jwt]
+    [contestNumber, jwt, subject]
   );
 
   results.map((result, index) => (result.rank = index + 1));
@@ -82,11 +87,31 @@ function Results() {
         <div className="input-boxes">
           <div className="subject-box">
             <label htmlFor="contest" className="subject">
+              Subject
+            </label>
+            <select
+              name="contest"
+              className="details-input subject-input"
+              id="contest"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+            >
+              <option value="aptitude" className="subject-input">
+                Aptitude
+              </option>
+              <option value="dsa" className="subject-input">
+                DSA
+              </option>
+            </select>
+          </div>
+
+          <div className="subject-box">
+            <label htmlFor="contest" className="subject">
               Contest
             </label>
             <select
               name="contest"
-              className="details-input result-input"
+              className="details-input subject-input"
               id="contest"
               onChange={(e) => setContestNumber(e.target.value)}
             >
@@ -117,7 +142,12 @@ function Results() {
             />
           </div>
         </div>
-        {loader ? <Loader /> : <DisplayStats results={finalResults} />}
+
+        {loader ? (
+          <Loader />
+        ) : (
+          <DisplayStats subject={subject} results={finalResults} />
+        )}
       </ResultsContainer>
       <div className="gradient-circle bottom right"></div>
       <div className="gradient-circle bottom left"></div>
@@ -128,6 +158,11 @@ function Results() {
 const ResultsContainer = styled.div`
   width: 100%;
   height: 100%;
+
+  .subject-input {
+    width: 20rem;
+    padding: 1rem;
+  }
 `;
 
 export default Results;

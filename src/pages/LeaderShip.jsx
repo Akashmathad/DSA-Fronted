@@ -22,8 +22,12 @@ function LeaderShip() {
           }
 
           const url = branch
-            ? `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/leaderShip?fields=name,usn,branch,${subject}&sort=-${subject}&branch=${branch}`
-            : `https://backend-aptitude.up.railway.app/api/v1/aptitude-dsa/leaderShip?fields=name,usn,branch,${subject}&sort=-${subject}`;
+            ? `${
+                import.meta.env.VITE_API_URL
+              }/api/v1/aptitude-dsa/leaderShip?fields=name,usn,branch,${subject}&sort=-${subject}&branch=${branch}`
+            : `${
+                import.meta.env.VITE_API_URL
+              }/api/v1/aptitude-dsa/leaderShip?fields=name,usn,branch,${subject}&sort=-${subject}`;
 
           const req = await fetch(url, {
             method: 'GET',
