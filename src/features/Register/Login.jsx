@@ -45,7 +45,6 @@ function Login({ setOpenLogin, setLoginOver, handleToast, setUsnAndJwt }) {
         setSubmit(false);
         return;
       }
-      console.log(data);
       setUsnAndJwt(usn, data.token);
     } catch (e) {
       console.log(e);
@@ -61,7 +60,7 @@ function Login({ setOpenLogin, setLoginOver, handleToast, setUsnAndJwt }) {
         <div className="gradient-line top"></div>
         <div className="gradient-circle topest"></div>
         <h3 className="heading">Login Details</h3>
-        <form className="details-form">
+        <form className="details-form" onSubmit={handleSubmit}>
           <div className="details-box">
             <RiAdminLine className="icons" />
             <input
@@ -70,7 +69,7 @@ function Login({ setOpenLogin, setLoginOver, handleToast, setUsnAndJwt }) {
               placeholder="Enter your USN: "
               value={usn}
               onChange={(e) => setUsn(e.target.value)}
-              required
+              required={true}
             />
           </div>
           <div className="details-box">
@@ -82,26 +81,25 @@ function Login({ setOpenLogin, setLoginOver, handleToast, setUsnAndJwt }) {
               placeholder="Enter Password: "
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required
+              required={true}
             />
           </div>
           <div className="buttons-box">
             <Button
-              type="submit"
-              color="purple"
-              className="submit"
-              onClick={handleSubmit}
-              disabled={submit ? true : false}
-            >
-              {submit ? 'Submitting...' : 'Submit'}
-            </Button>
-            <Button
-              type="cancel"
+              type="button"
               className="cancel"
               color="lightPurple"
               onClick={() => setOpenLogin(false)}
             >
               Cancel
+            </Button>
+            <Button
+              type="submit"
+              color="purple"
+              className="submit"
+              disabled={submit ? true : false}
+            >
+              {submit ? 'Submitting...' : 'Submit'}
             </Button>
           </div>
         </form>

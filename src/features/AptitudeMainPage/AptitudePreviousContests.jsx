@@ -3,22 +3,8 @@ import { AuthContext } from '../../App';
 import AptitudePreviousContestCard from './AptitudePreviousContestCard';
 import Loader from '../../utils/Loader';
 
-const data = [
-  {
-    contestName: 'Aptitude - 01',
-    contestNumber: 1,
-  },
-  {
-    contestName: 'Aptitude - 02',
-    contestNumber: 2,
-  },
-  {
-    contestName: 'Aptitude - 03',
-    contestNumber: 3,
-  },
-];
-
 function AptitudePreviousContests({ contests, loader }) {
+  console.log(contests);
   return (
     <>
       <div className="previous-contests-container">

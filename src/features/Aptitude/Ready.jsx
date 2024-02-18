@@ -13,23 +13,19 @@ function Ready() {
         <p className="rules-heading">Rules:</p>
         <ul className="rules">
           <li className="rule">
-            Test contains <span className="rule-important">X</span> questions
-            with time limit of <span className="rule-important">X</span>.
+            Test contains <span className="rule-important">25</span> questions
+            with time limit of{' '}
+            <span className="rule-important">25 minutes</span>.
           </li>
           <li className="rule">
             Each correct answer carries{' '}
-            <span className="rule-important">5</span> points
+            <span className="rule-important">1</span> point.
           </li>
           <li className="rule">
-            U are not allowed to exit{' '}
-            <span className="rule-important">Full-Screen Mode</span>. If u do
-            so, test will automatically gets submitted without any prior
-            warning.
-          </li>
-          <li className="rule">
-            You will be awarded with{' '}
-            <span className="rule-important">Extra points</span> , if u complete
-            the test within time.
+            Not allowed to exit{' '}
+            <span className="rule-important">Full-Screen Mode</span> or{' '}
+            <span className="rule-important">Switch tabs</span>. If you do so,
+            test will automatically gets submitted without any prior warning.
           </li>
         </ul>
       </div>

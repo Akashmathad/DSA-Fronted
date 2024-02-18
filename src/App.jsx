@@ -20,6 +20,7 @@ function App() {
   const [jwt, setJwt] = useState('');
   const [aptitudeContest, setAptitudeContest] = useState();
   const [aptitudeName, setAptitudeName] = useState();
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(function () {
     const getUsn = localStorage.getItem('usn');
@@ -42,10 +43,38 @@ function App() {
     localStorage.removeItem('jwt');
   }
 
+  useEffect(
+    function () {
+      async function fetchData() {
+        if (!jwt) return;
+
+        const req = await fetch(
+          `${import.meta.env.VITE_API_URL}/api/v1/aptitude-dsa/user`,
+          {
+            method: 'GET',
+            headers: {
+              'content-type': 'application/json',
+              Authorization: `Bearer ${jwt}`,
+            },
+          }
+        );
+        if (req.status === 200) {
+          setLoggedIn(true);
+        } else {
+          setLoggedIn(false);
+        }
+      }
+      fetchData();
+    },
+    [jwt]
+  );
+
   return (
     <Theme>
       <GlobalStyles />
-      <AuthContext.Provider value={{ usn, jwt, removeUsnandJwt }}>
+      <AuthContext.Provider
+        value={{ usn, jwt, removeUsnandJwt, setJwt, loggedIn, setLoggedIn }}
+      >
         <ContestContext.Provider
           value={{
             aptitudeContest,

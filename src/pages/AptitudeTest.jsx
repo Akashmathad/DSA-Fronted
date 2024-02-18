@@ -88,7 +88,6 @@ function AptitudeTest() {
     useReducer(reducer, initialState);
   const { jwt } = useContext(AuthContext);
   const { aptitudeContest, aptitudeName } = useContext(ContestContext);
-  console.log(aptitudeContest, aptitudeName);
 
   useEffect(() => {
     async function fetchData() {
@@ -110,10 +109,6 @@ function AptitudeTest() {
           }
         );
         const data = await req.json();
-        console.log(data.data.Questions.contestNumber);
-        console.log(data.data.Questions.contestName);
-        console.log(data.data.Questions.time);
-        console.log(data.data.Questions.questions);
         setContestName(data.data.Questions.contestName);
         setContestNumber(data.data.Questions.contestNumber);
         setTime(data.data.Questions.time);
@@ -183,6 +178,7 @@ function AptitudeTest() {
 const Container = styled.div`
   width: 100%;
   height: 100vh;
+  overflow: auto;
   background-color: ${(props) => props.theme.colors.colorBlack100};
 `;
 

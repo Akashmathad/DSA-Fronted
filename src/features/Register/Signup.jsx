@@ -181,18 +181,19 @@ function Signup({ setOpenSignup, setOpenLogin, handleToast }) {
           </div>
           <div className="buttons-box">
             <Button
-              color="purple"
-              type="submit"
-              disabled={submit ? true : false}
-            >
-              {submit ? 'Submitting...' : 'Submit'}
-            </Button>
-            <Button
+              type="button"
               color="lightPurple"
               className="cancel"
               onClick={() => setOpenSignup(false)}
             >
               Cancel
+            </Button>
+            <Button
+              color="purple"
+              type="submit"
+              disabled={submit ? true : false}
+            >
+              {submit ? 'Submitting...' : 'Submit'}
             </Button>
           </div>
         </form>

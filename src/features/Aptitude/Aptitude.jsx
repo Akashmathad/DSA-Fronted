@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useContext, useEffect } from 'react';
 import { AptitudeContext } from '../../pages/AptitudeTest';
 import Timer from './Timer';
 import styled from 'styled-components';
@@ -10,8 +10,33 @@ import { exitFullscreen } from '../../utils/screenExitHandler';
 function Aptitude() {
   const { questions, index, dispatch, contestName } =
     useContext(AptitudeContext);
-
   const question = questions[index];
+
+  const handleVisibilityChange = () => {
+    dispatch({ type: 'check' });
+    console.log('Visibility change detected');
+  };
+
+  const handleBlur = () => {
+    dispatch({ type: 'check' });
+    console.log('Blur event detected');
+  };
+
+  useEffect(() => {
+    const visibilityChangeHandler = () => handleVisibilityChange(dispatch);
+    const blurHandler = () => handleBlur(dispatch);
+
+    // Add event listeners for visibilitychange and blur events
+    document.addEventListener('visibilitychange', visibilityChangeHandler);
+    window.addEventListener('blur', blurHandler);
+
+    // Remove the event listeners when the component unmounts
+    return () => {
+      document.removeEventListener('visibilitychange', visibilityChangeHandler);
+      window.removeEventListener('blur', blurHandler);
+    };
+  }, [dispatch]);
+
   return (
     <AptitudeContainer>
       <h2 className="heading">{contestName}</h2>

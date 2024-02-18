@@ -511,11 +511,13 @@ body {
 
   .greeting-icon {
     font-size: 6.2rem;
+    text-align: center;
   }
 
   .greetings {
     padding: 1.2rem;
     font-size: 6.2rem;
+    text-align: center;
     font-weight: 500;
     font-style: italic;
     background-image: linear-gradient(

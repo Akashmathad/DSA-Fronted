@@ -7,6 +7,7 @@ function AptitudePreviousContestCard({
   contestTime,
 }) {
   const [openAptitude, setAptitudeOpen] = useState(false);
+  console.log(contestTime);
   return (
     <>
       <div className="contest-card" onClick={() => setAptitudeOpen(true)}>

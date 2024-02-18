@@ -1,37 +1,49 @@
 import styled from 'styled-components';
 
 import { NavLink } from 'react-router-dom';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../App';
 
 function Navbar() {
-  const { usn } = useContext(AuthContext);
+  const { jwt, removeUsnandJwt, loggedIn, setLoggedIn } =
+    useContext(AuthContext);
 
   return (
     <nav>
       <NavList>
-        <NavLink className="items" to="/dsa">
+        <NavLink className="items" to={loggedIn ? '/dsa' : 'register'}>
           DSA
         </NavLink>
-        <NavLink className="items" to="/aptitude">
+        <NavLink className="items" to={loggedIn ? '/aptitude' : 'register'}>
           Aptitude
         </NavLink>
-        <NavLink className="items" to="/results">
+        <NavLink className="items" to={loggedIn ? '/results' : 'register'}>
           Results
         </NavLink>
-        <NavLink className="items" to="/leaderShip">
+        <NavLink className="items" to={loggedIn ? '/leaderShip' : 'register'}>
           Leadership Board
         </NavLink>
-        {
+        {loggedIn && (
           <NavLink className="items" to="/profile">
             Profile
           </NavLink>
-        }
-        {
+        )}
+        {!loggedIn && (
           <NavLink className="button" to="/register">
-            Register
+            Sign up / Login
           </NavLink>
-        }
+        )}
+        {loggedIn && (
+          <button
+            className="button"
+            onClick={() => {
+              removeUsnandJwt();
+              setLoggedIn(false);
+            }}
+          >
+            Logout
+          </button>
+        )}
       </NavList>
     </nav>
   );

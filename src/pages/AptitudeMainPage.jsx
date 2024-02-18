@@ -10,9 +10,19 @@ function AptitudeMainPage() {
   const [loader, setLoader] = useState(false);
 
   function removeDuplicates(array1, array2) {
+    console.log(array1, array2);
     const contestNumbersToRemove = array2.map((item) => item.contestNumber);
     const filteredArray1 = array1.filter(
       (item) => !contestNumbersToRemove.includes(item.contestNumber)
+    );
+    return filteredArray1;
+  }
+
+  function getCompletedContests(array1, array2) {
+    console.log(array1, array2);
+    const contestNumbersToRemove = array2.map((item) => item.contestNumber);
+    const filteredArray1 = array1.filter((item) =>
+      contestNumbersToRemove.includes(item.contestNumber)
     );
     return filteredArray1;
   }
@@ -49,7 +59,9 @@ function AptitudeMainPage() {
             completedContests
           );
           setContests(avaliableContests);
-          setCompletedContests(completedContests);
+          setCompletedContests(
+            getCompletedContests(contests, completedContests)
+          );
           setLoader(false);
         } catch (e) {
           console.log(e);
