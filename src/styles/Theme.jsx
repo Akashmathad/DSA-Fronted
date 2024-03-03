@@ -7,7 +7,7 @@ const theme = {
     colorPrimaryLight: '#7c4fff',
     colorPrimaryLighter: '#cac7d1',
     colorPrimaryLightest: '#c4b7e5',
-    colorPrimaryDark: '#18005c',
+    colorPrimaryDark: '#030016',
     colorSecondary: '#008cff',
     colorSecondaryLight: '#39a6ff',
     colorSecondaryLighter: '#aad9ff',

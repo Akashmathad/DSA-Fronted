@@ -23,14 +23,18 @@ function AptiQuestion({ question }) {
 }
 
 const AptiQuestionContainer = styled.div`
-  font-size: ${(props) => props.theme.fontSizes.small};
+  font-size: 2rem;
   color: ${(props) => props.theme.colors.colorTritaryLightest};
   display: flex;
   flex-direction: column;
-  gap: 1.2rem;
+  gap: 1.8rem;
   padding: 1.8rem 0;
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   position: relative;
+
+  &:last-child {
+    border-bottom: none;
+  }
 
   .number {
     color: ${(props) => props.theme.colors.colorTritary};

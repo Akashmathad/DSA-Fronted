@@ -9,7 +9,7 @@ function AptitudeActiveContests({ contests, loader }) {
       <h3 className="heading">Active Contests</h3>
       {loader ? (
         <Loader />
-      ) : contests ? (
+      ) : contests && contests.length !== 0 ? (
         <div className="contest-box">
           {contests.map((contest) =>
             contest.visibility ? (
@@ -82,13 +82,18 @@ function ContestTimer({ time }) {
   useEffect(
     function () {
       const id = setInterval(function () {
-        setTimer((timer) => timer - 1000);
+        if (timer >= 0) {
+          setTimer((timer) => timer - 1000);
+        }
       }, 1000);
       return () => clearInterval(id);
     },
     [timer]
   );
-  console.log(timer);
+
+  if (timer < 0) {
+    return <p>Refresh</p>;
+  }
   return (
     <>
       {hours < 10 && '0'}

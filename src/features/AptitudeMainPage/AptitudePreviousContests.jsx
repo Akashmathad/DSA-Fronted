@@ -4,7 +4,6 @@ import AptitudePreviousContestCard from './AptitudePreviousContestCard';
 import Loader from '../../utils/Loader';
 
 function AptitudePreviousContests({ contests, loader }) {
-  console.log(contests);
   return (
     <>
       <div className="previous-contests-container">
@@ -16,9 +15,7 @@ function AptitudePreviousContests({ contests, loader }) {
             {contests.map((contest) => (
               <AptitudePreviousContestCard
                 key={contest.contestNumber}
-                contestTime={contest.time}
-                contestName={contest.contestName}
-                contestNumber={contest.contestNumber}
+                contest={contest}
               />
             ))}
           </div>

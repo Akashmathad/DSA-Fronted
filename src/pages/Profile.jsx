@@ -3,11 +3,54 @@ import Graph from '../features/profile/graph';
 import { useContext, useEffect, useState } from 'react';
 import { AuthContext } from '../App';
 import Loader from '../utils/Loader';
+import ProfileDetails from '../features/profile/ProfileDetails';
 
 function Profile() {
   const { usn, jwt } = useContext(AuthContext);
   const [loader, setLoader] = useState(false);
   const [profile, setProfile] = useState();
+  const [data, setData] = useState();
+  const [openProfileDetails, setOpenProfileDetails] = useState(false);
+
+  function generateData(dsapointsArray, aptitudePointsArray) {
+    // Create a function to get points for a specific contestNumber
+    const getPoints = (contestNumber, pointsArray) => {
+      const contest = pointsArray.find(
+        (item) => item.contestNumber === contestNumber
+      );
+      return contest ? contest.points : 0;
+    };
+
+    // Determine the maximum length of the two arrays
+    const maxLength = Math.max(
+      dsapointsArray.length,
+      aptitudePointsArray.length
+    );
+
+    // Create the data array with a length equal to the maximum length
+    const data = Array.from({ length: maxLength }, (_, index) => {
+      const dsapoint = dsapointsArray[index] || { contestNumber: 0, points: 0 };
+      const aptitudePoint = aptitudePointsArray[index] || {
+        contestNumber: 0,
+        points: 0,
+      };
+
+      const contestNumber = Math.max(
+        dsapoint.contestNumber,
+        aptitudePoint.contestNumber
+      );
+      const formattedContest =
+        contestNumber < 10 ? `0${contestNumber}` : contestNumber;
+      const DSA = dsapoint.points;
+      const Aptitude = getPoints(contestNumber, aptitudePointsArray);
+
+      return { name: `contest - ${formattedContest}`, DSA, Aptitude };
+    });
+
+    return data;
+  }
+  console.log(profile);
+
   useEffect(
     function () {
       async function fetchData() {
@@ -26,6 +69,11 @@ function Profile() {
             }
           );
           const data = await req.json();
+          const dataGraph = generateData(
+            data.Profiles.DSAEachPoints,
+            data.Profiles.AptitudeEachPoints
+          );
+          setData(dataGraph);
           setProfile(data.Profiles);
         } catch (e) {
           console.log(e);
@@ -36,17 +84,23 @@ function Profile() {
     },
     [usn, jwt]
   );
-  console.log(profile);
   return (
     <div className="height">
+      {openProfileDetails && (
+        <ProfileDetails
+          setOpenProfileDetails={setOpenProfileDetails}
+          profile={profile}
+        />
+      )}
       {loader ? (
         <Loader />
       ) : (
         <ProfileContainer>
           {profile && (
             <>
-              <div className="personal-details-box background">
-                <div>
+              <div className="personal-details-box">
+                <div className="personal-detail-box">
+                  <div className="gradient-line top"></div>
                   <h3 className="profile-heading">Personal Details</h3>
                   <div className="personal-details">
                     <div className="detail-box">
@@ -72,11 +126,22 @@ function Profile() {
                       <p className="detail-text">{profile.email}</p>
                     </div>
                   </div>
+                  <div className="gradient-line bottom"></div>
                 </div>
               </div>
               <div className="performance-details">
                 <div className="performance-box">
-                  <h3 className="performance-heading">Performance</h3>
+                  <div className="heading-box">
+                    {' '}
+                    <h3 className="performance-heading">Performance</h3>
+                    <button
+                      className="button"
+                      onClick={() => setOpenProfileDetails(true)}
+                    >
+                      More details
+                    </button>
+                  </div>
+
                   <div className="performance-card-box">
                     <div className="performance-card">
                       <div className="gradient-line top"></div>
@@ -102,6 +167,7 @@ function Profile() {
                       <div className="gradient-line top"></div>
                       <p className="card-heading">DSA Points</p>
                       <p className="points blue">{profile.DSAPoints}</p>
+
                       <div className="gradient-line bottom"></div>
                     </div>
 
@@ -113,9 +179,7 @@ function Profile() {
                     </div>
                   </div>
                 </div>
-                <div className="graph">
-                  <Graph />
-                </div>
+                <div className="graph">{data && <Graph data={data} />}</div>
               </div>
             </>
           )}
@@ -139,12 +203,35 @@ const ProfileContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
+  }
+
+  .personal-detail-box {
+    border: 1px solid rgba(255, 255, 255, 0.07);
+    background-color: rgba(123, 79, 255, 0.05);
+    border-radius: 2.5rem 1rem;
+    flex-direction: column;
+    display: flex;
+    align-items: center;
+    padding: 3.2rem;
+    justify-content: center;
+    gap: 1.2rem;
+    position: relative;
+    margin-top: -9.8rem;
+    margin-left: 5.2rem;
   }
 
   .profile-heading {
     font-size: 2.8rem;
     font-weight: 400;
     color: ${(props) => props.theme.colors.colorPrimaryLightest};
+  }
+
+  .heading-box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4.4rem;
   }
 
   .personal-details {
@@ -179,10 +266,10 @@ const ProfileContainer = styled.div`
   }
 
   .performance-box {
-    padding: 3.2rem;
+    padding: 2.8rem;
     display: flex;
     flex-direction: column;
-    gap: 3.2rem;
+    gap: 2.8rem;
   }
 
   .performance-heading {
@@ -211,7 +298,7 @@ const ProfileContainer = styled.div`
     align-items: center;
     padding: 3.2rem;
     justify-content: center;
-    gap: 1.2rem;
+    gap: 1.8rem;
     position: relative;
   }
 

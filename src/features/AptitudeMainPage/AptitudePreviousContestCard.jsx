@@ -1,13 +1,10 @@
 import AptitudePreviousContest from './AptitudePreviousContest';
 import { useState } from 'react';
 
-function AptitudePreviousContestCard({
-  contestName,
-  contestNumber,
-  contestTime,
-}) {
+function AptitudePreviousContestCard({ contest }) {
   const [openAptitude, setAptitudeOpen] = useState(false);
-  console.log(contestTime);
+  console.log(contest);
+  const { contestName, time: contestTime, contestNumber, points } = contest;
   return (
     <>
       <div className="contest-card" onClick={() => setAptitudeOpen(true)}>
@@ -20,8 +17,10 @@ function AptitudePreviousContestCard({
       </div>
       {openAptitude && (
         <AptitudePreviousContest
+          points={points}
           contestNumber={contestNumber}
           setOpen={setAptitudeOpen}
+          contestName={contestName}
         />
       )}
     </>

@@ -32,7 +32,7 @@ const renderCustomizedLabel = ({
       textAnchor={x > cx ? 'start' : 'end'}
       dominantBaseline="central"
     >
-      {`${(percent * 100).toFixed(0)}%`}
+      {percent !== 0 ? `${(percent * 100).toFixed(0)}%` : ''}
     </text>
   );
 };

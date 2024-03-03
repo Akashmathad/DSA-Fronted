@@ -83,16 +83,22 @@ function DSA() {
         <div className="dsa-question-boxes">
           {open && (
             <div className="dsa-question-box">
-              <p className="question-description">
-                <span className="question-number">
-                  {question.questionNumber}.{' '}
-                </span>
-                {question.questionDescription}
-              </p>
+              <div className="heading-box">
+                <p className="question-number">{question.questionNumber}. </p>
+                <p className="question-description">
+                  {question.questionDescription}
+                </p>
+              </div>
               <div className="test-case-box">
-                <p className="test-case">{question.TestCase1}</p>
-                <p className="test-case">{question.TestCase2}</p>
-                <p className="test-case">{question.TestCase2}</p>
+                {question.testCases.map((test) => (
+                  <div key={test.testCase} className="test-box">
+                    <p className="test-name">Test case : {test.testCase}</p>
+                    <div className="test-input-box">
+                      <p className="inputs">Input: {test.input}</p>
+                      <p className="inputs">Output: {test.output}</p>
+                    </div>
+                  </div>
+                ))}
               </div>
             </div>
           )}
@@ -175,7 +181,7 @@ const DSAContainer = styled.div`
     background-color: ${(props) => props.theme.colors.colorBlack100};
     font-weight: 500;
     border-radius: 11px;
-    border: 1px solid rgba(0, 140, 255, 0.1);
+    border: 1px solid rgba(0, 140, 255, 0.2);
   }
 
   .dsa-box {
@@ -195,7 +201,7 @@ const DSAContainer = styled.div`
   .dsa-question-box {
     background-color: ${(props) => props.theme.colors.colorBlack100};
     border-radius: 11px;
-    border: 1px solid rgba(0, 140, 255, 0.1);
+    border: 1px solid rgba(0, 140, 255, 0.2);
     padding: 2.4rem;
     color: ${(props) => props.theme.colors.colorSecondaryLightest};
     font-size: ${(props) => props.theme.fontSizes.small};
@@ -203,17 +209,52 @@ const DSAContainer = styled.div`
     flex-direction: column;
     gap: 2.4rem;
     height: 62vh;
+    overflow-y: scroll;
+
+    &::-webkit-scrollbar {
+      width: 0.5rem;
+      background-color: ${(props) => props.theme.colors.colorBlack200};
+    }
+
+    .heading-box {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .question-description {
+      font-size: 2rem;
+      line-height: 1.4;
+    }
 
     .question-number {
       color: ${(props) => props.theme.colors.colorSecondaryLight};
-      font-size: 2.2rem;
+      font-size: 2rem;
+      margin-top: 0.3rem;
     }
 
     .test-case-box {
       padding-left: 1.6rem;
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
+      gap: 1.8rem;
+      font-size: 2rem;
+
+      .test-box {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .test-input-box {
+        background-color: ${(props) => props.theme.colors.colorBlack200};
+        padding: 1.2rem;
+        border-radius: 9px;
+        display: flex;
+        flex-direction: column;
+        gap: 1.2rem;
+        font-size: 2.2rem;
+        border: 1px solid rgba(0, 140, 255, 0.2);
+      }
     }
   }
 
@@ -226,7 +267,7 @@ const DSAContainer = styled.div`
   .dsa-buttons {
     background-color: ${(props) => props.theme.colors.colorBlack100};
     border-radius: 11px;
-    border: 1px solid rgba(0, 140, 255, 0.1);
+    border: 1px solid rgba(0, 140, 255, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -245,7 +286,7 @@ const DSAContainer = styled.div`
   .dsa-run {
     background-color: ${(props) => props.theme.colors.colorBlack100};
     border-radius: 11px;
-    border: 1px solid rgba(0, 140, 255, 0.1);
+    border: 1px solid rgba(0, 140, 255, 0.2);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -279,7 +320,7 @@ const DSAContainer = styled.div`
   .dsa {
     background-color: ${(props) => props.theme.colors.colorBlack100};
     height: 100%;
-    border: 1px solid rgba(0, 140, 255, 0.1);
+    border: 1px solid rgba(0, 140, 255, 0.2);
     border-radius: 11px;
     overflow: hidden;
   }

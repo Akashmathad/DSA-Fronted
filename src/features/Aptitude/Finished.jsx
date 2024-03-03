@@ -23,7 +23,7 @@ function Finished() {
     contestNumber,
   } = useContext(AptitudeContext);
   const { usn, jwt } = useContext(AuthContext);
-
+  exitFullscreen();
   function getIncorrectQuestions(originalAnswers) {
     const incQuestions = questions.map((question) => {
       const correspondingAnswer = ans.find(
@@ -138,17 +138,19 @@ function Finished() {
 
         <div className="stats-container">
           <div className="stats">
-            <p className="stats-text">Total Questions : 25 </p>
+            <p className="stats-text">
+              Total Questions : <span className="color-grey">25</span>{' '}
+            </p>
             <p>
               Correct Questions:{' '}
-              <span className="color-green">
+              <span className="color-grey color-green">
                 {incorrectQuestions &&
                   padWithZero(25 - incorrectQuestions.length)}
               </span>
             </p>
             <p>
               Incorrect Questions :{' '}
-              <span className="color-red">
+              <span className="color-grey color-red">
                 {incorrectQuestions &&
                   padWithZero(
                     incorrectQuestions.filter(
@@ -265,12 +267,14 @@ const FinishedContainer = styled.div`
     height: 100%;
   }
 
-  .color-green {
-    color: ${(props) => props.theme.colors.colorTritaryLight};
-  }
-
   .color-red {
     color: ${(props) => props.theme.colors.colorRed};
+    font-weight: 600;
+  }
+
+  .color-grey {
+    font-weight: 600;
+    letter-spacing: 1.5px;
   }
 
   .question-box {

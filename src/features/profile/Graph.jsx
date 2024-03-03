@@ -10,35 +10,33 @@ import {
   ResponsiveContainer,
 } from 'recharts';
 
-const data = [
-  {
-    name: 'Contest - 01',
-    DSA: 4000,
-    Aptitude: 2400,
-  },
-  {
-    name: 'Contest - 02',
-    DSA: 3000,
-    Aptitude: 1398,
-  },
-  {
-    name: 'Contest - 03',
-    DSA: 2000,
-    Aptitude: 9800,
-  },
-  {
-    name: 'Contest - 04',
-    DSA: 2780,
-    Aptitude: 3908,
-  },
-];
-
-console.log((props) => props.theme.colors.colorTritary);
-
+// const data = [
+//   {
+//     name: 'Contest - 01',
+//     DSA: 4000,
+//     Aptitude: 2400,
+//   },
+//   {
+//     name: 'Contest - 02',
+//     DSA: 3000,
+//     Aptitude: 1398,
+//   },
+//   {
+//     name: 'Contest - 03',
+//     DSA: 2000,
+//     Aptitude: 9800,
+//   },
+//   {
+//     name: 'Contest - 04',
+//     DSA: 2780,
+//     Aptitude: 3908,
+//   },
+// ];
 export default class Graph extends PureComponent {
   static demoUrl = 'https://codesandbox.io/s/simple-line-chart-kec3v';
 
   render() {
+    const { data } = this.props;
     return (
       <ResponsiveContainer width="95%" height="90%">
         <LineChart

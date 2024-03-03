@@ -10,7 +10,6 @@ function AptitudeMainPage() {
   const [loader, setLoader] = useState(false);
 
   function removeDuplicates(array1, array2) {
-    console.log(array1, array2);
     const contestNumbersToRemove = array2.map((item) => item.contestNumber);
     const filteredArray1 = array1.filter(
       (item) => !contestNumbersToRemove.includes(item.contestNumber)
@@ -19,12 +18,24 @@ function AptitudeMainPage() {
   }
 
   function getCompletedContests(array1, array2) {
-    console.log(array1, array2);
-    const contestNumbersToRemove = array2.map((item) => item.contestNumber);
-    const filteredArray1 = array1.filter((item) =>
-      contestNumbersToRemove.includes(item.contestNumber)
-    );
-    return filteredArray1;
+    const mergedArray = array1
+      .map((contest1) => {
+        const matchingContest2 = array2.find(
+          (contest2) => contest2.contestNumber === contest1.contestNumber
+        );
+        if (matchingContest2) {
+          return {
+            contestNumber: contest1.contestNumber,
+            contestName: contest1.contestName,
+            points: matchingContest2.points,
+            time: contest1.time,
+          };
+        } else {
+          return null; // Handle the case where no matching contest is found in contests2
+        }
+      })
+      .filter(Boolean);
+    return mergedArray;
   }
 
   useEffect(

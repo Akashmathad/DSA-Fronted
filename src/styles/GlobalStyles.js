@@ -52,6 +52,7 @@ body {
   text-decoration: none;
   border-radius: 999px;
   border: 1px solid rgba(255, 255, 255, 0.1);
+  cursor: pointer;
 
   &:hover{
     background-color: ${(props) => props.theme.colors.colorPrimaryLight};
@@ -367,6 +368,22 @@ body {
       width: 0;
     }
   }
+
+  .previous-heading-box{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2.4rem;
+  }
+
+  .previous-score{
+    font-size: 2.8rem;
+  }
+
+  .color-green{
+    color: ${(props) => props.theme.colors.colorTritaryLight};
+    font-weight: 600;
+  }
   //current contests
   .current-contest-container{
     width: 100%;
@@ -443,11 +460,13 @@ body {
   }
 
   .question-box {
+    margin-top: 1.2rem;
     overflow: scroll;
 
     &::-webkit-scrollbar {
       width: 0;
     }
+    
   }
 
   //test pages

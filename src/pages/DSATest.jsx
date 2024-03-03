@@ -13,10 +13,73 @@ import DSAFinished from '../features/DSA/DSAFinished';
 import Error from '../features/Aptitude/Error';
 import { AuthContext } from '../App';
 
-const question = [
-  { q1: 'kdineng' },
-  { q2: 'dindnifghie' },
-  { q3: 'dindibbdf' },
+const data4 = [
+  {
+    questionNumber: 1,
+    questionDescription:
+      'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Hic sunt sint, a, minima voluptates nesciunt incidunt provident officiis voluptate vitae mollitia eum. Quae vero ab assumenda libero, dignissimos rerum maiores, unde maxime natus sint quas exercitationem nulla error sed voluptates',
+    testCases: [
+      {
+        testCase: 1,
+        input: '23 43 53 56 57',
+        output: '34',
+      },
+      {
+        testCase: 2,
+        input: '23 4 53 57 57',
+        output: '34',
+      },
+      {
+        testCase: 3,
+        input: '23 43 53 56 57',
+        output: '34',
+      },
+    ],
+  },
+  {
+    questionNumber: 2,
+    questionDescription:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat harum, explicabo dolor eius maiores tempore, a ipsa, voluptates ad velit unde eos aliquid? Qui, nihil voluptate delectus quibusdam a mollitia.',
+    testCases: [
+      {
+        testCase: 1,
+        input: '23 43 53 56 57',
+        output: '34',
+      },
+      {
+        testCase: 2,
+        input: '23 4 53 57 57',
+        output: '34',
+      },
+      {
+        testCase: 3,
+        input: '23 43 53 56 57',
+        output: '34',
+      },
+    ],
+  },
+  {
+    questionNumber: 3,
+    questionDescription:
+      'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Repellat harum, explicabo dolor eius maiores tempore, a ipsa, voluptates ad velit unde eos aliquid? Qui, nihil voluptate delectus quibusdam a mollitia.',
+    testCases: [
+      {
+        testCase: 1,
+        input: '23 43 53 56 57',
+        output: '34',
+      },
+      {
+        testCase: 2,
+        input: '23 4 53 57 57',
+        output: '34',
+      },
+      {
+        testCase: 3,
+        input: '23 43 53 56 57',
+        output: '34',
+      },
+    ],
+  },
 ];
 
 const starterCodes = [
@@ -107,7 +170,7 @@ function reducer(state, action) {
         ],
         ans: [{}, {}, {}],
         status: 'active',
-        secondsRemaining: 1800,
+        secondsRemaining: 3600,
       };
 
     case 'nextQuestion':
@@ -200,10 +263,7 @@ export function DSATest() {
           setContestName(data.data.results[0].contestName);
           dispatch({
             type: 'dataReceived',
-            payload: [
-              data.data.results[0].questions,
-              data1.data.results[0].starterCode,
-            ],
+            payload: [data4, data1.data.results[0].starterCode],
           });
         } catch (e) {
           console.log(e);
