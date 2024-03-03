@@ -123,7 +123,11 @@ function LeaderShip() {
             />
           </div>
         </div>
-        {loader ? <Loader /> : <DisplayStats results={finalResults} />}
+        {loader ? (
+          <Loader />
+        ) : (
+          <DisplayStats results={finalResults} subject="leadership" />
+        )}
       </ResultsContainer>
       <div className="gradient-circle bottom right"></div>
       <div className="gradient-circle bottom left"></div>
