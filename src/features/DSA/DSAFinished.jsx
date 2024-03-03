@@ -4,8 +4,10 @@ import styled from 'styled-components';
 import { DSAContext } from '../../pages/DSATest';
 import { AuthContext } from '../../App';
 import Loader from '../../utils/Loader';
+import { exitFullscreen } from '../../utils/screenExitHandler';
 function DSAFinished() {
   const [points, setPoints] = useState(0);
+  const [finished, setFinished] = useState(false);
   const {
     status,
     dispatch,
@@ -15,6 +17,8 @@ function DSAFinished() {
     results,
   } = useContext(DSAContext);
   const { usn, jwt } = useContext(AuthContext);
+
+  exitFullscreen();
 
   useEffect(() => {
     async function fetchData() {
@@ -45,9 +49,10 @@ function DSAFinished() {
             }),
           }
         );
-        const data = await request.json();
-        console.log(data);
-        dispatch({ type: 'finish' });
+
+        if (request.status === 200) {
+          setFinished(true);
+        }
       } catch (e) {
         console.log(e);
         //dispatch({ type: 'dataFailed' });
@@ -68,7 +73,7 @@ function DSAFinished() {
           You have scored <span className="points">{points}</span> points
         </p>
       </div>
-      {status === 'finished' ? <Button to="/">Return</Button> : <Loader />}
+      {finished ? <Button to="/">Return</Button> : <Loader />}
     </DSAFinishedContainer>
   );
 }

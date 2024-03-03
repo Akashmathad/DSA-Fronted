@@ -9,7 +9,7 @@ function IDE() {
   const options = {
     autoIndent: 'full',
     fontFamily: 'monospace',
-    fontSize: 20,
+    fontSize: 18,
     lineHeight: 24,
     hideCursorInOverviewRuler: true,
     matchBrackets: 'always',
@@ -22,6 +22,8 @@ function IDE() {
     readOnly: false,
     cursorStyle: 'line',
     automaticLayout: true,
+    minimap: { enabled: false },
+    wordWrap: 'on',
   };
 
   function handleEditorChange(value, event) {

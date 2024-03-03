@@ -11,7 +11,7 @@ import DSAReady from '../features/DSA/DSAReady';
 import DSA from '../features/DSA/DSA';
 import DSAFinished from '../features/DSA/DSAFinished';
 import Error from '../features/Aptitude/Error';
-import { AuthContext } from '../App';
+import { AuthContext, ContestContext } from '../App';
 
 const data4 = [
   {
@@ -217,6 +217,8 @@ export function DSATest() {
   const [contestName, setContestName] = useState();
   const [open, setOpen] = useState(true);
   const { jwt } = useContext(AuthContext);
+  const { aptitudeContest, aptitudeName } = useContext(ContestContext);
+  console.log(aptitudeContest, aptitudeName);
   const [
     {
       questions,
@@ -237,7 +239,9 @@ export function DSATest() {
         try {
           if (!jwt) return;
           const req = await fetch(
-            `${import.meta.env.VITE_API_URL}/api/v1/aptitude-dsa/dsa/questions`,
+            `${
+              import.meta.env.VITE_API_URL
+            }/api/v1/aptitude-dsa/dsa/questions?contestNumber=${aptitudeContest}&contestName=${aptitudeName}`,
             {
               method: 'GET',
               headers: {
@@ -246,11 +250,12 @@ export function DSATest() {
             }
           );
           const data = await req.json();
+          console.log(data);
 
           const req1 = await fetch(
             `${
               import.meta.env.VITE_API_URL
-            }/api/v1/aptitude-dsa/dsa/getStarter`,
+            }/api/v1/aptitude-dsa/dsa/getStarter?contestNumber=${aptitudeContest}&contestName=${aptitudeName}`,
             {
               method: 'GET',
               headers: {
@@ -259,11 +264,15 @@ export function DSATest() {
             }
           );
           const data1 = await req1.json();
+          console.log(data1);
           setContestNumber(data.data.results[0].contestNumber);
           setContestName(data.data.results[0].contestName);
           dispatch({
             type: 'dataReceived',
-            payload: [data4, data1.data.results[0].starterCode],
+            payload: [
+              data.data.results[0].questions,
+              data1.data.results[0].starterCode,
+            ],
           });
         } catch (e) {
           console.log(e);

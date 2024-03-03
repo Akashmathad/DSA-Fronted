@@ -1,4 +1,4 @@
-import { useContext, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { DSAContext } from '../../pages/DSATest';
 import styled from 'styled-components';
 
@@ -29,18 +29,42 @@ function DSA() {
   const question = questions[index];
   const result = results[index];
 
+  const handleVisibilityChange = () => {
+    dispatch({ type: 'check' });
+    console.log('Visibility change detected');
+  };
+
+  const handleBlur = () => {
+    dispatch({ type: 'check' });
+    console.log('Blur event detected');
+  };
+
+  // useEffect(() => {
+  //   const visibilityChangeHandler = () => handleVisibilityChange(dispatch);
+  //   const blurHandler = () => handleBlur(dispatch);
+
+  //   // Add event listeners for visibilitychange and blur events
+  //   document.addEventListener('visibilitychange', visibilityChangeHandler);
+  //   window.addEventListener('blur', blurHandler);
+
+  //   // Remove the event listeners when the component unmounts
+  //   return () => {
+  //     document.removeEventListener('visibilitychange', visibilityChangeHandler);
+  //     window.removeEventListener('blur', blurHandler);
+  //   };
+  // }, [dispatch]);
+
   async function setResult() {
     setLoader(true);
     setOpen(false);
-    const solution = JSON.stringify({ solution: ans[index][language] });
+    const solution = JSON.stringify({ code: ans[index][language] });
+    console.log(solution);
     try {
       if (!jwt) return;
       const req = await fetch(
         `${
           import.meta.env.VITE_API_URL
-        }/api/v1/aptitude-dsa/program/complie/${language}/${contestNumber}/${language}/${
-          index + 1
-        }`,
+        }/api/v1/aptitude-dsa/program/complie/${language}/${index + 1}`,
         {
           method: 'POST',
           headers: {
@@ -50,8 +74,8 @@ function DSA() {
           body: solution,
         }
       );
+
       const data = await req.json();
-      console.log(data.status);
       if (data.status === 'error') {
         const newResults = [...results];
         newResults[index].error = true;

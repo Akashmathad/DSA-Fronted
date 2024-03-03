@@ -19,52 +19,18 @@ const data = [
   },
 ];
 
-function DSAPreviousContests() {
-  const [contests, setContests] = useState();
-  const [loader, setLoader] = useState(false);
-  const { jwt } = useContext(AuthContext);
-
-  useEffect(
-    function () {
-      async function fetchData() {
-        setLoader(true);
-        try {
-          if (!jwt) return;
-          const req = await fetch(
-            `${
-              import.meta.env.VITE_API_URL
-            }/api/v1/aptitude-dsa/dsa/previousQuestions?fields=contestNumber,contestName,-_id&sort=contestNumber`,
-            {
-              method: 'GET',
-              headers: {
-                Authorization: `Bearer ${jwt}`,
-              },
-            }
-          );
-          const data = await req.json();
-          setContests(data.data.results);
-        } catch (e) {
-          console.log(e);
-        }
-        setLoader(false);
-      }
-      fetchData();
-    },
-    [jwt]
-  );
-
+function DSAPreviousContests({ contests, loader }) {
   return (
     <div className="previous-contests-container">
-      <h3 className="heading">Previous Contests</h3>
+      <h3 className="heading">Completed Contests</h3>
       {loader ? (
         <Loader />
-      ) : contests ? (
+      ) : contests && contests.length !== 0 ? (
         <div className="contest-box">
           {contests.map((contest) => (
             <DSAPreviousContestCard
               key={contest.contestNumber}
-              contestName={contest.contestName}
-              contestNumber={contest.contestNumber}
+              contest={contest}
             />
           ))}
         </div>

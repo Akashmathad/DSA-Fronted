@@ -57,6 +57,7 @@ function AptitudeMainPage() {
           );
           const data1 = await req1.json();
           const contests = data1.data.Contests;
+          console.log(contests);
 
           const req2 = await fetch(
             `${
@@ -65,6 +66,7 @@ function AptitudeMainPage() {
           );
           const data2 = await req2.json();
           const completedContests = data2.data.Contest;
+          console.log(data2);
           const avaliableContests = removeDuplicates(
             contests,
             completedContests
